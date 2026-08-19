@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOMA | MBTI</title>
-
-    <!-- خطوط عربية فاخرة -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        /* =========================================================
+           RESET
+        ========================================================= */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         html {
@@ -23,781 +23,337 @@
 
         body {
             min-height: 100vh;
-            overflow-x: hidden;
-            background: #010208;
+            background: #050608;
             color: #fff;
-            font-family: 'Cairo', 'Tajawal', Tahoma, sans-serif;
-            cursor: default;
+            font-family: "Cairo", sans-serif;
+            overflow-x: hidden;
         }
 
-        /* =====================================================
-           SPACE - خلفية كونية واقعية
-        ===================================================== */
-
-        .space {
+        /* =========================================================
+           BACKGROUND
+        ========================================================= */
+        .background {
             position: fixed;
             inset: 0;
+            z-index: 0;
             overflow: hidden;
-            z-index: -10;
             background:
-                radial-gradient(ellipse at 15% 10%, rgba(30, 15, 80, 0.35), transparent 40%),
-                radial-gradient(ellipse at 85% 80%, rgba(10, 40, 90, 0.3), transparent 40%),
-                radial-gradient(ellipse at 50% 50%, rgba(5, 8, 25, 0.8), transparent 70%),
-                #010208;
+                radial-gradient(circle at 20% 20%, rgba(77, 101, 180, .14), transparent 30%),
+                radial-gradient(circle at 80% 75%, rgba(130, 75, 170, .12), transparent 30%),
+                #050608;
         }
 
-        /* توهج كوني خافت */
-        .cosmic-glow {
-            position: absolute;
-            width: 800px;
-            height: 800px;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.08;
-            pointer-events: none;
-        }
-
-        .cosmic-glow.g1 {
-            background: #6b3fa0;
-            top: -200px;
-            right: -150px;
-            animation: glowPulse 12s ease-in-out infinite;
-        }
-
-        .cosmic-glow.g2 {
-            background: #1a6bb8;
-            bottom: -250px;
-            left: -200px;
-            animation: glowPulse 15s ease-in-out infinite reverse;
-        }
-
-        @keyframes glowPulse {
-            0%, 100% { transform: scale(1); opacity: 0.08; }
-            50% { transform: scale(1.25); opacity: 0.15; }
-        }
-
-        /* =====================================================
-           نجوم - ثلاث طبقات مع وميض
-        ===================================================== */
-
-        .stars,
-        .stars2,
-        .stars3 {
+        .grid {
             position: absolute;
             inset: -50%;
-            width: 200%;
-            height: 200%;
-            background-repeat: repeat;
-            pointer-events: none;
-        }
-
-        .stars {
+            opacity: .16;
             background-image:
-                radial-gradient(circle, rgba(255, 255, 255, 0.95) 0.8px, transparent 1.2px),
-                radial-gradient(circle, rgba(200, 220, 255, 0.7) 0.6px, transparent 1px);
-            background-size: 70px 70px, 110px 110px;
-            animation: starsMove 100s linear infinite;
-            opacity: 0.6;
+                linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .025) 1px, transparent 1px);
+            background-size: 70px 70px;
+            transform: perspective(600px) rotateX(60deg);
+            animation: gridMove 25s linear infinite;
+            will-change: transform;
         }
 
-        .stars2 {
-            background-image:
-                radial-gradient(circle, rgba(180, 210, 255, 0.85) 1px, transparent 1.5px),
-                radial-gradient(circle, rgba(255, 255, 255, 0.5) 0.7px, transparent 1px);
-            background-size: 150px 150px, 90px 90px;
-            animation: starsMove 160s linear infinite reverse;
-            opacity: 0.45;
+        @keyframes gridMove {
+            from { transform: perspective(600px) rotateX(60deg) translateY(0); }
+            to { transform: perspective(600px) rotateX(60deg) translateY(70px); }
         }
 
-        .stars3 {
-            background-image:
-                radial-gradient(circle, rgba(255, 255, 255, 0.9) 1.2px, transparent 1.8px),
-                radial-gradient(circle, rgba(190, 200, 255, 0.6) 0.8px, transparent 1.2px);
-            background-size: 240px 240px, 180px 180px;
-            animation: starsMove 220s linear infinite;
-            opacity: 0.35;
-        }
-
-        @keyframes starsMove {
-            from { transform: translate(0, 0); }
-            to { transform: translate(-350px, -550px); }
-        }
-
-        /* نجوم متلألئة */
-        .twinkle-star {
+        .glow {
             position: absolute;
+            width: 500px;
+            height: 500px;
             border-radius: 50%;
-            background: white;
-            pointer-events: none;
-            animation: twinkle 3s ease-in-out infinite;
+            filter: blur(100px);
+            opacity: .12;
+            will-change: transform;
         }
 
-        .twinkle-star.ts1 {
-            width: 3px;
-            height: 3px;
-            top: 12%;
-            right: 20%;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 20px rgba(180, 200, 255, 0.4);
-            animation-delay: 0s;
-        }
-
-        .twinkle-star.ts2 {
-            width: 2px;
-            height: 2px;
-            top: 35%;
-            right: 65%;
-            box-shadow: 0 0 6px rgba(255, 255, 255, 0.7), 0 0 15px rgba(200, 180, 255, 0.3);
-            animation-delay: 1.2s;
-        }
-
-        .twinkle-star.ts3 {
-            width: 4px;
-            height: 4px;
-            top: 55%;
-            right: 30%;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 25px rgba(150, 180, 255, 0.5);
-            animation-delay: 2.1s;
-        }
-
-        .twinkle-star.ts4 {
-            width: 2.5px;
-            height: 2.5px;
-            top: 72%;
-            right: 50%;
-            box-shadow: 0 0 7px rgba(255, 255, 255, 0.7), 0 0 18px rgba(220, 200, 255, 0.35);
-            animation-delay: 0.7s;
-        }
-
-        .twinkle-star.ts5 {
-            width: 3px;
-            height: 3px;
-            top: 22%;
-            right: 80%;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.75), 0 0 20px rgba(170, 190, 255, 0.4);
-            animation-delay: 1.8s;
-        }
-
-        .twinkle-star.ts6 {
-            width: 2px;
-            height: 2px;
-            top: 63%;
-            right: 12%;
-            box-shadow: 0 0 6px rgba(255, 255, 255, 0.65), 0 0 14px rgba(180, 200, 255, 0.3);
-            animation-delay: 2.6s;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.25; transform: scale(0.7); }
-        }
-
-        /* =====================================================
-           مجرات - أكثر واقعية
-        ===================================================== */
-
-        .galaxy {
-            position: absolute;
-            width: 650px;
-            height: 280px;
-            border-radius: 50%;
-            pointer-events: none;
-            filter: blur(3px);
-            opacity: 0.45;
-            transform: rotate(-28deg);
-            animation: galaxyFloat 20s ease-in-out infinite;
-        }
-
-        .galaxy::before {
-            content: "";
-            position: absolute;
-            inset: 12%;
-            border-radius: 50%;
-            border: 30px solid rgba(140, 170, 255, 0.06);
-            box-shadow:
-                0 0 60px rgba(140, 110, 255, 0.25),
-                inset 0 0 60px rgba(255, 255, 255, 0.15);
-        }
-
-        .galaxy::after {
-            content: "";
-            position: absolute;
-            inset: 28%;
-            border-radius: 50%;
-            background: radial-gradient(ellipse, rgba(255, 220, 180, 0.5) 0%, rgba(160, 140, 255, 0.2) 30%, transparent 65%);
-            filter: blur(8px);
-        }
-
-        .galaxy1 {
-            top: 5%;
-            left: -200px;
-            background:
-                radial-gradient(ellipse, rgba(255, 245, 230, 0.7) 0%, rgba(140, 160, 255, 0.3) 15%, rgba(110, 60, 220, 0.15) 40%, transparent 70%);
-        }
-
-        .galaxy2 {
-            right: -250px;
-            bottom: 10%;
-            transform: rotate(32deg) scale(0.7);
-            animation-delay: -10s;
-            background:
-                radial-gradient(ellipse, rgba(255, 230, 240, 0.6) 0%, rgba(200, 130, 255, 0.25) 18%, rgba(80, 40, 180, 0.12) 45%, transparent 70%);
-        }
-
-        @keyframes galaxyFloat {
-            0%, 100% { transform: rotate(-28deg) translateY(0); }
-            50% { transform: rotate(-22deg) translateY(30px); }
-        }
-
-        /* =====================================================
-           سديم - طبقات لونية غنية
-        ===================================================== */
-
-        .nebula {
-            position: absolute;
-            width: 550px;
-            height: 550px;
-            border-radius: 50%;
-            pointer-events: none;
-            filter: blur(80px);
-            opacity: 0.14;
-        }
-
-        .nebula1 {
-            background:
-                radial-gradient(circle at 30% 30%, #7b3fd4 0%, #3a1a80 40%, transparent 70%);
-            left: -170px;
-            top: 22%;
-            animation: nebulaDrift 16s ease-in-out infinite;
-        }
-
-        .nebula2 {
-            background:
-                radial-gradient(circle at 60% 40%, #1a7bc4 0%, #0a3570 45%, transparent 70%);
-            right: -180px;
-            top: 3%;
-            animation: nebulaDrift 20s ease-in-out infinite reverse;
-        }
-
-        .nebula3 {
-            background:
-                radial-gradient(circle at 40% 50%, #b02cd4 0%, #551a75 40%, transparent 70%);
-            left: 30%;
-            bottom: -320px;
-            animation: nebulaDrift 22s ease-in-out infinite;
-        }
-
-        .nebula4 {
-            background:
-                radial-gradient(circle at 55% 35%, #2a6bc4 0%, #0f2450 45%, transparent 70%);
-            left: 50%;
+        .glow.one {
+            background: #536dfe;
             top: -200px;
-            animation: nebulaDrift 18s ease-in-out infinite reverse;
-            opacity: 0.1;
+            right: -100px;
+            animation: floatGlow 12s ease-in-out infinite;
         }
 
-        @keyframes nebulaDrift {
-            0%, 100% { transform: scale(1) translate(0, 0); }
-            50% { transform: scale(1.25) translate(40px, -25px); }
+        .glow.two {
+            background: #9c4dff;
+            bottom: -250px;
+            left: -150px;
+            animation: floatGlow 15s ease-in-out infinite reverse;
         }
 
-        /* =====================================================
-           كواكب - واقعية بتفاصيل دقيقة
-        ===================================================== */
+        @keyframes floatGlow {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-30px, 30px) scale(1.15); }
+        }
 
-        .planet {
+        .star {
             position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        /* الكوكب الأزرق الكبير */
-        .planet1 {
-            width: 120px;
-            height: 120px;
-            right: 8%;
-            top: 16%;
-            background:
-                radial-gradient(circle at 32% 28%, #e8f4ff 0%, #8cc4e8 12%, #3a7ab5 30%, #1a3e68 55%, #091830 80%, #050914 100%);
-            box-shadow:
-                inset -30px -20px 55px rgba(0, 0, 0, 0.8),
-                inset 10px 8px 25px rgba(255, 255, 255, 0.15),
-                0 0 50px rgba(80, 140, 220, 0.25),
-                0 0 120px rgba(60, 100, 180, 0.1);
-            animation: planetFloat1 9s ease-in-out infinite;
-        }
-
-        /* حلقات الكوكب */
-        .planet1::after {
-            content: "";
-            position: absolute;
-            width: 175px;
-            height: 50px;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%) rotate(-18deg);
-            border: 3px solid rgba(200, 220, 255, 0.35);
-            border-radius: 50%;
-            box-shadow:
-                0 0 15px rgba(180, 200, 255, 0.2),
-                inset 0 0 15px rgba(180, 200, 255, 0.1);
-        }
-
-        /* الكوكب البرتقالي */
-        .planet2 {
-            width: 75px;
-            height: 75px;
-            left: 6%;
-            bottom: 20%;
-            background:
-                radial-gradient(circle at 35% 28%, #fff0d5 0%, #e8b878 15%, #b06038 38%, #6a3525 62%, #2a1410 85%, #0a0505 100%);
-            box-shadow:
-                inset -22px -15px 40px rgba(0, 0, 0, 0.75),
-                inset 8px 6px 20px rgba(255, 255, 255, 0.12),
-                0 0 35px rgba(200, 120, 60, 0.2);
-            animation: planetFloat2 11s ease-in-out infinite;
-        }
-
-        /* الكوكب الصغير الذهبي */
-        .planet3 {
-            width: 48px;
-            height: 48px;
-            right: 22%;
-            bottom: 8%;
-            background:
-                radial-gradient(circle at 30% 25%, #fffbe8 0%, #f0cf7a 15%, #c99a3e 40%, #6e4a1a 70%, #2a1808 90%);
-            box-shadow:
-                inset -14px -10px 28px rgba(0, 0, 0, 0.7),
-                inset 5px 4px 14px rgba(255, 255, 255, 0.15),
-                0 0 25px rgba(220, 180, 80, 0.25);
-            animation: planetFloat1 7s ease-in-out infinite reverse;
-        }
-
-        /* كوكب رابع صغير بنفسجي */
-        .planet4 {
-            width: 30px;
-            height: 30px;
-            left: 18%;
-            top: 12%;
-            background:
-                radial-gradient(circle at 32% 28%, #f0e8ff 0%, #b898d8 20%, #7a50a0 45%, #3a2050 75%, #140a20 100%);
-            box-shadow:
-                inset -9px -6px 18px rgba(0, 0, 0, 0.7),
-                inset 3px 3px 9px rgba(255, 255, 255, 0.12),
-                0 0 18px rgba(150, 100, 220, 0.2);
-            animation: planetFloat2 8s ease-in-out infinite reverse;
-        }
-
-        @keyframes planetFloat1 {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-22px) rotate(6deg); }
-        }
-
-        @keyframes planetFloat2 {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(25px, -18px); }
-        }
-
-        /* =====================================================
-           قمر - واقعي مع فوهات
-        ===================================================== */
-
-        .moonOrbit {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            right: 3%;
-            top: 10%;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 50%;
-            animation: moonOrbitSpin 22s linear infinite;
-            pointer-events: none;
-        }
-
-        .moon {
-            position: absolute;
-            width: 26px;
-            height: 26px;
-            top: 5px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 50%;
-            background:
-                radial-gradient(circle at 35% 30%, #ffffff 0%, #c8cdd8 25%, #8a8f9e 50%, #4a4e5a 75%, #282a32 100%);
-            box-shadow:
-                inset -5px -4px 10px rgba(0, 0, 0, 0.6),
-                inset 3px 2px 6px rgba(255, 255, 255, 0.3),
-                0 0 22px rgba(230, 235, 255, 0.4);
-        }
-
-        /* فوهات القمر */
-        .moon::before {
-            content: "";
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            top: 20%;
-            right: 25%;
-            border-radius: 50%;
-            background: rgba(60, 62, 70, 0.7);
-            box-shadow:
-                3px 8px 0 rgba(55, 57, 65, 0.6),
-                -2px 12px 0 rgba(70, 72, 80, 0.5),
-                6px 2px 0 rgba(65, 67, 75, 0.55);
-        }
-
-        @keyframes moonOrbitSpin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* =====================================================
-           شهب - بذيل ضوئي واقعي
-        ===================================================== */
-
-        .shooting {
-            position: absolute;
-            width: 150px;
+            width: 2px;
             height: 2px;
-            pointer-events: none;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), #ffffff);
             border-radius: 50%;
-            transform: rotate(-35deg);
-            opacity: 0;
-            animation: shoot 8s linear infinite;
+            background: #fff;
+            opacity: .5;
+            animation: starPulse 4s infinite ease-in-out;
+            will-change: transform, opacity;
         }
 
-        .shooting::before {
-            content: "";
-            position: absolute;
-            right: -3px;
-            top: -2px;
-            width: 6px;
-            height: 6px;
-            background: white;
-            border-radius: 50%;
-            box-shadow:
-                0 0 18px white,
-                0 0 35px rgba(255, 255, 255, 0.5),
-                0 0 55px rgba(200, 220, 255, 0.3);
+        .star:nth-child(1) { top: 12%; left: 10%; animation-delay: 0s }
+        .star:nth-child(2) { top: 25%; left: 25%; animation-delay: 1s }
+        .star:nth-child(3) { top: 8%; left: 42%; animation-delay: 2s }
+        .star:nth-child(4) { top: 40%; left: 70%; animation-delay: .5s }
+        .star:nth-child(5) { top: 65%; left: 85%; animation-delay: 1.5s }
+        .star:nth-child(6) { top: 80%; left: 30%; animation-delay: 2.5s }
+        .star:nth-child(7) { top: 72%; left: 60%; animation-delay: 3s }
+        .star:nth-child(8) { top: 50%; left: 15%; animation-delay: 1.8s }
+        .star:nth-child(9) { top: 18%; left: 90%; animation-delay: 2.2s }
+        .star:nth-child(10) { top: 90%; left: 75%; animation-delay: .8s }
+        .star:nth-child(11) { top: 35%; left: 50%; animation-delay: 1.2s }
+        .star:nth-child(12) { top: 58%; left: 40%; animation-delay: 2.8s }
+
+        @keyframes starPulse {
+            0%, 100% { opacity: .25; transform: scale(.7); }
+            50% { opacity: 1; transform: scale(1.6); box-shadow: 0 0 10px #fff; }
         }
 
-        .shooting::after {
-            content: "";
-            position: absolute;
-            right: -10px;
-            top: -1px;
-            width: 30px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6));
-            border-radius: 50%;
-        }
-
-        .s1 { top: 15%; left: 55%; }
-        .s2 { top: 42%; left: 70%; animation-delay: 3.5s; }
-        .s3 { top: 62%; left: 20%; animation-delay: 5.5s; }
-        .s4 { top: 30%; left: 35%; animation-delay: 2s; width: 110px; }
-
-        @keyframes shoot {
-            0% {
-                transform: translate(0, 0) rotate(-35deg);
-                opacity: 0;
-            }
-            3% { opacity: 1; }
-            15% {
-                transform: translate(-420px, 260px) rotate(-35deg);
-                opacity: 0;
-            }
-            100% { opacity: 0; }
-        }
-
-        /* =====================================================
-           شفق قطبي (Aurora)
-        ===================================================== */
-
-        .aurora {
-            position: absolute;
-            top: -100px;
-            left: -10%;
-            width: 120%;
-            height: 300px;
-            pointer-events: none;
-            opacity: 0.06;
-            filter: blur(50px);
-            background:
-                radial-gradient(ellipse at 30% 30%, #2aff7a 0%, transparent 40%),
-                radial-gradient(ellipse at 55% 20%, #3a9aff 0%, transparent 45%),
-                radial-gradient(ellipse at 70% 35%, #a03aff 0%, transparent 40%);
-            animation: auroraWave 12s ease-in-out infinite;
-        }
-
-        @keyframes auroraWave {
-            0%, 100% { transform: translateX(0) skewX(0deg); opacity: 0.06; }
-            50% { transform: translateX(-30px) skewX(3deg); opacity: 0.1; }
-        }
-
-        /* =====================================================
-           جزيئات كونية عائمة
-        ===================================================== */
-
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            animation: particleFloat 15s ease-in-out infinite;
-        }
-
-        .p1 { width: 2px; height: 2px; background: rgba(255, 220, 150, 0.5); top: 25%; right: 15%; animation-delay: 0s; }
-        .p2 { width: 1.5px; height: 1.5px; background: rgba(180, 200, 255, 0.45); top: 45%; right: 40%; animation-delay: 3s; }
-        .p3 { width: 2.5px; height: 2.5px; background: rgba(220, 180, 255, 0.4); top: 65%; right: 55%; animation-delay: 6s; }
-        .p4 { width: 1.8px; height: 1.8px; background: rgba(150, 220, 255, 0.5); top: 35%; right: 70%; animation-delay: 9s; }
-        .p5 { width: 2px; height: 2px; background: rgba(255, 200, 200, 0.4); top: 55%; right: 25%; animation-delay: 12s; }
-        .p6 { width: 1.5px; height: 1.5px; background: rgba(200, 255, 220, 0.35); top: 75%; right: 75%; animation-delay: 4s; }
-
-        @keyframes particleFloat {
-            0%, 100% { transform: translate(0, 0); opacity: 0.3; }
-            25% { transform: translate(-20px, -30px); opacity: 0.7; }
-            50% { transform: translate(15px, -50px); opacity: 0.4; }
-            75% { transform: translate(-10px, -20px); opacity: 0.6; }
-        }
-
-        /* =====================================================
-           HEADER - رأس الصفحة
-        ===================================================== */
-
-        header {
+        /* =========================================================
+           APP
+        ========================================================= */
+        .app {
             position: relative;
-            z-index: 10;
-            padding: 28px 7%;
+            z-index: 5;
+            min-height: 100vh;
+        }
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+        header {
+            width: 100%;
+            height: 80px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            background: rgba(1, 2, 8, 0.4);
-            backdrop-filter: blur(15px);
+            justify-content: space-between;
+            padding: 0 7%;
+            border-bottom: 1px solid rgba(255, 255, 255, .07);
+            background: rgba(5, 6, 8, .55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
         .logo {
-            font-size: 28px;
+            font-size: 25px;
             font-weight: 900;
-            letter-spacing: 8px;
-            background: linear-gradient(90deg, #ffffff, #a8c4ff, #d4a8ff, #f0d080);
+            letter-spacing: 7px;
+            background: linear-gradient(90deg, #fff, #aebdff, #d6a5ff, #fff);
             background-size: 300%;
             -webkit-background-clip: text;
             color: transparent;
-            animation: logoShine 6s ease infinite;
-            text-shadow: none;
-            filter: drop-shadow(0 0 25px rgba(120, 150, 255, 0.3));
+            animation: logoMove 6s ease infinite;
         }
 
-        @keyframes logoShine {
-            0%, 100% { background-position: 0%; }
-            50% { background-position: 100%; }
+        @keyframes logoMove {
+            0%, 100% { background-position: 0% }
+            50% { background-position: 100% }
         }
 
-        .badge {
-            padding: 9px 18px;
+        .header-tag {
+            border: 1px solid rgba(255, 255, 255, .1);
+            background: rgba(255, 255, 255, .035);
+            padding: 8px 15px;
             border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            background: rgba(255, 255, 255, 0.05);
-            color: #b0a8d0;
+            color: #9aa1b5;
             font-size: 11px;
-            letter-spacing: 2px;
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
+            letter-spacing: 1.5px;
         }
 
-        .badge:hover {
-            border-color: rgba(200, 170, 255, 0.4);
-            color: #d0c0f0;
-            background: rgba(120, 90, 200, 0.15);
-        }
-
-        /* =====================================================
-           HERO - القسم الرئيسي
-        ===================================================== */
-
+        /* =========================================================
+           HERO
+        ========================================================= */
         .hero {
-            position: relative;
-            z-index: 3;
-            min-height: 88vh;
+            min-height: calc(100vh - 80px);
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
         }
 
-        .hero h1 {
-            font-size: clamp(70px, 16vw, 160px);
-            letter-spacing: clamp(10px, 4vw, 28px);
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, #ffffff, #91b9ff, #d28cff, #f0c060, #ffffff);
-            background-size: 300%;
-            -webkit-background-clip: text;
-            color: transparent;
-            animation: titleGlow 8s ease infinite;
-            filter: drop-shadow(0 0 50px rgba(100, 140, 255, 0.35));
-            transition: 0.5s;
+        .hero-content {
+            width: min(850px, 100%);
+            animation: heroIn 1s ease;
         }
 
-        @keyframes titleGlow {
-            0%, 100% { background-position: 0%; }
-            50% { background-position: 100%; }
-        }
-
-        .hero p {
-            max-width: 620px;
-            color: #b5bccf;
-            line-height: 2;
-            font-size: 16px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-        }
-
-        .start {
-            margin-top: 38px;
-            padding: 18px 44px;
-            border: none;
-            border-radius: 60px;
-            color: #fff;
-            font-weight: 700;
-            font-size: 16px;
-            font-family: 'Cairo', sans-serif;
-            letter-spacing: 1px;
-            cursor: pointer;
-            background: linear-gradient(135deg, #4a6dff, #8a4aff, #c040e0);
-            background-size: 200%;
-            box-shadow:
-                0 0 40px rgba(90, 110, 255, 0.4),
-                0 0 80px rgba(120, 80, 255, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            animation: btnGradientShift 4s ease infinite;
-        }
-
-        .start::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
-            animation: btnShine 3s ease infinite;
-        }
-
-        @keyframes btnGradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes btnShine {
-            0%, 100% { transform: translate(-20%, -20%) rotate(0deg); }
-            50% { transform: translate(20%, 20%) rotate(30deg); }
-        }
-
-        .start:hover {
-            transform: translateY(-6px) scale(1.04);
-            box-shadow:
-                0 0 60px rgba(100, 110, 255, 0.6),
-                0 0 120px rgba(140, 80, 255, 0.35),
-                inset 0 1px 0 rgba(255, 255, 255, 0.25);
-        }
-
-        .start:active {
-            transform: translateY(-2px) scale(0.98);
-        }
-
-        /* =====================================================
-           TEST - قسم الاختبار
-        ===================================================== */
-
-        #test {
-            position: relative;
-            z-index: 5;
-            width: min(92%, 720px);
-            margin: 0 auto 100px;
-            display: none;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        @keyframes fadeInUp {
+        @keyframes heroIn {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .panel {
-            padding: 35px;
-            border-radius: 30px;
-            background: rgba(6, 10, 25, 0.8);
-            border: 1px solid rgba(170, 190, 255, 0.15);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            box-shadow:
-                0 30px 100px rgba(0, 0, 0, 0.7),
-                0 0 60px rgba(80, 100, 200, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
+        .small-title {
+            color: #8995c4;
+            font-size: 12px;
+            letter-spacing: 4px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
         }
 
-        .panel::before {
+        .hero h1 {
+            font-size: clamp(75px, 15vw, 155px);
+            line-height: .9;
+            letter-spacing: clamp(8px, 3vw, 25px);
+            font-weight: 900;
+            background: linear-gradient(120deg, #ffffff 10%, #9faeff 35%, #c989ff 60%, #ffffff 90%);
+            background-size: 250%;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: titleFlow 7s ease infinite;
+            filter: drop-shadow(0 0 35px rgba(110, 130, 255, .25));
+        }
+
+        @keyframes titleFlow {
+            0%, 100% { background-position: 0%; }
+            50% { background-position: 100%; }
+        }
+
+        .hero-description {
+            max-width: 650px;
+            margin: 30px auto 0;
+            color: #9aa1b5;
+            font-size: 16px;
+            line-height: 2.2;
+            font-weight: 300;
+        }
+
+        .hero-description strong {
+            color: #dfe3f1;
+            font-weight: 600;
+        }
+
+        .start-btn {
+            position: relative;
+            margin-top: 42px;
+            padding: 17px 38px;
+            border: 1px solid rgba(255, 255, 255, .15);
+            border-radius: 14px;
+            color: white;
+            background: linear-gradient(135deg, rgba(96, 112, 255, .8), rgba(139, 73, 220, .8));
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 15px 45px rgba(80, 90, 255, .18), inset 0 1px rgba(255, 255, 255, .25);
+            transition: .35s;
+        }
+
+        .start-btn::before {
             content: "";
             position: absolute;
             top: 0;
-            right: 0;
-            left: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .25), transparent);
+            transition: .6s;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(90, 100, 255, .3), inset 0 1px rgba(255, 255, 255, .3);
+        }
+
+        .start-btn:hover::before { right: 100%; }
+        .start-btn:focus-visible {
+            outline: 2px solid #8a9fff;
+            outline-offset: 3px;
+        }
+
+        /* =========================================================
+           QUIZ
+        ========================================================= */
+        .quiz-section {
+            width: min(850px, 92%);
+            margin: 60px auto 100px;
+            display: none;
+            animation: sectionIn .6s ease;
+            scroll-margin-top: 100px;
+        }
+
+        @keyframes sectionIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            position: relative;
+            padding: 38px;
+            border-radius: 28px;
+            background: linear-gradient(145deg, rgba(20, 23, 32, .82), rgba(8, 10, 15, .88));
+            border: 1px solid rgba(255, 255, 255, .09);
+            box-shadow: 0 35px 100px rgba(0, 0, 0, .55), inset 0 1px rgba(255, 255, 255, .05);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            overflow: hidden;
+        }
+
+        .card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 15%;
+            right: 15%;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(200, 180, 255, 0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(160, 170, 255, .5), transparent);
+        }
+
+        /* التقدم (ثابت خارج محتوى الأسئلة) */
+        .progress-wrapper {
+            margin-bottom: 25px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            color: #8a92aa;
+            font-size: 11px;
         }
 
         .progress {
-            height: 6px;
-            background: rgba(20, 25, 45, 0.8);
-            border-radius: 50px;
+            width: 100%;
+            height: 5px;
+            background: #181b24;
+            border-radius: 20px;
             overflow: hidden;
-            margin-bottom: 28px;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
         }
 
         .progress-bar {
             width: 0;
             height: 100%;
-            background: linear-gradient(90deg, #5b84ff, #a45eff, #e040b0);
-            background-size: 200%;
-            border-radius: 50px;
-            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: barShine 3s ease infinite;
-            box-shadow: 0 0 15px rgba(140, 100, 255, 0.5);
+            border-radius: 20px;
+            background: linear-gradient(90deg, #647bff, #ad68ff);
+            box-shadow: 0 0 15px rgba(110, 100, 255, .5);
+            transition: width .5s ease;
         }
 
-        @keyframes barShine {
-            0%, 100% { background-position: 0%; }
-            50% { background-position: 100%; }
-        }
-
-        .question-number {
-            color: #8fa8ef;
-            font-size: 13px;
-            letter-spacing: 2px;
-            margin-bottom: 14px;
-            font-weight: 600;
+        #quiz {
+            /* سيتم إخفاؤه عند النتيجة */
         }
 
         .question {
-            font-size: 24px;
+            font-size: 25px;
             line-height: 1.8;
+            font-weight: 700;
+            color: #edf0f8;
             margin-bottom: 28px;
-            font-weight: 600;
-            color: #e8ecf8;
-            animation: slideInQuestion 0.4s ease;
+            animation: questionIn .4s ease;
         }
 
-        @keyframes slideInQuestion {
-            from { opacity: 0; transform: translateX(30px); }
+        @keyframes questionIn {
+            from { opacity: 0; transform: translateX(25px); }
             to { opacity: 1; transform: translateX(0); }
         }
 
@@ -807,132 +363,138 @@
         }
 
         .answer {
+            position: relative;
             width: 100%;
-            padding: 18px 20px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.03);
-            color: #fff;
+            padding: 19px 22px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, .08);
+            background: rgba(255, 255, 255, .025);
+            color: #dfe2ec;
+            font-family: inherit;
+            font-size: 14px;
             text-align: right;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 15px;
-            font-family: 'Cairo', sans-serif;
-            letter-spacing: 0.3px;
-            position: relative;
+            transition: .3s;
             overflow: hidden;
         }
 
         .answer::before {
             content: "";
             position: absolute;
-            top: 0;
             right: 0;
+            top: 0;
             bottom: 0;
             width: 3px;
-            background: linear-gradient(180deg, #8ab0ff, #d080ff);
+            background: linear-gradient(180deg, #7085ff, #b46cff);
             opacity: 0;
-            transition: 0.3s;
+            transition: .3s;
         }
 
         .answer:hover {
             transform: translateX(-5px);
-            border-color: rgba(150, 170, 255, 0.5);
-            background: rgba(100, 120, 255, 0.1);
-            box-shadow: 0 5px 25px rgba(80, 100, 200, 0.2);
+            border-color: rgba(120, 135, 255, .35);
+            background: rgba(100, 110, 255, .08);
         }
 
-        .answer:hover::before {
-            opacity: 1;
-        }
+        .answer:hover::before { opacity: 1; }
 
         .answer.selected {
-            border-color: rgba(160, 120, 255, 0.6);
-            background: rgba(110, 90, 255, 0.15);
-            box-shadow: 0 5px 30px rgba(120, 80, 255, 0.25);
+            border-color: rgba(130, 120, 255, .55);
+            background: linear-gradient(90deg, rgba(90, 100, 255, .13), rgba(150, 80, 220, .09));
+            box-shadow: 0 8px 30px rgba(80, 80, 220, .12);
         }
 
-        .answer.selected::before {
-            opacity: 1;
+        .answer.selected::before { opacity: 1; }
+
+        .answer:focus-visible {
+            outline: 2px solid #8a9fff;
+            outline-offset: 2px;
         }
 
-        .next {
+        .next-btn {
             width: 100%;
             margin-top: 22px;
             padding: 16px;
             border: none;
-            border-radius: 15px;
-            background: linear-gradient(135deg, #ffffff, #e8ecf8);
-            color: #070912;
-            font-weight: 700;
-            font-size: 15px;
-            font-family: 'Cairo', sans-serif;
+            border-radius: 14px;
+            background: #f1f3f8;
+            color: #090a0f;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 800;
             cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.1);
+            transition: .3s;
         }
 
-        .next:hover:not(:disabled) {
-            background: linear-gradient(135deg, #ffffff, #d0d8f0);
-            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
+        .next-btn:disabled { opacity: .22; cursor: not-allowed; }
+        .next-btn:not(:disabled):hover {
             transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, .12);
+        }
+        .next-btn:focus-visible {
+            outline: 2px solid #8a9fff;
+            outline-offset: 2px;
         }
 
-        .next:disabled {
-            opacity: 0.25;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
-        /* =====================================================
-           RESULT - عرض النتيجة
-        ===================================================== */
-
+        /* =========================================================
+           RESULT
+        ========================================================= */
         .result {
             display: none;
             text-align: center;
-            animation: fadeInUp 0.7s ease;
+            animation: resultIn .8s ease;
+        }
+
+        @keyframes resultIn {
+            from { opacity: 0; transform: scale(.96) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .result-icon {
-            font-size: 70px;
-            display: inline-block;
-            animation: resultIconPulse 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 25px rgba(200, 180, 255, 0.4));
+            width: 95px;
+            height: 95px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 45px;
+            background: radial-gradient(circle, rgba(130, 120, 255, .22), rgba(130, 80, 220, .04));
+            border: 1px solid rgba(160, 150, 255, .25);
+            box-shadow: 0 0 60px rgba(110, 90, 255, .15);
+            animation: iconFloat 4s ease-in-out infinite;
         }
 
-        @keyframes resultIconPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-7px); }
         }
 
         .result-type {
-            font-size: 58px;
+            margin-top: 25px;
+            font-size: 60px;
             letter-spacing: 12px;
-            margin: 15px 0 8px;
-            background: linear-gradient(90deg, #ffffff, #8ab0ff, #d080ff, #f0c060);
-            background-size: 300%;
+            font-weight: 900;
+            background: linear-gradient(90deg, #fff, #9dacff, #ca8cff, #fff);
+            background-size: 250%;
             -webkit-background-clip: text;
             color: transparent;
-            font-weight: 900;
-            animation: titleGlow 6s ease infinite;
-            filter: drop-shadow(0 0 30px rgba(130, 150, 255, 0.3));
+            animation: titleFlow 6s infinite;
         }
 
         .result-title {
-            font-size: 25px;
-            color: #c0c8e8;
-            margin-bottom: 22px;
+            margin-top: 5px;
+            font-size: 23px;
             font-weight: 700;
-            letter-spacing: 1px;
+            color: #d7dbee;
         }
 
-        .result-description {
-            color: #b0b8cc;
+        .result-desc {
+            max-width: 600px;
+            margin: 20px auto;
+            color: #a0a8bd;
             line-height: 2;
-            font-size: 15px;
-            font-weight: 300;
+            font-size: 14px;
         }
 
         .stats {
@@ -943,579 +505,326 @@
         }
 
         .stat {
-            padding: 18px 10px;
+            padding: 20px 10px;
             border-radius: 16px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #5b84ff, #d080ff);
-            opacity: 0;
-            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, .07);
+            background: rgba(255, 255, 255, .025);
+            transition: .3s;
         }
 
         .stat:hover {
-            border-color: rgba(160, 150, 255, 0.3);
-            background: rgba(100, 90, 200, 0.08);
-            transform: translateY(-3px);
+            transform: translateY(-4px);
+            border-color: rgba(140, 130, 255, .3);
+            background: rgba(120, 100, 255, .06);
         }
 
-        .stat:hover::before {
-            opacity: 1;
-        }
-
-        .stat b {
-            display: block;
+        .stat-code {
             font-size: 22px;
-            margin-bottom: 6px;
-            font-weight: 800;
-            color: #e0e6f8;
+            font-weight: 900;
+            color: #e8eaf3;
         }
 
-        .stat span {
-            color: #8088a8;
+        .stat-name {
+            color: #8b93ab;
+            font-size: 10px;
+            margin-top: 5px;
+        }
+
+        .stat-percent {
+            margin-top: 8px;
+            color: #a4adcf;
             font-size: 11px;
-            letter-spacing: 1px;
         }
 
         .restart {
             margin-top: 30px;
-            padding: 14px 32px;
+            padding: 13px 28px;
             border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.06);
-            color: #d0d8f0;
+            border: 1px solid rgba(255, 255, 255, .12);
+            background: rgba(255, 255, 255, .04);
+            color: #b8bfd2;
+            font-family: inherit;
             cursor: pointer;
-            font-family: 'Cairo', sans-serif;
-            font-size: 14px;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            transition: .3s;
         }
 
         .restart:hover {
-            border-color: rgba(200, 180, 255, 0.5);
-            background: rgba(140, 100, 255, 0.15);
-            color: #ffffff;
-            box-shadow: 0 5px 25px rgba(120, 90, 255, 0.3);
+            background: rgba(120, 100, 255, .12);
+            color: white;
             transform: translateY(-2px);
         }
-
-        /* =====================================================
-           FOOTER - التذييل
-        ===================================================== */
+        .restart:focus-visible {
+            outline: 2px solid #8a9fff;
+            outline-offset: 2px;
+        }
 
         footer {
             position: relative;
             z-index: 5;
+            padding: 30px;
             text-align: center;
-            padding: 35px;
-            color: #5a6480;
-            font-size: 12px;
-            letter-spacing: 1.5px;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-            background: rgba(1, 2, 8, 0.5);
+            color: #5a6070;
+            font-size: 11px;
+            border-top: 1px solid rgba(255, 255, 255, .05);
         }
 
-        /* =====================================================
-           MOBILE - تصميم الجوال
-        ===================================================== */
-
+        /* =========================================================
+           MOBILE
+        ========================================================= */
         @media (max-width: 600px) {
-            .planet1 {
-                width: 75px;
-                height: 75px;
-                right: 4%;
-                top: 10%;
-            }
-
-            .planet1::after {
-                width: 115px;
-                height: 32px;
-                border-width: 2px;
-            }
-
-            .planet2 {
-                width: 50px;
-                height: 50px;
-            }
-
-            .planet3 {
-                width: 32px;
-                height: 32px;
-            }
-
-            .planet4 {
-                width: 20px;
-                height: 20px;
-            }
-
-            .moonOrbit {
-                width: 130px;
-                height: 130px;
-                right: -10px;
-                top: 8%;
-            }
-
-            .hero h1 {
-                font-size: 80px;
-                letter-spacing: 12px;
-            }
-
-            .hero p {
-                font-size: 14px;
-                padding: 0 10px;
-            }
-
-            .panel {
-                padding: 22px 18px;
-                border-radius: 22px;
-            }
-
-            .question {
-                font-size: 20px;
-            }
-
-            .answer {
-                padding: 15px;
-                font-size: 14px;
-            }
-
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-            }
-
-            .result-type {
-                font-size: 42px;
-                letter-spacing: 8px;
-            }
-
-            .start {
-                padding: 15px 30px;
-                font-size: 14px;
-            }
-
-            header {
-                padding: 18px 5%;
-            }
-
-            .logo {
-                font-size: 22px;
-                letter-spacing: 5px;
-            }
+            header { height: 70px; padding: 0 5%; }
+            .logo { font-size: 20px; letter-spacing: 5px; }
+            .header-tag { font-size: 9px; padding: 7px 10px; }
+            .hero { min-height: calc(100vh - 70px); }
+            .hero h1 { font-size: 75px; letter-spacing: 10px; }
+            .hero-description { font-size: 13px; line-height: 2; }
+            .start-btn { padding: 15px 25px; font-size: 13px; }
+            .quiz-section { width: 94%; margin-top: 30px; }
+            .card { padding: 22px 17px; border-radius: 22px; }
+            .question { font-size: 19px; line-height: 1.8; }
+            .answer { padding: 16px; font-size: 13px; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .result-type { font-size: 43px; letter-spacing: 7px; }
+            .result-title { font-size: 19px; }
         }
 
         @media (max-width: 380px) {
-            .hero h1 {
-                font-size: 60px;
-                letter-spacing: 8px;
-            }
-
-            .panel {
-                padding: 18px 14px;
-            }
-
-            .question {
-                font-size: 18px;
-            }
-
-            .stats {
-                grid-template-columns: 1fr 1fr;
-            }
+            .hero h1 { font-size: 60px; letter-spacing: 7px; }
+            .result-type { font-size: 36px; }
         }
 
-        /* =====================================================
-           Reduced Motion - تقليل الحركة
-        ===================================================== */
-
         @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
                 animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+                transition-duration: .01ms !important;
             }
         }
     </style>
 </head>
-
 <body>
 
-    <!-- =====================================================
-         الخلفية الكونية
-    ===================================================== -->
-
-    <div class="space">
-        <div class="cosmic-glow g1"></div>
-        <div class="cosmic-glow g2"></div>
-
-        <div class="stars"></div>
-        <div class="stars2"></div>
-        <div class="stars3"></div>
-
-        <div class="twinkle-star ts1"></div>
-        <div class="twinkle-star ts2"></div>
-        <div class="twinkle-star ts3"></div>
-        <div class="twinkle-star ts4"></div>
-        <div class="twinkle-star ts5"></div>
-        <div class="twinkle-star ts6"></div>
-
-        <div class="aurora"></div>
-
-        <div class="galaxy galaxy1"></div>
-        <div class="galaxy galaxy2"></div>
-
-        <div class="nebula nebula1"></div>
-        <div class="nebula nebula2"></div>
-        <div class="nebula nebula3"></div>
-        <div class="nebula nebula4"></div>
-
-        <div class="planet planet1"></div>
-        <div class="planet planet2"></div>
-        <div class="planet planet3"></div>
-        <div class="planet planet4"></div>
-
-        <div class="moonOrbit">
-            <div class="moon"></div>
-        </div>
-
-        <div class="shooting s1"></div>
-        <div class="shooting s2"></div>
-        <div class="shooting s3"></div>
-        <div class="shooting s4"></div>
-
-        <div class="particle p1"></div>
-        <div class="particle p2"></div>
-        <div class="particle p3"></div>
-        <div class="particle p4"></div>
-        <div class="particle p5"></div>
-        <div class="particle p6"></div>
+    <div class="background">
+        <div class="grid"></div>
+        <div class="glow one"></div>
+        <div class="glow two"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
     </div>
 
-    <!-- =====================================================
-         HEADER
-    ===================================================== -->
+    <div class="app">
 
-    <header>
-        <div class="logo">DOMA</div>
-        <div class="badge">MBTI • PERSONALITY</div>
-    </header>
+        <header>
+            <div class="logo">DOMA</div>
+            <div class="header-tag">MBTI PERSONALITY</div>
+        </header>
 
-    <!-- =====================================================
-         HERO
-    ===================================================== -->
-
-    <section class="hero">
-        <h1>DOMA</h1>
-        <p>
-            استكشف عالم شخصيتك من خلال رحلة بين النجوم،
-            وأجب عن 20 سؤالًا لاكتشاف نمطك في MBTI.
-        </p>
-        <button class="start" onclick="startTest()">
-            ابدأ رحلة اكتشاف شخصيتك 🚀
-        </button>
-    </section>
-
-    <!-- =====================================================
-         TEST
-    ===================================================== -->
-
-    <section id="test">
-        <div class="panel">
-            <div class="progress">
-                <div class="progress-bar" id="progress"></div>
+        <section class="hero" id="hero">
+            <div class="hero-content">
+                <div class="small-title">PERSONALITY DISCOVERY</div>
+                <h1>DOMA</h1>
+                <p class="hero-description">
+                    رحلة قصيرة إلى داخل شخصيتك.
+                    أجب عن <strong>20 سؤالًا</strong> واكتشف نمط شخصيتك
+                    وفق أبعاد MBTI الأربعة.
+                </p>
+                <button class="start-btn" onclick="startTest()">
+                    ابدأ اختبار الشخصية ✦
+                </button>
             </div>
-            <div id="quiz"></div>
-            <div class="result" id="result"></div>
-        </div>
-    </section>
+        </section>
 
-    <footer>
-        DOMA © 2026 • Explore Your Personality 🌌
-    </footer>
+        <section class="quiz-section" id="quizSection">
+            <div class="card">
+                <!-- شريط التقدم ثابت خارج #quiz -->
+                <div class="progress-wrapper" id="progressWrapper">
+                    <div class="progress-info">
+                        <span id="progressText">السؤال 1 من 20</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                </div>
+
+                <div id="quiz" aria-live="polite"></div>
+                <div class="result" id="result" aria-live="polite"></div>
+            </div>
+        </section>
+
+        <footer>DOMA © 2026 • Personality Discovery</footer>
+    </div>
 
     <script>
-        /* =====================================================
-           الأسئلة
-        ===================================================== */
-
         const questions = [
-            { q: "عندما تكون وسط مجموعة كبيرة من الناس، ماذا تفعل غالبًا؟", a: [
-                    ["أبدأ الحديث وأتعرف على أشخاص جدد", "E"],
-                    ["أفضل مراقبة الموقف والبقاء هادئًا", "I"]
-                ] },
-            { q: "كيف تستعيد طاقتك بعد يوم طويل؟", a: [
-                    ["الخروج والتحدث مع الآخرين", "E"],
-                    ["البقاء وحدي والاسترخاء", "I"]
-                ] },
-            { q: "عندما تأتيك فكرة جديدة:", a: [
-                    ["أحب مشاركتها فورًا", "E"],
-                    ["أفكر فيها وحدي أولًا", "I"]
-                ] },
-            { q: "في التجمعات أنت غالبًا:", a: [
-                    ["مشارك في الحديث", "E"],
-                    ["مستمع أكثر", "I"]
-                ] },
-            { q: "عندما تقابل شخصًا لأول مرة:", a: [
-                    ["أبدأ الحديث بسهولة", "E"],
-                    ["أنتظر حتى يبدأ هو", "I"]
-                ] },
-            { q: "عندما تتعلم شيئًا جديدًا:", a: [
-                    ["أحب الأمثلة الواقعية والتفاصيل", "S"],
-                    ["أحب فهم الفكرة والصورة الكبيرة", "N"]
-                ] },
-            { q: "عندما تفكر في المستقبل:", a: [
-                    ["أركز على الاحتمالات الواقعية", "S"],
-                    ["أتخيل احتمالات كثيرة", "N"]
-                ] },
-            { q: "أنت تهتم أكثر بـ:", a: [
-                    ["ما يحدث الآن", "S"],
-                    ["ما يمكن أن يحدث لاحقًا", "N"]
-                ] },
-            { q: "عند مواجهة مشكلة:", a: [
-                    ["أستخدم حلًا مجربًا", "S"],
-                    ["أبحث عن طريقة جديدة", "N"]
-                ] },
-            { q: "أنت غالبًا:", a: [
-                    ["واقعي وعملي", "S"],
-                    ["خيالي وكثير الأفكار", "N"]
-                ] },
-            { q: "عند اتخاذ قرار مهم:", a: [
-                    ["أعتمد على المنطق", "T"],
-                    ["أراعي المشاعر", "F"]
-                ] },
-            { q: "عندما يخطئ صديقك:", a: [
-                    ["أخبره بالخطأ مباشرة", "T"],
-                    ["أراعي مشاعره أولًا", "F"]
-                ] },
-            { q: "في النقاش:", a: [
-                    ["الوصول للحقيقة أهم", "T"],
-                    ["الحفاظ على الانسجام أهم", "F"]
-                ] },
-            { q: "عندما ينتقدك شخص:", a: [
-                    ["أحلل كلامه منطقيًا", "T"],
-                    ["أفكر في تأثير كلامه عليّ", "F"]
-                ] },
-            { q: "عندما يطلب منك شخص نصيحة:", a: [
-                    ["أعطي الحل الأكثر منطقية", "T"],
-                    ["أفكر بما يحتاج إلى سماعه", "F"]
-                ] },
-            { q: "كيف تحب أن يكون يومك؟", a: [
-                    ["منظمًا ومخططًا", "J"],
-                    ["مرنًا وعفويًا", "P"]
-                ] },
-            { q: "عندما يكون لديك مشروع:", a: [
-                    ["أضع خطة وأبدأ مبكرًا", "J"],
-                    ["أترك الأمور مرنة", "P"]
-                ] },
-            { q: "عندما تتغير الخطة فجأة:", a: [
-                    ["أفضل الالتزام بالخطة الأصلية", "J"],
-                    ["أتكيف بسهولة", "P"]
-                ] },
-            { q: "عندما يكون لديك موعد:", a: [
-                    ["أصل مبكرًا", "J"],
-                    ["أصل في الوقت أو متأخرًا قليلًا", "P"]
-                ] },
-            { q: "غالبًا تفضل:", a: [
-                    ["إنهاء الأمور وترتيبها", "J"],
-                    ["ترك الخيارات مفتوحة", "P"]
-                ] }
+            { q: "عندما تكون وسط مجموعة كبيرة من الأشخاص، ماذا تفعل غالبًا؟", a: [["أبدأ الحديث وأتعرف على أشخاص جدد", "E"], ["أفضل الهدوء ومراقبة الموقف", "I"]] },
+            { q: "كيف تستعيد طاقتك بعد يوم طويل؟", a: [["الخروج والتحدث مع الآخرين", "E"], ["البقاء وحدي والاسترخاء", "I"]] },
+            { q: "عندما تأتيك فكرة جديدة:", a: [["أحب مشاركتها والتحدث عنها", "E"], ["أفكر فيها وحدي أولًا", "I"]] },
+            { q: "في التجمعات الاجتماعية أنت غالبًا:", a: [["مشارك في الحديث", "E"], ["مستمع أكثر", "I"]] },
+            { q: "عندما تقابل شخصًا لأول مرة:", a: [["أبدأ الحديث بسهولة", "E"], ["أنتظر حتى يبدأ هو", "I"]] },
+            { q: "عندما تتعلم شيئًا جديدًا:", a: [["أفضل الأمثلة الواقعية والتفاصيل", "S"], ["أفضل فهم الفكرة والصورة الكبيرة", "N"]] },
+            { q: "عندما تفكر في المستقبل:", a: [["أركز على الاحتمالات الواقعية", "S"], ["أتخيل احتمالات كثيرة", "N"]] },
+            { q: "أنت تهتم أكثر بـ:", a: [["ما يحدث الآن", "S"], ["ما يمكن أن يحدث لاحقًا", "N"]] },
+            { q: "عند مواجهة مشكلة:", a: [["أستخدم حلًا مجربًا", "S"], ["أبحث عن طريقة جديدة", "N"]] },
+            { q: "أنت غالبًا:", a: [["واقعي وعملي", "S"], ["خيالي وكثير الأفكار", "N"]] },
+            { q: "عند اتخاذ قرار مهم:", a: [["أعتمد على المنطق", "T"], ["أراعي المشاعر", "F"]] },
+            { q: "عندما يخطئ صديقك:", a: [["أخبره بالخطأ مباشرة", "T"], ["أراعي مشاعره أولًا", "F"]] },
+            { q: "في النقاش:", a: [["الوصول للحقيقة أهم", "T"], ["الحفاظ على الانسجام أهم", "F"]] },
+            { q: "عندما ينتقدك شخص:", a: [["أحلل كلامه منطقيًا", "T"], ["أفكر في تأثير كلامه عليّ", "F"]] },
+            { q: "عندما يطلب منك شخص نصيحة:", a: [["أعطي الحل الأكثر منطقية", "T"], ["أفكر بما يحتاج إلى سماعه", "F"]] },
+            { q: "كيف تحب أن يكون يومك؟", a: [["منظمًا ومخططًا", "J"], ["مرنًا وعفويًا", "P"]] },
+            { q: "عندما يكون لديك مشروع:", a: [["أضع خطة واضحة", "J"], ["أترك الأمور مرنة", "P"]] },
+            { q: "عندما تتغير الخطة فجأة:", a: [["أفضل الخطة الأصلية", "J"], ["أتكيف بسهولة", "P"]] },
+            { q: "عندما يكون لديك موعد:", a: [["أصل مبكرًا", "J"], ["أصل في الوقت أو متأخرًا قليلًا", "P"]] },
+            { q: "غالبًا تفضل:", a: [["إنهاء الأمور وترتيبها", "J"], ["ترك الخيارات مفتوحة", "P"]] }
         ];
 
-        /* =====================================================
-           الشخصيات
-        ===================================================== */
-
         const personalities = {
-            INTJ: { icon: "♟️", title: "المهندس الاستراتيجي", desc: "تحليلي واستراتيجي وتحب التخطيط وبناء الأفكار طويلة المدى." },
-            INTP: { icon: "🧠", title: "المحلل", desc: "فضولي وعميق وتحب فهم الأنظمة والأفكار والبحث عن سبب كل شيء." },
-            ENTJ: { icon: "👑", title: "القائد", desc: "طموح ومنظم وتحب تحويل الأفكار إلى نتائج حقيقية." },
-            ENTP: { icon: "⚡", title: "المبتكر", desc: "محب للأفكار والنقاش والاستكشاف وتستمتع بالتحديات الفكرية." },
-            INFJ: { icon: "🔮", title: "المستشار", desc: "عميق وملاحظ وتحب فهم الناس والبحث عن المعنى." },
-            INFP: { icon: "🌙", title: "الحالم", desc: "خيالي وقيمي وتبحث عن الأصالة والمعنى في حياتك." },
-            ENFJ: { icon: "✨", title: "المرشد", desc: "تهتم بالآخرين وتحب مساعدتهم وتشجيعهم على التطور." },
-            ENFP: { icon: "🚀", title: "المستكشف", desc: "متحمس وفضولي ومليء بالأفكار والتجارب الجديدة." },
-            ISTJ: { icon: "📐", title: "المنظم", desc: "مسؤول وعملي ويمكن الاعتماد عليك وتحب النظام والوضوح." },
-            ISFJ: { icon: "🛡️", title: "الحامي", desc: "مخلص وهادئ وتهتم بالأشخاص والتفاصيل." },
-            ESTJ: { icon: "📊", title: "المدير", desc: "عملي ومنظم وتحب تحمل المسؤولية وإنجاز المهام." },
-            ESFJ: { icon: "🤝", title: "الداعم", desc: "اجتماعي ومهتم بالآخرين وتحب التعاون والعلاقات المستقرة." },
-            ISTP: { icon: "⚙️", title: "المهندس العملي", desc: "عملي وهادئ وتحب فهم الأشياء من خلال التجربة." },
-            ISFP: { icon: "🎨", title: "الفنان", desc: "حساس وهادئ وتقدر الحرية والجمال والتجارب الشخصية." },
-            ESTP: { icon: "🏎️", title: "المغامر", desc: "جريء وعملي وتحب الحركة والتجارب والتحديات." },
-            ESFP: { icon: "🎭", title: "الممتع", desc: "عفوي واجتماعي وتحب الاستمتاع بالحياة ومشاركة اللحظات." }
+            INTJ: { icon: "🎯", title: "المهندس الاستراتيجي", desc: "شخصية تحليلية واستراتيجية. تميل إلى التخطيط، التفكير العميق، وبناء حلول طويلة المدى." },
+            INTP: { icon: "💎", title: "المحلل", desc: "فضولي وعميق التفكير. تستمتع بفهم الأنظمة والأفكار والبحث عن الأسباب وراء الأشياء." },
+            ENTJ: { icon: "👑", title: "القائد", desc: "طموح ومنظم. تحب تحويل الأفكار إلى أهداف واضحة ونتائج ملموسة." },
+            ENTP: { icon: "⚡", title: "المبتكر", desc: "محب للأفكار والنقاش. تستمتع بالتحديات الفكرية واستكشاف الاحتمالات الجديدة." },
+            INFJ: { icon: "🔮", title: "المستشار", desc: "شخصية عميقة وملاحظة. تهتم بفهم الناس والبحث عن المعنى وراء الأشياء." },
+            INFP: { icon: "🌙", title: "الحالم", desc: "خيالي وقيمي. تبحث عن الأصالة والمعنى وتولي أهمية كبيرة لما تؤمن به." },
+            ENFJ: { icon: "✨", title: "المرشد", desc: "تهتم بالآخرين وتحب دعمهم وتشجيعهم على التطور وتحقيق إمكاناتهم." },
+            ENFP: { icon: "🚀", title: "المستكشف", desc: "متحمس وفضولي ومليء بالأفكار. تحب التجارب الجديدة والحرية." },
+            ISTJ: { icon: "📐", title: "المنظم", desc: "مسؤول وعملي ويمكن الاعتماد عليك. تحب النظام والوضوح والالتزام." },
+            ISFJ: { icon: "🛡️", title: "الحامي", desc: "مخلص وهادئ وتهتم بالأشخاص والتفاصيل وتقدر العلاقات المستقرة." },
+            ESTJ: { icon: "📊", title: "المدير", desc: "عملي ومنظم وتحب تحمل المسؤولية وإنجاز المهام بكفاءة." },
+            ESFJ: { icon: "🤝", title: "الداعم", desc: "اجتماعي ومهتم بالآخرين وتحب التعاون وبناء علاقات مستقرة." },
+            ISTP: { icon: "⚙️", title: "المهندس العملي", desc: "هادئ وعملي. تحب فهم الأشياء من خلال التجربة وحل المشكلات." },
+            ISFP: { icon: "🎨", title: "الفنان", desc: "هادئ وحساس وتقدر الحرية والجمال والتجارب الشخصية." },
+            ESTP: { icon: "🏎️", title: "المغامر", desc: "جريء وعملي وتحب الحركة والتجارب والتحديات الجديدة." },
+            ESFP: { icon: "🎭", title: "الممتع", desc: "عفوي واجتماعي وتحب الاستمتاع بالحياة ومشاركة اللحظات مع الآخرين." }
         };
-
-        /* =====================================================
-           الحالة
-        ===================================================== */
 
         let current = 0;
         let answers = [];
 
-        const test = document.getElementById("test");
+        const hero = document.getElementById("hero");
+        const quizSection = document.getElementById("quizSection");
         const quiz = document.getElementById("quiz");
         const result = document.getElementById("result");
-        const progress = document.getElementById("progress");
-
-        /* =====================================================
-           الدوال
-        ===================================================== */
+        const progressBar = document.getElementById("progressBar");
+        const progressText = document.getElementById("progressText");
+        const progressPercent = document.getElementById("progressPercent");
 
         function startTest() {
-            document.querySelector('.hero').style.display = 'none';
-            test.style.display = 'block';
+            hero.style.display = "none";
+            quizSection.style.display = "block";
+            current = 0;
+            answers = [];
             showQuestion();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function updateProgress() {
+            const total = questions.length;
+            const percent = (current / total) * 100;
+            progressBar.style.width = percent + "%";
+            progressText.textContent = `السؤال ${current + 1} من ${total}`;
+            progressPercent.textContent = Math.round(percent) + "%";
         }
 
         function showQuestion() {
-            if (current >= questions.length) {
-                showResult();
-                return;
-            }
-
-            const q = questions[current];
-            const total = questions.length;
-            const percent = ((current) / total) * 100;
-
-            progress.style.width = percent + '%';
-            progress.style.transition = 'width 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-
-            let html = `
-                <div class="question-number">سؤال ${current + 1} من ${total}</div>
-                <div class="question">${q.q}</div>
-                <div class="answers">
-            `;
-
-            q.a.forEach((answer, index) => {
-                const selectedClass = (answers[current] === answer[1]) ? 'selected' : '';
-                html += `
-                    <button class="answer ${selectedClass}" onclick="selectAnswer(${index})">
-                        ${answer[0]}
-                    </button>
-                `;
-            });
-
-            html += `
+            updateProgress();
+            const question = questions[current];
+            quiz.style.display = "block";
+            result.style.display = "none";
+            quiz.innerHTML = `
+                <div class="question">${question.q}</div>
+                <div class="answers" role="radiogroup" aria-label="خيارات الإجابة">
+                    ${question.a.map((answer, index) => `
+                        <button class="answer ${answers[current] === answer[1] ? "selected" : ""}"
+                            role="radio"
+                            aria-checked="${answers[current] === answer[1]}"
+                            onclick="selectAnswer(${index})"
+                        >
+                            ${answer[0]}
+                        </button>
+                    `).join("")}
                 </div>
-                <button class="next" onclick="nextQuestion()" ${answers[current] ? '' : 'disabled'}>
-                    ${current === questions.length - 1 ? 'عرض النتيجة ✨' : 'التالي ←'}
+                <button class="next-btn" id="nextBtn" onclick="nextQuestion()" ${answers[current] ? "" : "disabled"}>
+                    ${current === questions.length - 1 ? "اكتشف نتيجتك ✦" : "السؤال التالي ←"}
                 </button>
             `;
-
-            quiz.innerHTML = html;
-            quiz.style.display = 'block';
-            result.style.display = 'none';
-
-            // إعادة تحريك العناصر
-            const questionEl = quiz.querySelector('.question');
-            if (questionEl) {
-                questionEl.style.animation = 'none';
-                void questionEl.offsetWidth;
-                questionEl.style.animation = 'slideInQuestion 0.4s ease';
-            }
         }
 
         function selectAnswer(index) {
-            const selectedTrait = questions[current].a[index][1];
-            answers[current] = selectedTrait;
-
-            // تحديث التحديد البصري
-            document.querySelectorAll('.answer').forEach((btn, i) => {
-                btn.classList.toggle('selected', i === index);
+            answers[current] = questions[current].a[index][1];
+            document.querySelectorAll(".answer").forEach((button, i) => {
+                button.classList.toggle("selected", i === index);
+                button.setAttribute("aria-checked", i === index);
             });
-
-            // تمكين زر التالي
-            const nextBtn = document.querySelector('.next');
-            if (nextBtn) {
-                nextBtn.disabled = false;
-            }
+            document.getElementById("nextBtn").disabled = false;
         }
 
         function nextQuestion() {
             if (!answers[current]) return;
             current++;
-            showQuestion();
+            if (current >= questions.length) {
+                showResult();
+            } else {
+                showQuestion();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            }
         }
 
         function calculateMBTI() {
             const traits = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
-
-            answers.forEach(trait => {
-                if (traits[trait] !== undefined) {
-                    traits[trait]++;
-                }
+            answers.forEach(answer => {
+                if (traits[answer] !== undefined) traits[answer]++;
             });
-
-            const mbti =
-                (traits.E >= traits.I ? 'E' : 'I') +
-                (traits.S >= traits.N ? 'S' : 'N') +
-                (traits.T >= traits.F ? 'T' : 'F') +
-                (traits.J >= traits.P ? 'J' : 'P');
-
-            return { type: mbti, traits };
+            const type =
+                (traits.E >= traits.I ? "E" : "I") +
+                (traits.S >= traits.N ? "S" : "N") +
+                (traits.T >= traits.F ? "T" : "F") +
+                (traits.J >= traits.P ? "J" : "P");
+            return { type, traits };
         }
 
         function showResult() {
-            quiz.style.display = 'none';
-            result.style.display = 'block';
+            quiz.style.display = "none";
+            result.style.display = "block";
+            updateProgress();
+            progressBar.style.width = "100%";
+            progressPercent.textContent = "100%";
+            progressText.textContent = "اكتمل الاختبار";
 
-            progress.style.width = '100%';
+            const data = calculateMBTI();
+            const type = data.type;
+            const traits = data.traits;
+            const personality = personalities[type];
 
-            const { type, traits } = calculateMBTI();
-            const personality = personalities[type] || { icon: "🌌", title: "شخصية فريدة", desc: "أنت شخصية مميزة بصفاتها الخاصة." };
-
-            const traitPercentages = {
-                E: Math.round((traits.E / 5) * 100),
-                I: Math.round((traits.I / 5) * 100),
-                S: Math.round((traits.S / 5) * 100),
-                N: Math.round((traits.N / 5) * 100),
-                T: Math.round((traits.T / 5) * 100),
-                F: Math.round((traits.F / 5) * 100),
-                J: Math.round((traits.J / 5) * 100),
-                P: Math.round((traits.P / 5) * 100)
-            };
-
-            const traitLabels = {
-                E: 'اجتماعي',
-                I: 'انطوائي',
-                S: 'حسي',
-                N: 'حدسي',
-                T: 'منطقي',
-                F: 'عاطفي',
-                J: 'منظم',
-                P: 'مرن'
-            };
-
-            // تحديد الأبعاد الأربعة
             const dimensions = [
-                { left: 'E', right: 'I', leftLabel: 'اجتماعي', rightLabel: 'انطوائي', leftValue: traitPercentages.E, rightValue: traitPercentages.I },
-                { left: 'S', right: 'N', leftLabel: 'حسي', rightLabel: 'حدسي', leftValue: traitPercentages.S, rightValue: traitPercentages.N },
-                { left: 'T', right: 'F', leftLabel: 'منطقي', rightLabel: 'عاطفي', leftValue: traitPercentages.T, rightValue: traitPercentages.F },
-                { left: 'J', right: 'P', leftLabel: 'منظم', rightLabel: 'مرن', leftValue: traitPercentages.J, rightValue: traitPercentages.P }
+                { a: "E", b: "I", nameA: "اجتماعي", nameB: "انطوائي" },
+                { a: "S", b: "N", nameA: "حسي", nameB: "حدسي" },
+                { a: "T", b: "F", nameA: "منطقي", nameB: "عاطفي" },
+                { a: "J", b: "P", nameA: "منظم", nameB: "مرن" }
             ];
 
-            let statsHtml = '';
-            dimensions.forEach(dim => {
-                const leftWins = dim.leftValue >= dim.rightValue;
-                statsHtml += `
+            let stats = "";
+            dimensions.forEach(d => {
+                const total = traits[d.a] + traits[d.b];
+                const percentA = total ? Math.round((traits[d.a] / total) * 100) : 50;
+                const percentB = 100 - percentA;
+                const winner = traits[d.a] >= traits[d.b] ? d.a : d.b;
+                const winnerName = winner === d.a ? d.nameA : d.nameB;
+                stats += `
                     <div class="stat">
-                        <b>${leftWins ? dim.left : dim.right}</b>
-                        <span>${leftWins ? dim.leftLabel : dim.rightLabel}</span>
-                        <div style="font-size:10px;color:#6a7490;margin-top:8px;">
-                            ${dim.leftValue}% / ${dim.rightValue}%
-                        </div>
+                        <div class="stat-code">${winner}</div>
+                        <div class="stat-name">${winnerName}</div>
+                        <div class="stat-percent">${percentA}% / ${percentB}%</div>
                     </div>
                 `;
             });
@@ -1524,22 +833,19 @@
                 <div class="result-icon">${personality.icon}</div>
                 <div class="result-type">${type}</div>
                 <div class="result-title">${personality.title}</div>
-                <div class="result-description">${personality.desc}</div>
-                <div class="stats">${statsHtml}</div>
-                <button class="restart" onclick="restartTest()">🔄 إعادة الاختبار</button>
+                <div class="result-desc">${personality.desc}</div>
+                <div class="stats">${stats}</div>
+                <button class="restart" onclick="restartTest()">↻ إعادة الاختبار</button>
             `;
         }
 
         function restartTest() {
             current = 0;
             answers = [];
-            document.querySelector('.hero').style.display = 'flex';
-            test.style.display = 'none';
-            result.style.display = 'none';
-            quiz.style.display = 'block';
-            progress.style.width = '0';
+            result.style.display = "none";
+            showQuestion();
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
     </script>
-
 </body>
 </html>
