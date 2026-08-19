@@ -2,29 +2,34 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#050816">
-<title>DOMA NEXUS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>𝑫𝒐𝒎𝒂 𝑼𝒍𝒕𝒓𝒂 𝒗4</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap');
+
+:root{
+    --bg:#05060b;
+    --panel:rgba(15,18,30,.72);
+    --panel2:rgba(255,255,255,.055);
+    --line:rgba(255,255,255,.09);
+    --text:#f7f8ff;
+    --muted:#8f96ad;
+    --blue:#6b8cff;
+    --purple:#a86bff;
+    --pink:#f05cff;
+    --cyan:#47ddff;
+    --gold:#ffd76a;
+    --green:#52e39b;
+    --danger:#ff5577;
+    --radius:24px;
+}
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-}
-
-:root{
-    --bg:#03050d;
-    --panel:rgba(12,17,35,.68);
-    --border:rgba(255,255,255,.1);
-    --text:#f5f7ff;
-    --muted:#8e98b8;
-    --blue:#5d8dff;
-    --purple:#9a5cff;
-    --cyan:#46dfff;
-    --gold:#f1c76b;
 }
 
 html{
@@ -33,142 +38,283 @@ html{
 
 body{
     min-height:100vh;
-    background:var(--bg);
+    background:#03040a;
     color:var(--text);
-    font-family:Cairo,Arial,sans-serif;
+    font-family:Cairo,Tajawal,sans-serif;
     overflow-x:hidden;
 }
 
 /* ================= BACKGROUND ================= */
 
-.space{
+.background{
     position:fixed;
     inset:0;
-    z-index:-10;
+    z-index:-20;
     overflow:hidden;
     background:
-        radial-gradient(circle at 20% 20%,rgba(70,80,255,.14),transparent 30%),
-        radial-gradient(circle at 80% 70%,rgba(160,60,255,.12),transparent 30%),
-        radial-gradient(circle at 50% 100%,rgba(0,180,255,.08),transparent 35%),
-        #03050d;
+        radial-gradient(circle at 15% 20%,rgba(82,74,255,.16),transparent 30%),
+        radial-gradient(circle at 85% 20%,rgba(194,71,255,.13),transparent 28%),
+        radial-gradient(circle at 50% 100%,rgba(20,100,255,.14),transparent 35%),
+        #03040a;
 }
 
-.stars{
+.grid{
     position:absolute;
     inset:-50%;
     width:200%;
     height:200%;
+    opacity:.18;
+    background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:60px 60px;
+    transform:perspective(500px) rotateX(55deg);
+    animation:gridMove 30s linear infinite;
+}
+
+@keyframes gridMove{
+    from{transform:perspective(500px) rotateX(55deg) translateY(0)}
+    to{transform:perspective(500px) rotateX(55deg) translateY(60px)}
+}
+
+.orb{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(80px);
+    opacity:.2;
+    animation:orbMove 15s ease-in-out infinite;
+}
+
+.orb.one{
+    width:420px;
+    height:420px;
+    background:#573bff;
+    top:-150px;
+    right:-100px;
+}
+
+.orb.two{
+    width:380px;
+    height:380px;
+    background:#ff3de1;
+    bottom:-160px;
+    left:-120px;
+    animation-delay:-5s;
+}
+
+.orb.three{
+    width:280px;
+    height:280px;
+    background:#00aaff;
+    top:45%;
+    left:45%;
+    animation-delay:-9s;
+}
+
+@keyframes orbMove{
+    0%,100%{transform:translate(0,0) scale(1)}
+    50%{transform:translate(40px,-50px) scale(1.18)}
+}
+
+.stars{
+    position:absolute;
+    inset:0;
     background-image:
         radial-gradient(circle,#fff 1px,transparent 1.5px),
-        radial-gradient(circle,rgba(120,170,255,.8) .7px,transparent 1.2px);
-    background-size:90px 90px,150px 150px;
-    animation:starMove 100s linear infinite;
-    opacity:.5;
+        radial-gradient(circle,rgba(150,180,255,.7) .7px,transparent 1.2px);
+    background-size:90px 90px,145px 145px;
+    opacity:.35;
+    animation:stars 100s linear infinite;
 }
 
-@keyframes starMove{
-    to{transform:translate(-350px,-500px)}
+@keyframes stars{
+    to{background-position:-500px, -700px}
 }
 
-.nebula{
-    position:absolute;
-    width:550px;
-    height:550px;
-    border-radius:50%;
-    filter:blur(100px);
-    opacity:.12;
+/* ================= APP ================= */
+
+.app{
+    width:100%;
+    min-height:100vh;
+    display:flex;
 }
 
-.n1{
-    background:#6e3cff;
-    left:-250px;
-    top:15%;
-}
+/* ================= SIDEBAR ================= */
 
-.n2{
-    background:#008cff;
-    right:-250px;
-    bottom:5%;
-}
-
-.n3{
-    background:#d52cff;
-    left:35%;
-    top:-300px;
-}
-
-/* ================= HEADER ================= */
-
-header{
+.sidebar{
+    width:270px;
+    min-height:100vh;
     position:fixed;
-    top:0;
-    left:0;
     right:0;
+    top:0;
+    padding:25px 18px;
+    background:rgba(5,7,15,.72);
+    backdrop-filter:blur(25px);
+    border-left:1px solid var(--line);
     z-index:100;
-    height:75px;
+}
+
+.brand{
     display:flex;
     align-items:center;
-    justify-content:space-between;
-    padding:0 6%;
-    background:rgba(3,5,13,.55);
-    backdrop-filter:blur(20px);
-    border-bottom:1px solid rgba(255,255,255,.06);
+    gap:12px;
+    padding:10px 8px 25px;
+    border-bottom:1px solid var(--line);
 }
 
-.logo{
-    font-size:24px;
+.brand-logo{
+    width:45px;
+    height:45px;
+    border-radius:15px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,#657dff,#b54cff);
+    box-shadow:0 0 30px rgba(130,90,255,.4);
     font-weight:900;
-    letter-spacing:7px;
-    background:linear-gradient(90deg,#fff,#70b5ff,#b56aff,#f4cf70);
-    -webkit-background-clip:text;
-    color:transparent;
+    font-size:20px;
 }
 
-nav{
-    display:flex;
-    gap:25px;
+.brand h2{
+    font-size:23px;
+    letter-spacing:2px;
 }
 
-nav a{
-    color:#9ba5c3;
-    text-decoration:none;
-    font-size:13px;
+.brand span{
+    color:var(--muted);
+    font-size:9px;
+    display:block;
+}
+
+.nav{
+    margin-top:25px;
+    display:grid;
+    gap:8px;
+}
+
+.nav button{
+    width:100%;
+    border:0;
+    padding:14px 15px;
+    border-radius:15px;
+    background:transparent;
+    color:#9da4b9;
+    font-family:inherit;
+    font-size:14px;
+    cursor:pointer;
+    text-align:right;
     transition:.3s;
 }
 
-nav a:hover{
-    color:white;
+.nav button:hover{
+    background:var(--panel2);
+    color:#fff;
+    transform:translateX(-4px);
 }
 
-.menu{
-    display:none;
-    background:none;
-    border:0;
-    color:white;
-    font-size:25px;
+.nav button.active{
+    color:#fff;
+    background:linear-gradient(90deg,rgba(104,126,255,.2),rgba(167,80,255,.12));
+    border:1px solid rgba(130,120,255,.15);
+    box-shadow:0 10px 30px rgba(80,70,255,.08);
 }
 
-/* ================= HERO ================= */
+.nav-icon{
+    margin-left:10px;
+}
 
-.hero{
+.sidebar-bottom{
+    position:absolute;
+    bottom:20px;
+    right:18px;
+    left:18px;
+}
+
+.points-mini{
+    padding:16px;
+    border-radius:18px;
+    background:linear-gradient(135deg,rgba(255,215,100,.1),rgba(160,80,255,.08));
+    border:1px solid rgba(255,255,255,.07);
+}
+
+.points-mini small{
+    color:var(--muted);
+}
+
+.points-mini strong{
+    display:block;
+    font-size:23px;
+    color:var(--gold);
+}
+
+/* ================= MAIN ================= */
+
+.main{
+    width:calc(100% - 270px);
+    margin-right:270px;
     min-height:100vh;
+}
+
+.topbar{
+    height:80px;
     display:flex;
     align-items:center;
-    justify-content:center;
-    text-align:center;
-    position:relative;
-    padding:100px 20px 50px;
+    justify-content:space-between;
+    padding:0 35px;
+    border-bottom:1px solid var(--line);
+    background:rgba(3,4,10,.35);
+    backdrop-filter:blur(20px);
+    position:sticky;
+    top:0;
+    z-index:50;
 }
 
-.hero-content{
-    max-width:850px;
-    animation:heroIn 1.2s ease;
+.welcome{
+    color:var(--muted);
+    font-size:13px;
 }
 
-@keyframes heroIn{
+.welcome b{
+    color:white;
+    font-size:15px;
+}
+
+.profile-mini{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.avatar{
+    width:40px;
+    height:40px;
+    border-radius:13px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,#536cff,#b24dff);
+    font-weight:800;
+}
+
+.content{
+    padding:35px;
+    max-width:1500px;
+    margin:auto;
+}
+
+/* ================= PAGES ================= */
+
+.page{
+    display:none;
+    animation:pageIn .45s ease;
+}
+
+.page.active{
+    display:block;
+}
+
+@keyframes pageIn{
     from{
         opacity:0;
-        transform:translateY(50px);
+        transform:translateY(15px);
     }
     to{
         opacity:1;
@@ -176,1073 +322,1717 @@ nav a:hover{
     }
 }
 
-.tag{
-    display:inline-block;
-    padding:8px 18px;
-    border:1px solid rgba(120,150,255,.25);
-    background:rgba(100,120,255,.07);
-    border-radius:50px;
-    color:#aebcff;
-    font-size:12px;
-    margin-bottom:25px;
+/* ================= HERO ================= */
+
+.hero{
+    min-height:500px;
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:25px;
+    align-items:center;
 }
 
-.hero h1{
-    font-size:clamp(65px,15vw,150px);
-    line-height:.9;
-    letter-spacing:15px;
+.hero-title{
+    font-size:clamp(45px,6vw,85px);
+    line-height:1;
     font-weight:900;
-    background:linear-gradient(
-        90deg,
-        #fff,
-        #76b6ff,
-        #b46cff,
-        #f2cc6c,
-        #fff
-    );
+    background:linear-gradient(100deg,#fff,#91a8ff,#ce82ff,#fff);
     background-size:300%;
     -webkit-background-clip:text;
     color:transparent;
-    animation:shine 7s linear infinite;
-    filter:drop-shadow(0 0 45px rgba(100,130,255,.25));
+    animation:shine 7s ease infinite;
 }
 
 @keyframes shine{
-    0%{background-position:0}
+    0%,100%{background-position:0}
     50%{background-position:100%}
-    100%{background-position:0}
 }
 
-.hero h2{
-    margin-top:25px;
-    font-size:24px;
-    color:#dce2f5;
-}
-
-.hero p{
+.hero-sub{
+    margin-top:20px;
     max-width:650px;
-    margin:18px auto 0;
-    color:#8993b2;
+    color:#9ba2b9;
     line-height:2;
-    font-size:15px;
 }
 
-.buttons{
+.hero-buttons{
     display:flex;
-    justify-content:center;
-    gap:14px;
-    margin-top:35px;
+    gap:12px;
+    margin-top:30px;
     flex-wrap:wrap;
 }
 
 .btn{
     border:0;
-    padding:15px 28px;
-    border-radius:50px;
+    border-radius:15px;
+    padding:14px 22px;
     font-family:inherit;
     cursor:pointer;
-    font-weight:700;
-    transition:.35s;
-}
-
-.primary{
     color:white;
-    background:linear-gradient(135deg,#477cff,#a04dff);
-    box-shadow:0 0 35px rgba(90,90,255,.3);
-}
-
-.secondary{
-    color:#dbe2f8;
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.12);
+    font-weight:700;
+    transition:.3s;
 }
 
 .btn:hover{
-    transform:translateY(-5px);
+    transform:translateY(-3px);
 }
 
-/* ================= FLOATING ORB ================= */
+.btn-primary{
+    background:linear-gradient(135deg,#5574ff,#a349ff);
+    box-shadow:0 15px 40px rgba(100,70,255,.25);
+}
 
-.orb{
-    position:absolute;
-    width:250px;
-    height:250px;
-    border-radius:50%;
+.btn-dark{
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--line);
+}
+
+/* ================= HOLO CARD ================= */
+
+.holo{
+    position:relative;
+    height:390px;
+    border-radius:35px;
+    overflow:hidden;
     background:
-        radial-gradient(circle at 30% 25%,#fff,transparent 5%),
-        radial-gradient(circle at 35% 35%,#5c8dff,transparent 30%),
-        radial-gradient(circle at 60% 65%,#832fff,transparent 45%),
-        #080d25;
+        radial-gradient(circle at 50% 30%,rgba(117,94,255,.28),transparent 35%),
+        rgba(12,15,28,.72);
+    border:1px solid rgba(150,150,255,.15);
+    box-shadow:0 30px 100px rgba(0,0,0,.45);
+}
+
+.holo::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(120deg,transparent 30%,rgba(255,255,255,.08),transparent 70%);
+    animation:holoMove 5s linear infinite;
+}
+
+@keyframes holoMove{
+    from{transform:translateX(-100%)}
+    to{transform:translateX(100%)}
+}
+
+.holo-core{
+    position:absolute;
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    background:radial-gradient(circle at 35% 30%,#fff,#9bb1ff 15%,#7654ff 40%,#311b91 70%,transparent 72%);
     box-shadow:
-        0 0 80px rgba(80,110,255,.2),
-        inset -40px -40px 80px #000;
-    opacity:.35;
-    animation:orb 8s ease-in-out infinite;
+        0 0 30px #7d72ff,
+        0 0 80px rgba(120,90,255,.6),
+        0 0 160px rgba(130,70,255,.25);
+    animation:core 4s ease-in-out infinite;
 }
 
-.orb.left{
-    left:-100px;
-    top:35%;
+@keyframes core{
+    50%{transform:translate(-50%,-50%) scale(1.15)}
 }
 
-.orb.right{
-    right:-100px;
-    top:20%;
-    transform:scale(.6);
-    animation-delay:-3s;
+.ring{
+    position:absolute;
+    width:300px;
+    height:100px;
+    border:1px solid rgba(150,170,255,.3);
+    border-radius:50%;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%) rotate(-20deg);
+    animation:ring 8s linear infinite;
 }
 
-@keyframes orb{
-    0%,100%{transform:translateY(0) rotate(0)}
-    50%{transform:translateY(-30px) rotate(10deg)}
+.ring.two{
+    width:390px;
+    height:130px;
+    transform:translate(-50%,-50%) rotate(35deg);
+    animation-direction:reverse;
 }
 
-/* ================= SECTIONS ================= */
-
-section.content{
-    width:min(1150px,92%);
-    margin:0 auto;
-    padding:100px 0;
+@keyframes ring{
+    to{transform:translate(-50%,-50%) rotate(340deg)}
 }
+
+.holo-label{
+    position:absolute;
+    bottom:25px;
+    right:25px;
+    color:#7f88a8;
+    font-size:11px;
+    letter-spacing:2px;
+}
+
+/* ================= DASHBOARD CARDS ================= */
 
 .section-title{
-    text-align:center;
-    margin-bottom:50px;
-}
-
-.section-title small{
-    color:#6d91ff;
-    letter-spacing:3px;
+    margin-bottom:18px;
 }
 
 .section-title h2{
-    font-size:38px;
-    margin-top:8px;
+    font-size:25px;
 }
 
 .section-title p{
     color:var(--muted);
-    margin-top:10px;
-}
-
-/* ================= CARDS ================= */
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
-
-.card{
-    position:relative;
-    padding:28px;
-    border-radius:25px;
-    background:var(--panel);
-    border:1px solid var(--border);
-    backdrop-filter:blur(20px);
-    overflow:hidden;
-    transition:.4s;
-}
-
-.card::before{
-    content:"";
-    position:absolute;
-    width:120px;
-    height:120px;
-    background:#6c65ff;
-    filter:blur(70px);
-    opacity:.12;
-    top:-50px;
-    right:-50px;
-}
-
-.card:hover{
-    transform:translateY(-8px);
-    border-color:rgba(120,150,255,.3);
-    box-shadow:0 20px 60px rgba(0,0,0,.35);
-}
-
-.icon{
-    font-size:38px;
-    margin-bottom:18px;
-}
-
-.card h3{
-    font-size:20px;
-    margin-bottom:10px;
-}
-
-.card p{
-    color:var(--muted);
-    line-height:1.9;
     font-size:13px;
+    margin-top:4px;
 }
 
-/* ================= PROFILE ================= */
-
-.profile{
-    display:grid;
-    grid-template-columns:300px 1fr;
-    gap:25px;
-}
-
-.profile-main{
-    text-align:center;
-}
-
-.avatar{
-    width:125px;
-    height:125px;
-    margin:auto;
-    border-radius:50%;
-    display:grid;
-    place-items:center;
-    font-size:55px;
-    background:
-        linear-gradient(135deg,#182b62,#6d32a4);
-    border:2px solid rgba(255,255,255,.15);
-    box-shadow:0 0 45px rgba(90,90,255,.25);
-}
-
-.profile-main h3{
-    margin-top:18px;
-    font-size:23px;
-}
-
-.status{
-    color:#63e8b0;
-    font-size:12px;
-    margin-top:5px;
-}
-
-.profile-info{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
-}
-
-.info{
-    padding:22px;
-    background:rgba(255,255,255,.035);
-    border-radius:18px;
-    border:1px solid rgba(255,255,255,.06);
-}
-
-.info span{
-    display:block;
-    color:#727d9c;
-    font-size:11px;
-    margin-bottom:6px;
-}
-
-.info b{
-    font-size:18px;
-}
-
-/* ================= STATS ================= */
-
-.stats{
+.cards{
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:15px;
 }
 
-.stat{
-    text-align:center;
-    padding:25px 10px;
-    border-radius:20px;
-    background:rgba(255,255,255,.035);
-    border:1px solid rgba(255,255,255,.07);
+.card{
+    padding:22px;
+    border-radius:var(--radius);
+    background:var(--panel);
+    border:1px solid var(--line);
+    backdrop-filter:blur(20px);
+    transition:.3s;
 }
 
-.stat strong{
+.card:hover{
+    transform:translateY(-5px);
+    border-color:rgba(140,140,255,.25);
+    box-shadow:0 20px 50px rgba(0,0,0,.25);
+}
+
+.card-icon{
+    font-size:27px;
+    margin-bottom:15px;
+}
+
+.card small{
+    color:var(--muted);
+}
+
+.card strong{
     display:block;
-    font-size:32px;
-    background:linear-gradient(90deg,#72a7ff,#c56aff);
-    -webkit-background-clip:text;
-    color:transparent;
+    font-size:28px;
+    margin-top:4px;
 }
 
-.stat span{
-    color:#747f9e;
-    font-size:12px;
-}
+/* ================= AI ================= */
 
-/* ================= MBTI ================= */
-
-.mbti{
+.ai-layout{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:1fr 300px;
     gap:20px;
 }
 
-.mbti-card{
-    text-align:center;
-    padding:45px 25px;
-}
-
-.mbti-type{
-    font-size:65px;
-    font-weight:900;
-    letter-spacing:10px;
-    background:linear-gradient(90deg,#fff,#729eff,#c36aff);
-    -webkit-background-clip:text;
-    color:transparent;
-}
-
-.mbti-card p{
-    max-width:500px;
-    margin:15px auto;
-}
-
-.bar{
-    height:7px;
-    background:#151b31;
-    border-radius:20px;
+.chat{
+    height:600px;
+    display:flex;
+    flex-direction:column;
+    border-radius:28px;
+    background:var(--panel);
+    border:1px solid var(--line);
     overflow:hidden;
-    margin-top:20px;
 }
 
-.bar div{
-    height:100%;
-    width:75%;
-    background:linear-gradient(90deg,#588cff,#bb5cff);
-    border-radius:20px;
+.chat-head{
+    padding:18px 22px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
-/* ================= TOOLS ================= */
-
-.tool{
-    cursor:pointer;
+.ai-dot{
+    width:10px;
+    height:10px;
+    background:#4cff9c;
+    border-radius:50%;
+    box-shadow:0 0 15px #4cff9c;
 }
 
-.tool strong{
-    color:#8faeff;
-}
-
-/* ================= GAME ================= */
-
-.game{
-    text-align:center;
-}
-
-.number{
-    font-size:70px;
-    font-weight:900;
-    margin:25px;
-    color:#8eabff;
-}
-
-.game input{
-    width:160px;
-    padding:13px;
-    border-radius:12px;
-    border:1px solid var(--border);
-    background:#080d1d;
-    color:white;
-    outline:none;
-    text-align:center;
-    font-family:inherit;
+.messages{
+    flex:1;
+    overflow-y:auto;
+    padding:22px;
 }
 
 .message{
-    margin-top:15px;
-    color:#a8b2d0;
-}
-
-/* ================= MUSIC ================= */
-
-.music{
-    display:flex;
-    align-items:center;
-    gap:20px;
-}
-
-.album{
-    width:80px;
-    height:80px;
+    max-width:75%;
+    padding:13px 16px;
     border-radius:18px;
+    margin-bottom:12px;
+    line-height:1.8;
+    font-size:14px;
+}
+
+.message.ai{
+    background:rgba(100,90,255,.1);
+    border:1px solid rgba(120,100,255,.1);
+    margin-left:auto;
+}
+
+.message.user{
+    background:rgba(255,255,255,.06);
+    border:1px solid var(--line);
+    margin-right:auto;
+}
+
+.chat-input{
+    display:flex;
+    gap:8px;
+    padding:15px;
+    border-top:1px solid var(--line);
+}
+
+.chat-input input{
+    flex:1;
+    border:1px solid var(--line);
+    outline:none;
+    background:rgba(0,0,0,.25);
+    color:#fff;
+    padding:13px;
+    border-radius:14px;
+    font-family:inherit;
+}
+
+.chat-input button{
+    width:50px;
+    border:0;
+    border-radius:14px;
+    background:linear-gradient(135deg,#5f78ff,#a94fff);
+    color:#fff;
+    cursor:pointer;
+}
+
+/* ================= GENERATORS ================= */
+
+.generator{
+    max-width:900px;
+    margin:auto;
+}
+
+.generator-box{
+    padding:28px;
+    border-radius:28px;
+    background:var(--panel);
+    border:1px solid var(--line);
+}
+
+.generator textarea{
+    width:100%;
+    min-height:160px;
+    resize:vertical;
+    background:rgba(0,0,0,.3);
+    color:white;
+    border:1px solid var(--line);
+    outline:none;
+    border-radius:18px;
+    padding:18px;
+    font-family:inherit;
+    font-size:14px;
+}
+
+.gen-actions{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+    flex-wrap:wrap;
+}
+
+.preview{
+    min-height:250px;
+    margin-top:20px;
+    border-radius:22px;
+    background:
+        repeating-conic-gradient(
+            rgba(255,255,255,.025) 0% 25%,
+            transparent 0% 50%
+        ) 50% / 30px 30px;
+    border:1px dashed rgba(255,255,255,.1);
     display:grid;
     place-items:center;
-    font-size:30px;
-    background:linear-gradient(135deg,#273e8b,#852fa2);
-}
-
-.music-info{
-    flex:1;
-}
-
-.music-info b{
-    display:block;
-}
-
-.music-info span{
-    color:#747e9c;
-    font-size:12px;
-}
-
-.play{
-    width:50px;
-    height:50px;
-    border-radius:50%;
-    border:0;
-    color:white;
-    background:linear-gradient(135deg,#5489ff,#a24eff);
-    cursor:pointer;
-    font-size:18px;
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-    padding:60px 20px;
     text-align:center;
-    color:#555f7c;
-    border-top:1px solid rgba(255,255,255,.05);
+    color:var(--muted);
+    padding:30px;
 }
 
-footer strong{
-    color:#9baeff;
+/* ================= GAMES ================= */
+
+.games{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.game-card{
+    padding:25px;
+    border-radius:25px;
+    min-height:220px;
+    background:linear-gradient(145deg,rgba(25,28,50,.75),rgba(10,12,22,.8));
+    border:1px solid var(--line);
+    transition:.3s;
+    cursor:pointer;
+}
+
+.game-card:hover{
+    transform:translateY(-7px);
+    border-color:rgba(150,120,255,.35);
+}
+
+.game-card .emoji{
+    font-size:45px;
+}
+
+.game-card h3{
+    margin-top:15px;
+}
+
+.game-card p{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:5px;
+}
+
+/* ================= EVENT ================= */
+
+.event{
+    padding:30px;
+    border-radius:28px;
+    background:
+        radial-gradient(circle at 80% 20%,rgba(255,120,70,.15),transparent 35%),
+        var(--panel);
+    border:1px solid var(--line);
+}
+
+.event-tag{
+    display:inline-block;
+    padding:7px 12px;
+    border-radius:50px;
+    background:rgba(255,210,80,.1);
+    color:var(--gold);
+    font-size:11px;
+}
+
+.event h2{
+    font-size:35px;
+    margin:15px 0;
+}
+
+.event p{
+    color:var(--muted);
+    line-height:2;
+}
+
+/* ================= PROFILE ================= */
+
+.profile{
+    max-width:800px;
+    margin:auto;
+}
+
+.profile-card{
+    padding:35px;
+    border-radius:30px;
+    background:var(--panel);
+    border:1px solid var(--line);
+}
+
+.profile-avatar{
+    width:100px;
+    height:100px;
+    border-radius:30px;
+    display:grid;
+    place-items:center;
+    font-size:40px;
+    background:linear-gradient(135deg,#6179ff,#bc4fff);
+    margin-bottom:20px;
+}
+
+.input{
+    width:100%;
+    padding:14px;
+    margin-top:8px;
+    margin-bottom:16px;
+    border-radius:14px;
+    border:1px solid var(--line);
+    background:rgba(0,0,0,.25);
+    color:white;
+    outline:none;
+    font-family:inherit;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(12px);
+    display:none;
+    place-items:center;
+    z-index:500;
+    padding:20px;
+}
+
+.modal.show{
+    display:grid;
+}
+
+.modal-box{
+    width:min(500px,100%);
+    padding:35px;
+    border-radius:30px;
+    background:#0d1020;
+    border:1px solid rgba(150,140,255,.2);
+    box-shadow:0 30px 100px #000;
+    animation:modalIn .35s ease;
+}
+
+@keyframes modalIn{
+    from{transform:scale(.9);opacity:0}
+    to{transform:scale(1);opacity:1}
+}
+
+.modal-box h2{
+    font-size:28px;
+}
+
+.modal-box p{
+    color:var(--muted);
+    margin:8px 0 25px;
 }
 
 /* ================= MOBILE ================= */
 
-@media(max-width:800px){
-
-    nav{
-        display:none;
-    }
-
-    .menu{
-        display:block;
-    }
-
-    .hero h1{
-        letter-spacing:8px;
-    }
-
-    .hero h2{
-        font-size:20px;
-    }
-
-    .grid,
-    .profile,
-    .mbti{
-        grid-template-columns:1fr;
-    }
-
-    .stats{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .profile-info{
-        grid-template-columns:1fr 1fr;
-    }
+.mobile-menu{
+    display:none;
 }
 
-@media(max-width:450px){
+@media(max-width:1000px){
 
-    header{
-        height:65px;
+    .sidebar{
+        transform:translateX(100%);
+        transition:.35s;
+        box-shadow:-20px 0 70px #000;
     }
 
-    .logo{
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        width:100%;
+        margin-right:0;
+    }
+
+    .mobile-menu{
+        display:block;
+        border:0;
+        background:rgba(255,255,255,.06);
+        color:white;
+        width:42px;
+        height:42px;
+        border-radius:13px;
+        cursor:pointer;
         font-size:20px;
     }
 
     .hero{
-        padding-top:100px;
+        grid-template-columns:1fr;
+        min-height:auto;
+        padding:40px 0;
     }
 
-    .hero h1{
-        font-size:65px;
+    .holo{
+        height:300px;
     }
 
-    .hero p{
-        font-size:13px;
+    .cards{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    section.content{
-        padding:70px 0;
+    .games{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .section-title h2{
-        font-size:29px;
+    .ai-layout{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    .content{
+        padding:20px 14px;
     }
 
-    .card{
-        padding:22px;
+    .topbar{
+        padding:0 15px;
     }
 
-    .profile-info{
+    .hero-title{
+        font-size:48px;
+    }
+
+    .cards{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .games{
         grid-template-columns:1fr;
     }
 
-    .mbti-type{
-        font-size:48px;
+    .card{
+        padding:16px;
     }
-}
 
-/* ================= LOADER ================= */
+    .card strong{
+        font-size:23px;
+    }
 
-.loader{
-    position:fixed;
-    inset:0;
-    z-index:9999;
-    background:#02040b;
-    display:grid;
-    place-items:center;
-    transition:1s;
-}
+    .chat{
+        height:550px;
+    }
 
-.loader.hide{
-    opacity:0;
-    pointer-events:none;
-}
-
-.loader-box{
-    text-align:center;
-}
-
-.loader-logo{
-    font-size:50px;
-    font-weight:900;
-    letter-spacing:12px;
-    background:linear-gradient(90deg,#fff,#6ca4ff,#b85cff);
-    -webkit-background-clip:text;
-    color:transparent;
-}
-
-.loader-line{
-    width:220px;
-    height:3px;
-    background:#161c30;
-    margin:25px auto;
-    border-radius:10px;
-    overflow:hidden;
-}
-
-.loader-line div{
-    height:100%;
-    width:0;
-    background:linear-gradient(90deg,#578dff,#c35cff);
-    animation:load 2.2s ease forwards;
-}
-
-@keyframes load{
-    to{width:100%}
+    .message{
+        max-width:90%;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOADER -->
-<div class="loader" id="loader">
-    <div class="loader-box">
-        <div class="loader-logo">DOMA</div>
-        <div class="loader-line">
-            <div></div>
-        </div>
-        <small>INITIALIZING NEXUS...</small>
-    </div>
-</div>
-
-<!-- SPACE -->
-<div class="space">
+<div class="background">
+    <div class="grid"></div>
     <div class="stars"></div>
-    <div class="nebula n1"></div>
-    <div class="nebula n2"></div>
-    <div class="nebula n3"></div>
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
 </div>
 
-<header>
-    <div class="logo">DOMA</div>
+<div class="app">
 
-    <nav>
-        <a href="#home">الرئيسية</a>
-        <a href="#profile">الملف</a>
-        <a href="#personality">الشخصية</a>
-        <a href="#tools">الأدوات</a>
-        <a href="#games">الألعاب</a>
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+        <div class="brand-logo">D</div>
+        <div>
+            <h2>𝑫𝒐𝒎𝒂</h2>
+            <span>ULTRA EXPERIENCE</span>
+        </div>
+    </div>
+
+    <nav class="nav">
+
+        <button class="active" onclick="page('home',this)">
+            🏠 <span class="nav-icon">الرئيسية</span>
+        </button>
+
+        <button onclick="page('ai',this)">
+            🧠 <span class="nav-icon">الذكاء الاصطناعي</span>
+        </button>
+
+        <button onclick="page('image',this)">
+            🎨 <span class="nav-icon">استوديو الصور</span>
+        </button>
+
+        <button onclick="page('video',this)">
+            🎬 <span class="nav-icon">استوديو الفيديو</span>
+        </button>
+
+        <button onclick="page('games',this)">
+            🎮 <span class="nav-icon">الألعاب</span>
+        </button>
+
+        <button onclick="page('events',this)">
+            🎁 <span class="nav-icon">الفعاليات</span>
+        </button>
+
+        <button onclick="page('profile',this)">
+            👤 <span class="nav-icon">ملفي</span>
+        </button>
+
     </nav>
 
-    <button class="menu">☰</button>
+    <div class="sidebar-bottom">
+
+        <div class="points-mini">
+            <small>رصيدك الحالي</small>
+            <strong id="sidePoints">0 ⭐</strong>
+            <small id="sideLevel">المستوى 1</small>
+        </div>
+
+    </div>
+
+</aside>
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+<header class="topbar">
+
+    <div style="display:flex;align-items:center;gap:12px">
+
+        <button class="mobile-menu" onclick="toggleMenu()">☰</button>
+
+        <div class="welcome">
+            مرحبًا،
+            <b id="topName">زائر</b>
+        </div>
+
+    </div>
+
+    <div class="profile-mini">
+
+        <span id="topPoints">⭐ 0</span>
+
+        <div class="avatar" id="topAvatar">D</div>
+
+    </div>
+
 </header>
 
-<!-- HERO -->
-<section class="hero" id="home">
+<div class="content">
 
-    <div class="orb left"></div>
-    <div class="orb right"></div>
+<!-- ================= HOME ================= -->
 
-    <div class="hero-content">
+<section id="home" class="page active">
 
-        <div class="tag">✦ N E X U S • 2026</div>
+<div class="hero">
 
-        <h1>DOMA</h1>
+<div>
 
-        <h2>اكتشف العالم الذي بداخلك</h2>
+<div style="color:#8490ff;font-size:12px;letter-spacing:4px">
+WELCOME TO THE FUTURE
+</div>
 
-        <p>
-            مساحة رقمية تجمع بين الشخصية، الإحصائيات، الألعاب
-            والأدوات في تجربة مستقبلية واحدة.
-        </p>
+<h1 class="hero-title">𝑫𝒐𝒎𝒂</h1>
 
-        <div class="buttons">
-            <button class="btn primary"
-                    onclick="document.getElementById('profile').scrollIntoView()">
-                استكشف الآن 🚀
-            </button>
+<p class="hero-sub">
+مساحتك الرقمية الخاصة. تحدث مع الذكاء الاصطناعي،
+أنشئ أفكارك، العب، اجمع النقاط، شارك في الفعاليات
+واكتشف عالمًا مصممًا لك.
+</p>
 
-            <button class="btn secondary"
-                    onclick="startGame()">
-                جرّب اللعبة 🎮
-            </button>
-        </div>
+<div class="hero-buttons">
 
-    </div>
+<button class="btn btn-primary" onclick="page('ai')">
+🧠 تحدث مع Doma AI
+</button>
+
+<button class="btn btn-dark" onclick="page('games')">
+🎮 العب الآن
+</button>
+
+</div>
+
+</div>
+
+<div class="holo">
+
+<div class="ring"></div>
+<div class="ring two"></div>
+<div class="holo-core"></div>
+
+<div class="holo-label">
+DOMA CORE • ONLINE
+</div>
+
+</div>
+
+</div>
+
+<div class="section-title">
+<h2>لوحة التحكم</h2>
+<p>كل شيء مهم في مكان واحد.</p>
+</div>
+
+<div class="cards">
+
+<div class="card">
+<div class="card-icon">⭐</div>
+<small>النقاط</small>
+<strong id="homePoints">0</strong>
+</div>
+
+<div class="card">
+<div class="card-icon">🏆</div>
+<small>المستوى</small>
+<strong id="homeLevel">1</strong>
+</div>
+
+<div class="card">
+<div class="card-icon">🎮</div>
+<small>الألعاب</small>
+<strong>4</strong>
+</div>
+
+<div class="card">
+<div class="card-icon">🔥</div>
+<small>أيام النشاط</small>
+<strong id="streak">1</strong>
+</div>
+
+</div>
+
 </section>
 
-<!-- PROFILE -->
-<section class="content" id="profile">
+<!-- ================= AI ================= -->
 
-    <div class="section-title">
-        <small>PROFILE</small>
-        <h2>هويتك الرقمية</h2>
-        <p>ملف شخصي مستقبلي بسيط وأنيق.</p>
-    </div>
+<section id="ai" class="page">
 
-    <div class="profile">
+<div class="section-title">
+<h2>🧠 Doma AI</h2>
+<p>مساعدك الذكي داخل عالم Doma.</p>
+</div>
 
-        <div class="card profile-main">
-            <div class="avatar">👤</div>
-            <h3>DOMA USER</h3>
-            <div class="status">● متصل الآن</div>
-        </div>
+<div class="ai-layout">
 
-        <div class="card profile-info">
+<div class="chat">
 
-            <div class="info">
-                <span>المستوى</span>
-                <b>27</b>
-            </div>
+<div class="chat-head">
+<div class="ai-dot"></div>
+<div>
+<b>Doma Intelligence</b>
+<div style="font-size:10px;color:#7f88a8">ONLINE</div>
+</div>
+</div>
 
-            <div class="info">
-                <span>النقاط</span>
-                <b>8,420 XP</b>
-            </div>
+<div class="messages" id="messages">
 
-            <div class="info">
-                <span>الرتبة</span>
-                <b>Explorer</b>
-            </div>
+<div class="message ai">
+مرحبًا 👋 أنا Doma AI.
+<br>
+اسألني عن أي شيء، وسأحاول مساعدتك.
+</div>
 
-            <div class="info">
-                <span>الإنجازات</span>
-                <b>34 / 50</b>
-            </div>
+</div>
 
-        </div>
+<div class="chat-input">
 
-    </div>
+<input
+id="aiInput"
+placeholder="اكتب سؤالك هنا..."
+onkeydown="if(event.key==='Enter')sendAI()">
+
+<button onclick="sendAI()">➤</button>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="card">
+<h3>⚡ قدراتي</h3>
+<br>
+<p style="color:#9098ad;line-height:2">
+💬 الإجابة عن الأسئلة<br>
+🧠 شرح المواضيع<br>
+💡 توليد الأفكار<br>
+📝 كتابة النصوص<br>
+🎨 أوامر الصور<br>
+🎬 أوامر الفيديو
+</p>
+</div>
+
+<br>
+
+<div class="card">
+<h3>⭐ مكافأة</h3>
+<br>
+<p style="color:#9098ad">
+كل استخدام للذكاء الاصطناعي يمنحك نقاطًا.
+</p>
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<!-- STATS -->
-<section class="content">
+<!-- ================= IMAGE ================= -->
 
-    <div class="section-title">
-        <small>STATISTICS</small>
-        <h2>إحصائياتك</h2>
-    </div>
+<section id="image" class="page">
 
-    <div class="stats">
+<div class="generator">
 
-        <div class="stat">
-            <strong>92%</strong>
-            <span>الإبداع</span>
-        </div>
+<div class="section-title">
+<h2>🎨 Doma Image Studio</h2>
+<p>اكتب وصف الصورة التي تريدها.</p>
+</div>
 
-        <div class="stat">
-            <strong>78%</strong>
-            <span>التركيز</span>
-        </div>
+<div class="generator-box">
 
-        <div class="stat">
-            <strong>86%</strong>
-            <span>الفضول</span>
-        </div>
+<textarea
+id="imagePrompt"
+placeholder="مثال: مدينة مستقبلية عربية ليلًا، أضواء نيون، سيارات رياضية، تصوير سينمائي واقعي جدًا..."></textarea>
 
-        <div class="stat">
-            <strong>94%</strong>
-            <span>الاستكشاف</span>
-        </div>
+<div class="gen-actions">
 
-    </div>
+<button class="btn btn-primary" onclick="generateImage()">
+✨ إنشاء الصورة
+</button>
+
+<button class="btn btn-dark" onclick="clearPrompt('imagePrompt')">
+مسح
+</button>
+
+</div>
+
+<div class="preview" id="imagePreview">
+<div>
+<div style="font-size:45px">🌌</div>
+<p>ستظهر النتيجة هنا</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<!-- PERSONALITY -->
-<section class="content" id="personality">
+<!-- ================= VIDEO ================= -->
 
-    <div class="section-title">
-        <small>PERSONALITY</small>
-        <h2>تحليل الشخصية</h2>
-        <p>نموذج تجريبي مستوحى من MBTI.</p>
-    </div>
+<section id="video" class="page">
 
-    <div class="mbti">
+<div class="generator">
 
-        <div class="card mbti-card">
+<div class="section-title">
+<h2>🎬 Doma Video Studio</h2>
+<p>حوّل أفكارك إلى مشاهد فيديو.</p>
+</div>
 
-            <div class="mbti-type" id="mbtiType">INTJ</div>
+<div class="generator-box">
 
-            <h3>المهندس الاستراتيجي</h3>
+<textarea
+id="videoPrompt"
+placeholder="مثال: سيارة سوداء فاخرة تسير في مدينة مستقبلية تحت المطر، لقطة سينمائية..."></textarea>
 
-            <p>
-                شخص تحليلي يحب التخطيط، بناء الأفكار،
-                وحل المشكلات بطريقة منظمة.
-            </p>
+<div class="gen-actions">
 
-            <div class="bar">
-                <div></div>
-            </div>
+<button class="btn btn-primary" onclick="generateVideo()">
+🎬 إنشاء الفيديو
+</button>
 
-        </div>
+</div>
 
-        <div class="card">
+<div class="preview" id="videoPreview">
+<div>
+<div style="font-size:45px">🎞️</div>
+<p>منطقة معاينة الفيديو</p>
+</div>
+</div>
 
-            <div class="icon">🧠</div>
+</div>
 
-            <h3>تحليل سريع</h3>
+</div>
 
-            <p>
-                لديك ميل واضح للتفكير المستقل والتخطيط
-                بعيد المدى وتحليل التفاصيل قبل اتخاذ القرار.
-            </p>
-
-            <br>
-
-            <p>
-                <strong style="color:#8faeff">
-                    قوة التفكير
-                </strong>
-                <br>
-                مرتفعة
-            </p>
-
-        </div>
-
-    </div>
 </section>
 
-<!-- FEATURES -->
-<section class="content">
+<!-- ================= GAMES ================= -->
 
-    <div class="section-title">
-        <small>NEXUS</small>
-        <h2>ماذا يوجد هنا؟</h2>
-    </div>
+<section id="games" class="page">
 
-    <div class="grid">
+<div class="section-title">
+<h2>🎮 Doma Games</h2>
+<p>العب واجمع النقاط.</p>
+</div>
 
-        <div class="card">
-            <div class="icon">🧠</div>
-            <h3>تحليل الشخصية</h3>
-            <p>
-                اكتشف نمط شخصيتك ومجموعة من الصفات
-                بطريقة تفاعلية.
-            </p>
-        </div>
+<div class="games">
 
-        <div class="card">
-            <div class="icon">🎮</div>
-            <h3>ألعاب صغيرة</h3>
-            <p>
-                ألعاب خفيفة داخل الموقع لقتل الملل
-                واختبار سرعة التفكير.
-            </p>
-        </div>
+<div class="game-card" onclick="reactionGame()">
+<div class="emoji">⚡</div>
+<h3>اختبار السرعة</h3>
+<p>اضغط بأسرع ما تستطيع.</p>
+</div>
 
-        <div class="card">
-            <div class="icon">🛠️</div>
-            <h3>أدوات رقمية</h3>
-            <p>
-                مجموعة أدوات مفيدة يمكنك توسيعها
-                لاحقًا كما تريد.
-            </p>
-        </div>
+<div class="game-card" onclick="guessGame()">
+<div class="emoji">🎯</div>
+<h3>خمن الرقم</h3>
+<p>هل تستطيع اكتشاف الرقم؟</p>
+</div>
 
-    </div>
+<div class="game-card" onclick="memoryGame()">
+<div class="emoji">🧠</div>
+<h3>اختبار الذاكرة</h3>
+<p>اختبر ذاكرتك.</p>
+</div>
+
+<div class="game-card" onclick="coinGame()">
+<div class="emoji">🪙</div>
+<h3>عملة Doma</h3>
+<p>حاول الحصول على المكافأة.</p>
+</div>
+
+</div>
+
 </section>
 
-<!-- TOOLS -->
-<section class="content" id="tools">
+<!-- ================= EVENTS ================= -->
 
-    <div class="section-title">
-        <small>TOOLS</small>
-        <h2>مركز الأدوات</h2>
-    </div>
+<section id="events" class="page">
 
-    <div class="grid">
+<div class="section-title">
+<h2>🎁 فعاليات Doma</h2>
+<p>فعاليات متجددة ومكافآت.</p>
+</div>
 
-        <div class="card tool" onclick="generatePassword()">
-            <div class="icon">🔐</div>
-            <h3>مولد كلمات المرور</h3>
-            <p>
-                اضغط هنا لإنشاء كلمة مرور عشوائية قوية.
-            </p>
-            <br>
-            <strong id="password">اضغط للتوليد</strong>
-        </div>
+<div class="event">
 
-        <div class="card tool" onclick="countWords()">
-            <div class="icon">📝</div>
-            <h3>عداد الكلمات</h3>
-            <p>
-                أداة بسيطة لحساب الكلمات داخل نص.
-            </p>
-            <br>
-            <strong id="wordCount">0 كلمة</strong>
-        </div>
+<span class="event-tag">🔥 فعالية اليوم</span>
 
-        <div class="card">
-            <div class="icon">⚡</div>
-            <h3>أداة سريعة</h3>
-            <p>
-                يمكنك تحويل هذا القسم لاحقًا إلى
-                أي أداة تريدها.
-            </p>
-        </div>
+<h2>صيد النجوم</h2>
 
-    </div>
+<p>
+أجب عن الأسئلة، العب الألعاب، واستعمل Doma AI
+لجمع أكبر عدد من النجوم اليوم.
+</p>
+
+<br>
+
+<button class="btn btn-primary" onclick="dailyReward()">
+⭐ احصل على مكافأة اليوم
+</button>
+
+</div>
+
+<br>
+
+<div class="cards">
+
+<div class="card">
+<div class="card-icon">🎯</div>
+<small>المهمة اليومية</small>
+<strong>+50 ⭐</strong>
+</div>
+
+<div class="card">
+<div class="card-icon">🔥</div>
+<small>التسجيل اليومي</small>
+<strong>+20 ⭐</strong>
+</div>
+
+<div class="card">
+<div class="card-icon">🏆</div>
+<small>الإنجاز القادم</small>
+<strong>+100 ⭐</strong>
+</div>
+
+</div>
+
 </section>
 
-<!-- GAME -->
-<section class="content" id="games">
+<!-- ================= PROFILE ================= -->
 
-    <div class="section-title">
-        <small>GAME CENTER</small>
-        <h2>اختبار الرقم 🎮</h2>
-        <p>حاول معرفة الرقم المخفي.</p>
-    </div>
+<section id="profile" class="page">
 
-    <div class="card game">
+<div class="profile">
 
-        <div class="number">?</div>
+<div class="section-title">
+<h2>👤 ملفك الشخصي</h2>
+<p>هذه المعلومات محفوظة على جهازك.</p>
+</div>
 
-        <input
-            id="guess"
-            type="number"
-            min="1"
-            max="100"
-            placeholder="1 - 100">
+<div class="profile-card">
 
-        <br><br>
+<div class="profile-avatar" id="profileAvatar">
+D
+</div>
 
-        <button class="btn primary" onclick="guessNumber()">
-            تخمين
-        </button>
+<label>الاسم / اللقب</label>
 
-        <div class="message" id="gameMessage">
-            الرقم بين 1 و100
-        </div>
+<input
+class="input"
+id="profileName"
+placeholder="اسمك">
 
-    </div>
+<label>العمر</label>
+
+<input
+class="input"
+id="profileAge"
+type="number"
+placeholder="العمر">
+
+<button class="btn btn-primary" onclick="saveProfile()">
+💾 حفظ المعلومات
+</button>
+
+</div>
+
+</div>
+
 </section>
 
-<!-- MUSIC -->
-<section class="content">
+</div>
 
-    <div class="section-title">
-        <small>AUDIO</small>
-        <h2>المشغل</h2>
-    </div>
+</main>
 
-    <div class="card music">
+</div>
 
-        <div class="album">🌌</div>
+<!-- ================= FIRST LOGIN ================= -->
 
-        <div class="music-info">
-            <b>DOMA — Cosmic Mode</b>
-            <span>Future ambience</span>
-        </div>
+<div class="modal" id="welcomeModal">
 
-        <button class="play" onclick="toggleMusic()" id="play">
-            ▶
-        </button>
+<div class="modal-box">
 
-    </div>
-</section>
+<div style="font-size:45px">🌌</div>
 
-<footer>
-    DOMA NEXUS © 2026
-    <br>
-    Crafted for <strong>Explorers</strong> 🌌
-</footer>
+<h2>مرحبًا بك في 𝑫𝒐𝒎𝒂</h2>
+
+<p>
+قبل دخول عالمك الخاص، أخبرني كيف تريد أن أناديك.
+</p>
+
+<label>الاسم / اللقب</label>
+
+<input
+class="input"
+id="firstName"
+placeholder="مثال: Doma">
+
+<label>العمر</label>
+
+<input
+class="input"
+id="firstAge"
+type="number"
+placeholder="العمر">
+
+<button class="btn btn-primary" style="width:100%" onclick="createProfile()">
+🚀 دخول Doma
+</button>
+
+</div>
+
+</div>
+
+<!-- ================= NOTIFICATION ================= -->
+
+<div
+id="toast"
+style="
+position:fixed;
+bottom:25px;
+left:25px;
+z-index:999;
+padding:14px 20px;
+border-radius:15px;
+background:rgba(15,18,30,.9);
+border:1px solid rgba(255,255,255,.1);
+backdrop-filter:blur(20px);
+display:none;
+box-shadow:0 20px 50px #000;
+">
+</div>
 
 <script>
 
-/* ================= LOADER ================= */
+/* =========================================================
+   DOMA ULTRA v4 ENGINE
+========================================================= */
 
-window.addEventListener("load",function(){
+const STORAGE_KEY = "DOMA_ULTRA_V4";
 
-    setTimeout(function(){
-        document.getElementById("loader")
-        .classList.add("hide");
-    },2300);
+let data = JSON.parse(
+    localStorage.getItem(STORAGE_KEY)
+) || {
+    name:"",
+    age:"",
+    points:0,
+    level:1,
+    streak:1,
+    daily:false
+};
 
-});
+/* ================= INIT ================= */
 
-/* ================= PARALLAX ================= */
+document.addEventListener("DOMContentLoaded",()=>{
 
-document.addEventListener("mousemove",function(e){
+    if(!data.name){
 
-    const x=(e.clientX/window.innerWidth-.5)*20;
-    const y=(e.clientY/window.innerHeight-.5)*20;
+        document.getElementById("welcomeModal")
+        .classList.add("show");
 
-    document.querySelectorAll(".orb").forEach((orb,index)=>{
+    }else{
 
-        const amount=index===0?1:-1;
-
-        orb.style.transform=
-            `translate(${x*amount}px,${y*amount}px)`;
-
-    });
-
-});
-
-/* ================= PASSWORD ================= */
-
-function generatePassword(){
-
-    const chars=
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
-
-    let password="";
-
-    for(let i=0;i<16;i++){
-
-        password+=chars[
-            Math.floor(Math.random()*chars.length)
-        ];
+        loadProfile();
 
     }
 
-    document.getElementById("password")
-        .textContent=password;
+    updateUI();
 
-}
+});
 
-/* ================= WORD COUNTER ================= */
+/* ================= PROFILE ================= */
 
-function countWords(){
+function createProfile(){
 
-    const text=prompt("اكتب النص:");
+    const name =
+        document.getElementById("firstName").value.trim();
 
-    if(text===null)return;
+    const age =
+        document.getElementById("firstAge").value;
 
-    const words=text.trim()
-        ?text.trim().split(/\s+/).length
-        :0;
+    if(!name || !age){
 
-    document.getElementById("wordCount")
-        .textContent=words+" كلمة";
+        toast("أدخل الاسم والعمر أولًا ⚠️");
 
-}
-
-/* ================= GAME ================= */
-
-let secretNumber=
-    Math.floor(Math.random()*100)+1;
-
-function startGame(){
-
-    document.getElementById("games")
-        .scrollIntoView({
-            behavior:"smooth"
-        });
-
-}
-
-function guessNumber(){
-
-    const input=
-        Number(document.getElementById("guess").value);
-
-    const message=
-        document.getElementById("gameMessage");
-
-    if(!input){
-
-        message.textContent="اكتب رقمًا أولًا 😅";
         return;
 
     }
 
-    if(input===secretNumber){
+    data.name = name;
+    data.age = age;
 
-        message.textContent=
-            "🔥 أصبت الرقم! أنت وحش.";
+    save();
 
-        secretNumber=
-            Math.floor(Math.random()*100)+1;
+    document.getElementById("welcomeModal")
+    .classList.remove("show");
 
-    }else if(input>secretNumber){
+    loadProfile();
 
-        message.textContent=
-            "⬇️ الرقم أصغر.";
+    toast("تم إنشاء ملفك بنجاح 🚀");
+
+    addPoints(20);
+}
+
+function saveProfile(){
+
+    const name =
+        document.getElementById("profileName").value.trim();
+
+    const age =
+        document.getElementById("profileAge").value;
+
+    if(!name || !age){
+
+        toast("أكمل البيانات أولًا");
+
+        return;
+
+    }
+
+    data.name=name;
+    data.age=age;
+
+    save();
+    loadProfile();
+
+    toast("تم حفظ معلوماتك 💾");
+
+}
+
+function loadProfile(){
+
+    document.getElementById("topName").textContent =
+        data.name;
+
+    document.getElementById("profileName").value =
+        data.name;
+
+    document.getElementById("profileAge").value =
+        data.age;
+
+    const first =
+        data.name.charAt(0).toUpperCase();
+
+    document.getElementById("topAvatar").textContent =
+        first;
+
+    document.getElementById("profileAvatar").textContent =
+        first;
+
+}
+
+/* ================= STORAGE ================= */
+
+function save(){
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+    );
+
+    updateUI();
+
+}
+
+/* ================= POINTS ================= */
+
+function addPoints(amount){
+
+    data.points += amount;
+
+    data.level =
+        Math.floor(data.points / 250) + 1;
+
+    save();
+
+    toast(`+${amount} ⭐`);
+
+}
+
+function updateUI(){
+
+    document.getElementById("sidePoints").textContent =
+        data.points + " ⭐";
+
+    document.getElementById("topPoints").textContent =
+        "⭐ " + data.points;
+
+    document.getElementById("homePoints").textContent =
+        data.points;
+
+    document.getElementById("homeLevel").textContent =
+        data.level;
+
+    document.getElementById("sideLevel").textContent =
+        "المستوى " + data.level;
+
+    document.getElementById("streak").textContent =
+        data.streak;
+
+}
+
+/* ================= NAVIGATION ================= */
+
+function page(id,button){
+
+    document.querySelectorAll(".page")
+    .forEach(p=>p.classList.remove("active"));
+
+    const target =
+        document.getElementById(id);
+
+    if(target){
+        target.classList.add("active");
+    }
+
+    document.querySelectorAll(".nav button")
+    .forEach(b=>b.classList.remove("active"));
+
+    if(button){
+        button.classList.add("active");
+    }
+
+    document.getElementById("sidebar")
+    .classList.remove("open");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+function toggleMenu(){
+
+    document.getElementById("sidebar")
+    .classList.toggle("open");
+
+}
+
+/* ================= TOAST ================= */
+
+let toastTimer;
+
+function toast(text){
+
+    const el =
+        document.getElementById("toast");
+
+    el.textContent=text;
+    el.style.display="block";
+
+    clearTimeout(toastTimer);
+
+    toastTimer=setTimeout(()=>{
+
+        el.style.display="none";
+
+    },2500);
+
+}
+
+/* ================= AI ================= */
+
+function sendAI(){
+
+    const input =
+        document.getElementById("aiInput");
+
+    const text =
+        input.value.trim();
+
+    if(!text)return;
+
+    addMessage(text,"user");
+
+    input.value="";
+
+    addPoints(5);
+
+    setTimeout(()=>{
+
+        let answer = localAI(text);
+
+        addMessage(answer,"ai");
+
+    },600);
+
+}
+
+function addMessage(text,type){
+
+    const box =
+        document.getElementById("messages");
+
+    const msg =
+        document.createElement("div");
+
+    msg.className =
+        "message " + type;
+
+    msg.innerHTML =
+        text;
+
+    box.appendChild(msg);
+
+    box.scrollTop =
+        box.scrollHeight;
+
+}
+
+function localAI(text){
+
+    const t=text.toLowerCase();
+
+    if(
+        t.includes("مرحبا") ||
+        t.includes("السلام")
+    ){
+
+        return "مرحبًا بك 👋✨ كيف أستطيع مساعدتك اليوم؟";
+
+    }
+
+    if(t.includes("من انت") || t.includes("من أنت")){
+
+        return "أنا Doma AI، المساعد الذكي داخل 𝑫𝒐𝒎𝒂 Ultra v4 🧠🌌";
+
+    }
+
+    if(t.includes("فكرة")){
+
+        return "لدي فكرة لك: اصنع مشروعًا صغيرًا يجمع الألعاب والذكاء الاصطناعي ونظام نقاط، واجعل المستخدم يفتح مستويات جديدة كلما جمع النجوم. 🚀";
+
+    }
+
+    if(t.includes("html")){
+
+        return "HTML يبني هيكل الصفحة، CSS يعطيها الشكل، وJavaScript يجعلها تتفاعل وتعمل.";
+
+    }
+
+    return `
+    فهمت سؤالك: <b>${escapeHTML(text)}</b>
+    <br><br>
+    هذه نسخة Doma المحلية حاليًا. لربط نموذج ذكاء اصطناعي حقيقي،
+    اربط الدالة <b>sendAI()</b> مع API خلفية خاصة بك. 🧠⚡
+    `;
+
+}
+
+function escapeHTML(str){
+
+    return str
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+/* ================= IMAGE ================= */
+
+function generateImage(){
+
+    const prompt =
+        document.getElementById("imagePrompt")
+        .value.trim();
+
+    const preview =
+        document.getElementById("imagePreview");
+
+    if(!prompt){
+
+        toast("اكتب وصف الصورة أولًا 🎨");
+
+        return;
+
+    }
+
+    addPoints(10);
+
+    preview.innerHTML=`
+
+        <div>
+
+            <div style="font-size:55px">
+                ✨
+            </div>
+
+            <h3>تم تجهيز طلب الصورة</h3>
+
+            <p style="margin-top:8px">
+                ${escapeHTML(prompt)}
+            </p>
+
+            <small>
+                اربط generateImage() مع خدمة توليد صور
+                حقيقية للحصول على الصورة.
+            </small>
+
+        </div>
+
+    `;
+
+}
+
+/* ================= VIDEO ================= */
+
+function generateVideo(){
+
+    const prompt =
+        document.getElementById("videoPrompt")
+        .value.trim();
+
+    const preview =
+        document.getElementById("videoPreview");
+
+    if(!prompt){
+
+        toast("اكتب وصف الفيديو أولًا 🎬");
+
+        return;
+
+    }
+
+    addPoints(15);
+
+    preview.innerHTML=`
+
+        <div>
+
+            <div style="font-size:55px">
+                🎬
+            </div>
+
+            <h3>طلب الفيديو جاهز</h3>
+
+            <p style="margin-top:8px">
+                ${escapeHTML(prompt)}
+            </p>
+
+            <small>
+                اربط هذه الدالة مع API لتوليد الفيديو.
+            </small>
+
+        </div>
+
+    `;
+
+}
+
+/* ================= CLEAR ================= */
+
+function clearPrompt(id){
+
+    document.getElementById(id).value="";
+
+}
+
+/* ================= DAILY ================= */
+
+function dailyReward(){
+
+    if(data.daily){
+
+        toast("أخذت مكافأة اليوم بالفعل 🌙");
+
+        return;
+
+    }
+
+    data.daily=true;
+
+    addPoints(50);
+
+    save();
+
+    toast("🎁 حصلت على 50 ⭐!");
+
+}
+
+/* ================= GAME 1 ================= */
+
+function reactionGame(){
+
+    const start =
+        performance.now();
+
+    const wait =
+        1000 + Math.random()*3000;
+
+    toast("استعد... ⚡");
+
+    setTimeout(()=>{
+
+        const result =
+            prompt("⚡ اضغط OK بأسرع ما تستطيع!");
+
+        const time =
+            Math.round(performance.now()-start-wait);
+
+        if(result!==null){
+
+            let reward =
+                Math.max(5,50-Math.floor(time/50));
+
+            addPoints(reward);
+
+            alert(
+                `سرعتك: ${time}ms\n+${reward} ⭐`
+            );
+
+        }
+
+    },wait);
+
+}
+
+/* ================= GAME 2 ================= */
+
+function guessGame(){
+
+    const number =
+        Math.floor(Math.random()*10)+1;
+
+    const guess =
+        Number(prompt("🎯 خمن رقمًا من 1 إلى 10"));
+
+    if(guess===number){
+
+        addPoints(50);
+
+        alert("🔥 صحيح! +50 ⭐");
 
     }else{
 
-        message.textContent=
-            "⬆️ الرقم أكبر.";
+        alert(
+            "ليس صحيحًا 😄 الرقم كان "+number
+        );
 
     }
 
 }
 
-/* ================= MUSIC UI ================= */
+/* ================= GAME 3 ================= */
 
-let playing=false;
+function memoryGame(){
 
-function toggleMusic(){
+    const sequence =
+        Math.floor(1000+Math.random()*9000);
 
-    playing=!playing;
+    alert(
+        "🧠 احفظ الرقم:\n\n"+sequence
+    );
 
-    document.getElementById("play")
-        .textContent=playing?"❚❚":"▶";
+    setTimeout(()=>{
+
+        const answer =
+            prompt("اكتب الرقم الذي حفظته");
+
+        if(answer===String(sequence)){
+
+            addPoints(40);
+
+            alert("ممتاز! ذاكرتك حديد 🧠🔥 +40 ⭐");
+
+        }else{
+
+            alert("قريب! حاول مرة أخرى.");
+
+        }
+
+    },2500);
 
 }
 
-/* ================= MOBILE MENU ================= */
+/* ================= GAME 4 ================= */
 
-document.querySelector(".menu")
-.addEventListener("click",function(){
+function coinGame(){
 
-    const nav=document.querySelector("nav");
+    const result =
+        Math.random();
 
-    if(nav.style.display==="flex"){
+    if(result>.65){
 
-        nav.style.display="none";
+        addPoints(30);
+
+        alert("🪙 JACKPOT!\n+30 ⭐");
 
     }else{
 
-        nav.style.display="flex";
-        nav.style.position="absolute";
-        nav.style.top="65px";
-        nav.style.right="15px";
-        nav.style.flexDirection="column";
-        nav.style.padding="20px";
-        nav.style.background="rgba(5,8,20,.95)";
-        nav.style.border="1px solid rgba(255,255,255,.1)";
-        nav.style.borderRadius="18px";
+        addPoints(5);
+
+        alert("🪙 حصلت على +5 ⭐");
+
+    }
+
+}
+
+/* ================= KEYBOARD ================= */
+
+document.addEventListener("keydown",e=>{
+
+    if(e.key==="Escape"){
+
+        document.getElementById("sidebar")
+        .classList.remove("open");
 
     }
 
 });
 
+/* ================= SAVE ================= */
+
+window.addEventListener("beforeunload",save);
+
 </script>
+
+<footer style="
+position:relative;
+text-align:center;
+padding:30px;
+color:#555d75;
+font-size:11px;
+border-top:1px solid rgba(255,255,255,.05);
+">
+𝑫𝒐𝒎𝒂 𝑼𝒍𝒕𝒓𝒂 𝒗4
+</footer>
 
 </body>
 </html>
-
