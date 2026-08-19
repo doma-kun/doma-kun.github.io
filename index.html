@@ -590,4 +590,956 @@
         }
 
         @keyframes logoShine {
-            0%
+            0%, 100% { background-position: 0%; }
+            50% { background-position: 100%; }
+        }
+
+        .badge {
+            padding: 9px 18px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            color: #b0a8d0;
+            font-size: 11px;
+            letter-spacing: 2px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+
+        .badge:hover {
+            border-color: rgba(200, 170, 255, 0.4);
+            color: #d0c0f0;
+            background: rgba(120, 90, 200, 0.15);
+        }
+
+        /* =====================================================
+           HERO - القسم الرئيسي
+        ===================================================== */
+
+        .hero {
+            position: relative;
+            z-index: 3;
+            min-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(70px, 16vw, 160px);
+            letter-spacing: clamp(10px, 4vw, 28px);
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #ffffff, #91b9ff, #d28cff, #f0c060, #ffffff);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: titleGlow 8s ease infinite;
+            filter: drop-shadow(0 0 50px rgba(100, 140, 255, 0.35));
+            transition: 0.5s;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { background-position: 0%; }
+            50% { background-position: 100%; }
+        }
+
+        .hero p {
+            max-width: 620px;
+            color: #b5bccf;
+            line-height: 2;
+            font-size: 16px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .start {
+            margin-top: 38px;
+            padding: 18px 44px;
+            border: none;
+            border-radius: 60px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
+            font-family: 'Cairo', sans-serif;
+            letter-spacing: 1px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #4a6dff, #8a4aff, #c040e0);
+            background-size: 200%;
+            box-shadow:
+                0 0 40px rgba(90, 110, 255, 0.4),
+                0 0 80px rgba(120, 80, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            animation: btnGradientShift 4s ease infinite;
+        }
+
+        .start::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+            animation: btnShine 3s ease infinite;
+        }
+
+        @keyframes btnGradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes btnShine {
+            0%, 100% { transform: translate(-20%, -20%) rotate(0deg); }
+            50% { transform: translate(20%, 20%) rotate(30deg); }
+        }
+
+        .start:hover {
+            transform: translateY(-6px) scale(1.04);
+            box-shadow:
+                0 0 60px rgba(100, 110, 255, 0.6),
+                0 0 120px rgba(140, 80, 255, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
+
+        .start:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        /* =====================================================
+           TEST - قسم الاختبار
+        ===================================================== */
+
+        #test {
+            position: relative;
+            z-index: 5;
+            width: min(92%, 720px);
+            margin: 0 auto 100px;
+            display: none;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .panel {
+            padding: 35px;
+            border-radius: 30px;
+            background: rgba(6, 10, 25, 0.8);
+            border: 1px solid rgba(170, 190, 255, 0.15);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            box-shadow:
+                0 30px 100px rgba(0, 0, 0, 0.7),
+                0 0 60px rgba(80, 100, 200, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(200, 180, 255, 0.4), transparent);
+        }
+
+        .progress {
+            height: 6px;
+            background: rgba(20, 25, 45, 0.8);
+            border-radius: 50px;
+            overflow: hidden;
+            margin-bottom: 28px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #5b84ff, #a45eff, #e040b0);
+            background-size: 200%;
+            border-radius: 50px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: barShine 3s ease infinite;
+            box-shadow: 0 0 15px rgba(140, 100, 255, 0.5);
+        }
+
+        @keyframes barShine {
+            0%, 100% { background-position: 0%; }
+            50% { background-position: 100%; }
+        }
+
+        .question-number {
+            color: #8fa8ef;
+            font-size: 13px;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+            font-weight: 600;
+        }
+
+        .question {
+            font-size: 24px;
+            line-height: 1.8;
+            margin-bottom: 28px;
+            font-weight: 600;
+            color: #e8ecf8;
+            animation: slideInQuestion 0.4s ease;
+        }
+
+        @keyframes slideInQuestion {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .answers {
+            display: grid;
+            gap: 13px;
+        }
+
+        .answer {
+            width: 100%;
+            padding: 18px 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            color: #fff;
+            text-align: right;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            font-family: 'Cairo', sans-serif;
+            letter-spacing: 0.3px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .answer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #8ab0ff, #d080ff);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .answer:hover {
+            transform: translateX(-5px);
+            border-color: rgba(150, 170, 255, 0.5);
+            background: rgba(100, 120, 255, 0.1);
+            box-shadow: 0 5px 25px rgba(80, 100, 200, 0.2);
+        }
+
+        .answer:hover::before {
+            opacity: 1;
+        }
+
+        .answer.selected {
+            border-color: rgba(160, 120, 255, 0.6);
+            background: rgba(110, 90, 255, 0.15);
+            box-shadow: 0 5px 30px rgba(120, 80, 255, 0.25);
+        }
+
+        .answer.selected::before {
+            opacity: 1;
+        }
+
+        .next {
+            width: 100%;
+            margin-top: 22px;
+            padding: 16px;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #ffffff, #e8ecf8);
+            color: #070912;
+            font-weight: 700;
+            font-size: 15px;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .next:hover:not(:disabled) {
+            background: linear-gradient(135deg, #ffffff, #d0d8f0);
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .next:disabled {
+            opacity: 0.25;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* =====================================================
+           RESULT - عرض النتيجة
+        ===================================================== */
+
+        .result {
+            display: none;
+            text-align: center;
+            animation: fadeInUp 0.7s ease;
+        }
+
+        .result-icon {
+            font-size: 70px;
+            display: inline-block;
+            animation: resultIconPulse 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 25px rgba(200, 180, 255, 0.4));
+        }
+
+        @keyframes resultIconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .result-type {
+            font-size: 58px;
+            letter-spacing: 12px;
+            margin: 15px 0 8px;
+            background: linear-gradient(90deg, #ffffff, #8ab0ff, #d080ff, #f0c060);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            color: transparent;
+            font-weight: 900;
+            animation: titleGlow 6s ease infinite;
+            filter: drop-shadow(0 0 30px rgba(130, 150, 255, 0.3));
+        }
+
+        .result-title {
+            font-size: 25px;
+            color: #c0c8e8;
+            margin-bottom: 22px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .result-description {
+            color: #b0b8cc;
+            line-height: 2;
+            font-size: 15px;
+            font-weight: 300;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .stat {
+            padding: 18px 10px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #5b84ff, #d080ff);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .stat:hover {
+            border-color: rgba(160, 150, 255, 0.3);
+            background: rgba(100, 90, 200, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .stat:hover::before {
+            opacity: 1;
+        }
+
+        .stat b {
+            display: block;
+            font-size: 22px;
+            margin-bottom: 6px;
+            font-weight: 800;
+            color: #e0e6f8;
+        }
+
+        .stat span {
+            color: #8088a8;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        .restart {
+            margin-top: 30px;
+            padding: 14px 32px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+            color: #d0d8f0;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .restart:hover {
+            border-color: rgba(200, 180, 255, 0.5);
+            background: rgba(140, 100, 255, 0.15);
+            color: #ffffff;
+            box-shadow: 0 5px 25px rgba(120, 90, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* =====================================================
+           FOOTER - التذييل
+        ===================================================== */
+
+        footer {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            padding: 35px;
+            color: #5a6480;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(1, 2, 8, 0.5);
+        }
+
+        /* =====================================================
+           MOBILE - تصميم الجوال
+        ===================================================== */
+
+        @media (max-width: 600px) {
+            .planet1 {
+                width: 75px;
+                height: 75px;
+                right: 4%;
+                top: 10%;
+            }
+
+            .planet1::after {
+                width: 115px;
+                height: 32px;
+                border-width: 2px;
+            }
+
+            .planet2 {
+                width: 50px;
+                height: 50px;
+            }
+
+            .planet3 {
+                width: 32px;
+                height: 32px;
+            }
+
+            .planet4 {
+                width: 20px;
+                height: 20px;
+            }
+
+            .moonOrbit {
+                width: 130px;
+                height: 130px;
+                right: -10px;
+                top: 8%;
+            }
+
+            .hero h1 {
+                font-size: 80px;
+                letter-spacing: 12px;
+            }
+
+            .hero p {
+                font-size: 14px;
+                padding: 0 10px;
+            }
+
+            .panel {
+                padding: 22px 18px;
+                border-radius: 22px;
+            }
+
+            .question {
+                font-size: 20px;
+            }
+
+            .answer {
+                padding: 15px;
+                font-size: 14px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .result-type {
+                font-size: 42px;
+                letter-spacing: 8px;
+            }
+
+            .start {
+                padding: 15px 30px;
+                font-size: 14px;
+            }
+
+            header {
+                padding: 18px 5%;
+            }
+
+            .logo {
+                font-size: 22px;
+                letter-spacing: 5px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .hero h1 {
+                font-size: 60px;
+                letter-spacing: 8px;
+            }
+
+            .panel {
+                padding: 18px 14px;
+            }
+
+            .question {
+                font-size: 18px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* =====================================================
+           Reduced Motion - تقليل الحركة
+        ===================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =====================================================
+         الخلفية الكونية
+    ===================================================== -->
+
+    <div class="space">
+        <div class="cosmic-glow g1"></div>
+        <div class="cosmic-glow g2"></div>
+
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+
+        <div class="twinkle-star ts1"></div>
+        <div class="twinkle-star ts2"></div>
+        <div class="twinkle-star ts3"></div>
+        <div class="twinkle-star ts4"></div>
+        <div class="twinkle-star ts5"></div>
+        <div class="twinkle-star ts6"></div>
+
+        <div class="aurora"></div>
+
+        <div class="galaxy galaxy1"></div>
+        <div class="galaxy galaxy2"></div>
+
+        <div class="nebula nebula1"></div>
+        <div class="nebula nebula2"></div>
+        <div class="nebula nebula3"></div>
+        <div class="nebula nebula4"></div>
+
+        <div class="planet planet1"></div>
+        <div class="planet planet2"></div>
+        <div class="planet planet3"></div>
+        <div class="planet planet4"></div>
+
+        <div class="moonOrbit">
+            <div class="moon"></div>
+        </div>
+
+        <div class="shooting s1"></div>
+        <div class="shooting s2"></div>
+        <div class="shooting s3"></div>
+        <div class="shooting s4"></div>
+
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="particle p3"></div>
+        <div class="particle p4"></div>
+        <div class="particle p5"></div>
+        <div class="particle p6"></div>
+    </div>
+
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
+
+    <header>
+        <div class="logo">DOMA</div>
+        <div class="badge">MBTI • PERSONALITY</div>
+    </header>
+
+    <!-- =====================================================
+         HERO
+    ===================================================== -->
+
+    <section class="hero">
+        <h1>DOMA</h1>
+        <p>
+            استكشف عالم شخصيتك من خلال رحلة بين النجوم،
+            وأجب عن 20 سؤالًا لاكتشاف نمطك في MBTI.
+        </p>
+        <button class="start" onclick="startTest()">
+            ابدأ رحلة اكتشاف شخصيتك 🚀
+        </button>
+    </section>
+
+    <!-- =====================================================
+         TEST
+    ===================================================== -->
+
+    <section id="test">
+        <div class="panel">
+            <div class="progress">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+            <div id="quiz"></div>
+            <div class="result" id="result"></div>
+        </div>
+    </section>
+
+    <footer>
+        DOMA © 2026 • Explore Your Personality 🌌
+    </footer>
+
+    <script>
+        /* =====================================================
+           الأسئلة
+        ===================================================== */
+
+        const questions = [
+            { q: "عندما تكون وسط مجموعة كبيرة من الناس، ماذا تفعل غالبًا؟", a: [
+                    ["أبدأ الحديث وأتعرف على أشخاص جدد", "E"],
+                    ["أفضل مراقبة الموقف والبقاء هادئًا", "I"]
+                ] },
+            { q: "كيف تستعيد طاقتك بعد يوم طويل؟", a: [
+                    ["الخروج والتحدث مع الآخرين", "E"],
+                    ["البقاء وحدي والاسترخاء", "I"]
+                ] },
+            { q: "عندما تأتيك فكرة جديدة:", a: [
+                    ["أحب مشاركتها فورًا", "E"],
+                    ["أفكر فيها وحدي أولًا", "I"]
+                ] },
+            { q: "في التجمعات أنت غالبًا:", a: [
+                    ["مشارك في الحديث", "E"],
+                    ["مستمع أكثر", "I"]
+                ] },
+            { q: "عندما تقابل شخصًا لأول مرة:", a: [
+                    ["أبدأ الحديث بسهولة", "E"],
+                    ["أنتظر حتى يبدأ هو", "I"]
+                ] },
+            { q: "عندما تتعلم شيئًا جديدًا:", a: [
+                    ["أحب الأمثلة الواقعية والتفاصيل", "S"],
+                    ["أحب فهم الفكرة والصورة الكبيرة", "N"]
+                ] },
+            { q: "عندما تفكر في المستقبل:", a: [
+                    ["أركز على الاحتمالات الواقعية", "S"],
+                    ["أتخيل احتمالات كثيرة", "N"]
+                ] },
+            { q: "أنت تهتم أكثر بـ:", a: [
+                    ["ما يحدث الآن", "S"],
+                    ["ما يمكن أن يحدث لاحقًا", "N"]
+                ] },
+            { q: "عند مواجهة مشكلة:", a: [
+                    ["أستخدم حلًا مجربًا", "S"],
+                    ["أبحث عن طريقة جديدة", "N"]
+                ] },
+            { q: "أنت غالبًا:", a: [
+                    ["واقعي وعملي", "S"],
+                    ["خيالي وكثير الأفكار", "N"]
+                ] },
+            { q: "عند اتخاذ قرار مهم:", a: [
+                    ["أعتمد على المنطق", "T"],
+                    ["أراعي المشاعر", "F"]
+                ] },
+            { q: "عندما يخطئ صديقك:", a: [
+                    ["أخبره بالخطأ مباشرة", "T"],
+                    ["أراعي مشاعره أولًا", "F"]
+                ] },
+            { q: "في النقاش:", a: [
+                    ["الوصول للحقيقة أهم", "T"],
+                    ["الحفاظ على الانسجام أهم", "F"]
+                ] },
+            { q: "عندما ينتقدك شخص:", a: [
+                    ["أحلل كلامه منطقيًا", "T"],
+                    ["أفكر في تأثير كلامه عليّ", "F"]
+                ] },
+            { q: "عندما يطلب منك شخص نصيحة:", a: [
+                    ["أعطي الحل الأكثر منطقية", "T"],
+                    ["أفكر بما يحتاج إلى سماعه", "F"]
+                ] },
+            { q: "كيف تحب أن يكون يومك؟", a: [
+                    ["منظمًا ومخططًا", "J"],
+                    ["مرنًا وعفويًا", "P"]
+                ] },
+            { q: "عندما يكون لديك مشروع:", a: [
+                    ["أضع خطة وأبدأ مبكرًا", "J"],
+                    ["أترك الأمور مرنة", "P"]
+                ] },
+            { q: "عندما تتغير الخطة فجأة:", a: [
+                    ["أفضل الالتزام بالخطة الأصلية", "J"],
+                    ["أتكيف بسهولة", "P"]
+                ] },
+            { q: "عندما يكون لديك موعد:", a: [
+                    ["أصل مبكرًا", "J"],
+                    ["أصل في الوقت أو متأخرًا قليلًا", "P"]
+                ] },
+            { q: "غالبًا تفضل:", a: [
+                    ["إنهاء الأمور وترتيبها", "J"],
+                    ["ترك الخيارات مفتوحة", "P"]
+                ] }
+        ];
+
+        /* =====================================================
+           الشخصيات
+        ===================================================== */
+
+        const personalities = {
+            INTJ: { icon: "♟️", title: "المهندس الاستراتيجي", desc: "تحليلي واستراتيجي وتحب التخطيط وبناء الأفكار طويلة المدى." },
+            INTP: { icon: "🧠", title: "المحلل", desc: "فضولي وعميق وتحب فهم الأنظمة والأفكار والبحث عن سبب كل شيء." },
+            ENTJ: { icon: "👑", title: "القائد", desc: "طموح ومنظم وتحب تحويل الأفكار إلى نتائج حقيقية." },
+            ENTP: { icon: "⚡", title: "المبتكر", desc: "محب للأفكار والنقاش والاستكشاف وتستمتع بالتحديات الفكرية." },
+            INFJ: { icon: "🔮", title: "المستشار", desc: "عميق وملاحظ وتحب فهم الناس والبحث عن المعنى." },
+            INFP: { icon: "🌙", title: "الحالم", desc: "خيالي وقيمي وتبحث عن الأصالة والمعنى في حياتك." },
+            ENFJ: { icon: "✨", title: "المرشد", desc: "تهتم بالآخرين وتحب مساعدتهم وتشجيعهم على التطور." },
+            ENFP: { icon: "🚀", title: "المستكشف", desc: "متحمس وفضولي ومليء بالأفكار والتجارب الجديدة." },
+            ISTJ: { icon: "📐", title: "المنظم", desc: "مسؤول وعملي ويمكن الاعتماد عليك وتحب النظام والوضوح." },
+            ISFJ: { icon: "🛡️", title: "الحامي", desc: "مخلص وهادئ وتهتم بالأشخاص والتفاصيل." },
+            ESTJ: { icon: "📊", title: "المدير", desc: "عملي ومنظم وتحب تحمل المسؤولية وإنجاز المهام." },
+            ESFJ: { icon: "🤝", title: "الداعم", desc: "اجتماعي ومهتم بالآخرين وتحب التعاون والعلاقات المستقرة." },
+            ISTP: { icon: "⚙️", title: "المهندس العملي", desc: "عملي وهادئ وتحب فهم الأشياء من خلال التجربة." },
+            ISFP: { icon: "🎨", title: "الفنان", desc: "حساس وهادئ وتقدر الحرية والجمال والتجارب الشخصية." },
+            ESTP: { icon: "🏎️", title: "المغامر", desc: "جريء وعملي وتحب الحركة والتجارب والتحديات." },
+            ESFP: { icon: "🎭", title: "الممتع", desc: "عفوي واجتماعي وتحب الاستمتاع بالحياة ومشاركة اللحظات." }
+        };
+
+        /* =====================================================
+           الحالة
+        ===================================================== */
+
+        let current = 0;
+        let answers = [];
+
+        const test = document.getElementById("test");
+        const quiz = document.getElementById("quiz");
+        const result = document.getElementById("result");
+        const progress = document.getElementById("progress");
+
+        /* =====================================================
+           الدوال
+        ===================================================== */
+
+        function startTest() {
+            document.querySelector('.hero').style.display = 'none';
+            test.style.display = 'block';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (current >= questions.length) {
+                showResult();
+                return;
+            }
+
+            const q = questions[current];
+            const total = questions.length;
+            const percent = ((current) / total) * 100;
+
+            progress.style.width = percent + '%';
+            progress.style.transition = 'width 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+
+            let html = `
+                <div class="question-number">سؤال ${current + 1} من ${total}</div>
+                <div class="question">${q.q}</div>
+                <div class="answers">
+            `;
+
+            q.a.forEach((answer, index) => {
+                const selectedClass = (answers[current] === answer[1]) ? 'selected' : '';
+                html += `
+                    <button class="answer ${selectedClass}" onclick="selectAnswer(${index})">
+                        ${answer[0]}
+                    </button>
+                `;
+            });
+
+            html += `
+                </div>
+                <button class="next" onclick="nextQuestion()" ${answers[current] ? '' : 'disabled'}>
+                    ${current === questions.length - 1 ? 'عرض النتيجة ✨' : 'التالي ←'}
+                </button>
+            `;
+
+            quiz.innerHTML = html;
+            quiz.style.display = 'block';
+            result.style.display = 'none';
+
+            // إعادة تحريك العناصر
+            const questionEl = quiz.querySelector('.question');
+            if (questionEl) {
+                questionEl.style.animation = 'none';
+                void questionEl.offsetWidth;
+                questionEl.style.animation = 'slideInQuestion 0.4s ease';
+            }
+        }
+
+        function selectAnswer(index) {
+            const selectedTrait = questions[current].a[index][1];
+            answers[current] = selectedTrait;
+
+            // تحديث التحديد البصري
+            document.querySelectorAll('.answer').forEach((btn, i) => {
+                btn.classList.toggle('selected', i === index);
+            });
+
+            // تمكين زر التالي
+            const nextBtn = document.querySelector('.next');
+            if (nextBtn) {
+                nextBtn.disabled = false;
+            }
+        }
+
+        function nextQuestion() {
+            if (!answers[current]) return;
+            current++;
+            showQuestion();
+        }
+
+        function calculateMBTI() {
+            const traits = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+
+            answers.forEach(trait => {
+                if (traits[trait] !== undefined) {
+                    traits[trait]++;
+                }
+            });
+
+            const mbti =
+                (traits.E >= traits.I ? 'E' : 'I') +
+                (traits.S >= traits.N ? 'S' : 'N') +
+                (traits.T >= traits.F ? 'T' : 'F') +
+                (traits.J >= traits.P ? 'J' : 'P');
+
+            return { type: mbti, traits };
+        }
+
+        function showResult() {
+            quiz.style.display = 'none';
+            result.style.display = 'block';
+
+            progress.style.width = '100%';
+
+            const { type, traits } = calculateMBTI();
+            const personality = personalities[type] || { icon: "🌌", title: "شخصية فريدة", desc: "أنت شخصية مميزة بصفاتها الخاصة." };
+
+            const traitPercentages = {
+                E: Math.round((traits.E / 5) * 100),
+                I: Math.round((traits.I / 5) * 100),
+                S: Math.round((traits.S / 5) * 100),
+                N: Math.round((traits.N / 5) * 100),
+                T: Math.round((traits.T / 5) * 100),
+                F: Math.round((traits.F / 5) * 100),
+                J: Math.round((traits.J / 5) * 100),
+                P: Math.round((traits.P / 5) * 100)
+            };
+
+            const traitLabels = {
+                E: 'اجتماعي',
+                I: 'انطوائي',
+                S: 'حسي',
+                N: 'حدسي',
+                T: 'منطقي',
+                F: 'عاطفي',
+                J: 'منظم',
+                P: 'مرن'
+            };
+
+            // تحديد الأبعاد الأربعة
+            const dimensions = [
+                { left: 'E', right: 'I', leftLabel: 'اجتماعي', rightLabel: 'انطوائي', leftValue: traitPercentages.E, rightValue: traitPercentages.I },
+                { left: 'S', right: 'N', leftLabel: 'حسي', rightLabel: 'حدسي', leftValue: traitPercentages.S, rightValue: traitPercentages.N },
+                { left: 'T', right: 'F', leftLabel: 'منطقي', rightLabel: 'عاطفي', leftValue: traitPercentages.T, rightValue: traitPercentages.F },
+                { left: 'J', right: 'P', leftLabel: 'منظم', rightLabel: 'مرن', leftValue: traitPercentages.J, rightValue: traitPercentages.P }
+            ];
+
+            let statsHtml = '';
+            dimensions.forEach(dim => {
+                const leftWins = dim.leftValue >= dim.rightValue;
+                statsHtml += `
+                    <div class="stat">
+                        <b>${leftWins ? dim.left : dim.right}</b>
+                        <span>${leftWins ? dim.leftLabel : dim.rightLabel}</span>
+                        <div style="font-size:10px;color:#6a7490;margin-top:8px;">
+                            ${dim.leftValue}% / ${dim.rightValue}%
+                        </div>
+                    </div>
+                `;
+            });
+
+            result.innerHTML = `
+                <div class="result-icon">${personality.icon}</div>
+                <div class="result-type">${type}</div>
+                <div class="result-title">${personality.title}</div>
+                <div class="result-description">${personality.desc}</div>
+                <div class="stats">${statsHtml}</div>
+                <button class="restart" onclick="restartTest()">🔄 إعادة الاختبار</button>
+            `;
+        }
+
+        function restartTest() {
+            current = 0;
+            answers = [];
+            document.querySelector('.hero').style.display = 'flex';
+            test.style.display = 'none';
+            result.style.display = 'none';
+            quiz.style.display = 'block';
+            progress.style.width = '0';
+        }
+    </script>
+
+</body>
+</html>
