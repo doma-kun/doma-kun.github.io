@@ -344,7 +344,6 @@ footer{width:100%; border-top:1px solid var(--line); padding:30px; text-align:ce
                 <div class="statCard"><div class="statIcon">🎮</div><b id="homeGames">0</b><span>الألعاب</span></div>
                 <div class="statCard"><div class="statIcon">🔥</div><b id="homeStreak">0</b><span>سلسلة الأيام</span></div>
             </div>
-            <!-- زر اختبار MBTI في الصفحة الرئيسية -->
             <div style="margin-top:25px;text-align:center;">
                 <button class="btn primary" onclick="openMBTI()">🧠 اختبار الشخصية MBTI</button>
             </div>
@@ -476,7 +475,7 @@ footer{width:100%; border-top:1px solid var(--line); padding:30px; text-align:ce
 // ==================== CONFIG ====================
 const CONFIG = {
     imageAPI: "https://image.pollinations.ai/prompt/",
-    textAPI: "https://text.pollinations.ai/",
+    aiAPI: "https://notrack.ai/api/dispatch",
     videoAPI: "https://engez.a7a.online/api/v1"
 };
 
@@ -532,18 +531,32 @@ function showPage(id, button) {
     window.scrollTo({ top:0, behavior:"smooth" });
 }
 
-// ==================== AI (محلي) ====================
-function askAI() {
+// ==================== AI (notrack.ai) ====================
+async function askAI() {
     const input = document.getElementById("aiInput");
     const text = input.value.trim();
     if(!text) return;
     addMessage(text, "user");
     input.value = "";
-    addPoints(2); // نقاط لكل سؤال
-    setTimeout(() => {
-        const answer = localAI(text);
-        addMessage(answer, "bot");
-    }, 400);
+    const loadingMsg = addMessage("⏳ أفكر...", "bot");
+    try {
+        const response = await fetch(CONFIG.aiAPI, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                prompt: text,
+                model: "gpt-3.5-turbo"
+            })
+        });
+        if(!response.ok) throw new Error("API error: " + response.status);
+        const data = await response.json();
+        let answer = data?.text || data?.response || data?.message || "لم أستطع معالجة طلبك.";
+        loadingMsg.textContent = answer;
+        addPoints(2);
+    } catch(error) {
+        loadingMsg.textContent = "تعذر الاتصال بالذكاء الاصطناعي. حاول مرة أخرى لاحقًا.";
+        console.error(error);
+    }
 }
 
 function addMessage(text, type) {
@@ -554,29 +567,6 @@ function addMessage(text, type) {
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
     return div;
-}
-
-function localAI(text) {
-    const t = text.toLowerCase();
-    if(t.includes("مرحبا") || t.includes("السلام")) {
-        return "مرحبًا بك 👋✨ كيف أستطيع مساعدتك اليوم؟";
-    }
-    if(t.includes("من انت") || t.includes("من أنت")) {
-        return "أنا Doma AI، المساعد الذكي داخل 𝑫𝒐𝒎𝒂 Ultra v4 🧠🌌";
-    }
-    if(t.includes("فكرة")) {
-        return "لدي فكرة لك: اصنع مشروعًا صغيرًا يجمع الألعاب والذكاء الاصطناعي ونظام نقاط، واجعل المستخدم يفتح مستويات جديدة كلما جمع النجوم. 🚀";
-    }
-    if(t.includes("html")) {
-        return "HTML يبني هيكل الصفحة، CSS يعطيها الشكل، وJavaScript يجعلها تتفاعل وتعمل.";
-    }
-    if(t.includes("css")) {
-        return "CSS تتحكم في الألوان والخطوط والتخطيط والحركات. يمكنك إنشاء تصميمات مذهلة باستخدامها.";
-    }
-    if(t.includes("js") || t.includes("جافاسكريبت")) {
-        return "JavaScript هي لغة البرمجة التي تجعل صفحات الويب تفاعلية وديناميكية.";
-    }
-    return "فهمت سؤالك: " + text + "\nهذه نسخة Doma المحلية. اربطني مع API للذكاء الاصطناعي الحقيقي للحصول على إجابات أعمق. 🧠⚡";
 }
 
 // ==================== IMAGE GENERATOR ====================
