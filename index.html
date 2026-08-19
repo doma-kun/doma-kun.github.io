@@ -210,7 +210,7 @@ select option{background:#101010;}
     border:1px solid var(--line); border-radius:28px; padding:28px; box-shadow:0 30px 100px #000;
 }
 .gameHead{display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;}
-.close{width:40px; height:40px; border-radius:50%; border:1px solid var(--line); background:rgba(255,255,255,.05); color:#fff; cursor:pointer;}
+.close{width:40px; height:40px; border-radius:50%; border:1px solid var(--line); background:rgba(255,255,255,.05); color:#fff; cursor:pointer; font-size:20px;}
 .scramble{font-size:38px; letter-spacing:8px; text-align:center; margin:30px 0; color:#d4af37; font-weight:900;}
 .center{text-align:center;}
 .timer{font-size:40px; font-weight:900; color:var(--gold);}
@@ -454,7 +454,7 @@ footer{width:100%; border-top:1px solid var(--line); padding:30px; text-align:ce
 </div>
 
 <!-- GAME MODAL -->
-<div class="modal" id="gameModal">
+<div class="modal" id="gameModal" onclick="if(event.target===this)closeGame()">
     <div class="gameBox">
         <div class="gameHead">
             <div>
@@ -819,6 +819,8 @@ function renderGames() {
 
 // ==================== GAME ENGINE ====================
 let gameSession = null;
+let gameTimer = null;
+let reactionTimeout;
 
 function openGame(id) {
     const game = games.find(g => g.id === id) || games[0];
@@ -861,6 +863,7 @@ function openGameModal(title, desc, html) {
 }
 
 function closeGame() {
+    clearTimeout(reactionTimeout);
     clearInterval(gameTimer);
     document.getElementById("gameModal").classList.remove("show");
 }
@@ -870,7 +873,7 @@ function endGame(points) {
     user.gamesPlayed++;
     localStorage.setItem("DOMA_USER", JSON.stringify(user));
     updateUI();
-    const html = `<div class="center"><div style="font-size:55px">🏆</div><h2>نتيجتك: ${gameSession.score}</h2><p style="color:var(--muted)">حصلت على ${points} XP</p><button class="btn gold" onclick="closeGame()">متابعة</button></div>`;
+    const html = `<div class="center"><div style="font-size:55px">🏆</div><h2>نتيجتك: ${points}</h2><p style="color:var(--muted)">حصلت على ${points} XP</p><button class="btn gold" onclick="closeGame()">متابعة</button></div>`;
     document.getElementById("gameContent").innerHTML = html;
 }
 
@@ -898,7 +901,6 @@ function checkScramble() {
         const seconds = (Date.now()-gameSession.startTime)/1000;
         const points = Math.max(10, Math.round(80 - seconds*4));
         feedback.innerHTML = `🎉 صحيح! +${points} XP`;
-        gameSession.score = points;
         endGame(points);
     } else {
         feedback.innerHTML = "❌ ليست الإجابة الصحيحة.";
@@ -921,7 +923,6 @@ function checkTyping() {
         const seconds = (Date.now()-gameSession.startTime)/1000;
         const points = Math.max(5, Math.round(60 - seconds*3));
         feedback.innerHTML = `⚡ ممتاز! ${seconds.toFixed(2)} ثانية | +${points} XP`;
-        gameSession.score = points;
         endGame(points);
     } else {
         feedback.innerHTML = "❌ حاول مرة أخرى.";
@@ -972,7 +973,6 @@ function checkMemory() {
     }
 }
 
-let reactionTimeout;
 function startReactionGame() {
     gameSession.score = 0;
     const html = `<div class="center"><p>اضغط الزر عندما يتحول إلى اللون الأخضر.</p><button id="reactBtn" class="btn secondary" onclick="reactEarly()" style="background:#333;font-size:30px;padding:30px">انتظر...</button><p id="reactMsg" class="feedback"></p></div>`;
@@ -990,7 +990,7 @@ function reactEarly() {
 }
 
 function reactSuccess() {
-    const time = Date.now();
+    clearTimeout(reactionTimeout);
     endGame(20);
 }
 
@@ -1042,10 +1042,9 @@ function startMathGame() {
     const op = Math.random()<0.5?"+":"-";
     const correct = op==="+"?a+b:a-b;
     const options = [correct, correct+1, correct-1, correct+2].sort(()=>Math.random()-.5);
-    gameSession.data = { correct };
+    gameSession.data = { correct, options };
     const html = `<div class="center"><p>ما ناتج العملية؟</p><div class="scramble" style="font-size:36px">${a} ${op} ${b} = ؟</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px">${options.map((o,i)=>`<button class="btn secondary" onclick="checkMath(${i})">${o}</button>`).join("")}</div></div>`;
     document.getElementById("gameContent").innerHTML = html;
-    gameSession.data.options = options;
 }
 function checkMath(i) {
     if(gameSession.data.options[i] === gameSession.data.correct) endGame(20);
@@ -1165,7 +1164,7 @@ const quizBanks = {
 
 function startQuiz(type) {
     const bank = quizBanks[type] || quizBanks.general;
-    gameSession.data = { bank, index:0 };
+    gameSession.data = { bank, index:0, score:0 };
     renderQuizQuestion();
 }
 function renderQuizQuestion() {
@@ -1176,13 +1175,13 @@ function renderQuizQuestion() {
 function checkQuiz(i) {
     const q = gameSession.data.bank[gameSession.data.index];
     if(i === q.a) {
-        gameSession.score += 10;
+        gameSession.data.score += 10;
         gameSession.data.index++;
         if(gameSession.data.index < gameSession.data.bank.length) renderQuizQuestion();
-        else endGame(gameSession.score);
+        else endGame(gameSession.data.score);
     } else {
         document.getElementById("quizMsg").innerHTML = "❌ خطأ";
-        endGame(gameSession.score);
+        endGame(gameSession.data.score);
     }
 }
 
@@ -1199,7 +1198,6 @@ function checkWord() {
 }
 
 function startGenericGame(type) {
-    // Fallback for any remaining types
     startRandomChoice();
 }
 
