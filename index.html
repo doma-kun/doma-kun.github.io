@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DOMA | MBTI</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    overflow-x:hidden;
+    background:
+        radial-gradient(circle at 50% 35%, #17233d 0%, #080b16 35%, #02030a 75%);
+    color:#fff;
+    font-family:Arial,Tahoma,sans-serif;
+}
+
+/* =========================
+   النجوم
+========================= */
+
+.space{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    opacity:.7;
+    animation:twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+
+    0%,100%{
+        opacity:.2;
+        transform:scale(.7);
+    }
+
+    50%{
+        opacity:1;
+        transform:scale(1.5);
+    }
+
+}
+
+/* =========================
+   الهيدر
+========================= */
+
+header{
+    position:relative;
+    z-index:10;
+    padding:25px 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:6px;
+    color:#fff;
+    text-shadow:0 0 20px #6fa8ff;
+}
+
+.badge{
+    border:1px solid rgba(255,255,255,.2);
+    padding:8px 14px;
+    border-radius:50px;
+    background:rgba(255,255,255,.05);
+    color:#aebde0;
+    font-size:12px;
+}
+
+/* =========================
+   الصفحة الرئيسية
+========================= */
+
+.hero{
+    position:relative;
+    z-index:2;
+    min-height:85vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:20px;
+}
+
+.hero h1{
+    font-size:clamp(60px,14vw,130px);
+    letter-spacing:15px;
+    margin-bottom:10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #8ab4ff,
+            #ffffff
+        );
+
+    -webkit-background-clip:text;
+    color:transparent;
+
+    text-shadow:
+        0 0 40px rgba(95,145,255,.35);
+}
+
+.hero p{
+    color:#aeb7cc;
+    max-width:600px;
+    line-height:1.8;
+    font-size:16px;
+}
+
+.start{
+    margin-top:30px;
+    padding:15px 35px;
+
+    border:0;
+    border-radius:50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #668cff,
+            #8e5cff
+        );
+
+    color:white;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 0 35px rgba(104,117,255,.35);
+
+    transition:.3s;
+}
+
+.start:hover{
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 0 55px rgba(104,117,255,.6);
+}
+
+/* =========================
+   النظام الشمسي
+========================= */
+
+.solar{
+    position:relative;
+
+    width:min(92vw,600px);
+    height:min(92vw,600px);
+
+    margin:30px auto 80px;
+
+    z-index:2;
+}
+
+.sun{
+    position:absolute;
+
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    background:
+        radial-gradient(
+            circle,
+            #fff 0%,
+            #ffd95e 25%,
+            #ff8a00 65%,
+            #ff3d00 100%
+        );
+
+    box-shadow:
+        0 0 25px #ffd34d,
+        0 0 60px #ff9d00,
+        0 0 110px rgba(255,140,0,.5);
+
+    z-index:5;
+}
+
+.orbit{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    border:
+        1px solid rgba(130,170,255,.18);
+
+    border-radius:50%;
+}
+
+.orbit1{
+    width:28%;
+    height:28%;
+}
+
+.orbit2{
+    width:43%;
+    height:43%;
+}
+
+.orbit3{
+    width:59%;
+    height:59%;
+}
+
+.orbit4{
+    width:75%;
+    height:75%;
+}
+
+.orbit5{
+    width:91%;
+    height:91%;
+}
+
+.planet-wrap{
+    position:absolute;
+    inset:0;
+
+    animation:
+        orbit linear infinite;
+}
+
+.planet{
+    position:absolute;
+
+    left:50%;
+    top:0;
+
+    transform:
+        translate(-50%,-50%);
+
+    border-radius:50%;
+}
+
+.p1{
+    width:10px;
+    height:10px;
+
+    background:#9fa9b7;
+
+    box-shadow:
+        0 0 10px #aaa;
+}
+
+.p2{
+    width:16px;
+    height:16px;
+
+    background:#e7a66a;
+
+    box-shadow:
+        0 0 15px #e7a66a;
+}
+
+.p3{
+    width:20px;
+    height:20px;
+
+    background:#4fa7ff;
+
+    box-shadow:
+        0 0 18px #4fa7ff;
+}
+
+.p4{
+    width:15px;
+    height:15px;
+
+    background:#d95d4f;
+
+    box-shadow:
+        0 0 15px #d95d4f;
+}
+
+.p5{
+    width:28px;
+    height:28px;
+
+    background:#d6ad76;
+
+    box-shadow:
+        0 0 20px #d6ad76;
+}
+
+.ring{
+    position:absolute;
+
+    width:45px;
+    height:13px;
+
+    border:
+        2px solid rgba(230,190,120,.7);
+
+    border-radius:50%;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%)
+        rotate(-20deg);
+}
+
+.speed1{
+    animation-duration:5s;
+}
+
+.speed2{
+    animation-duration:8s;
+}
+
+.speed3{
+    animation-duration:12s;
+}
+
+.speed4{
+    animation-duration:17s;
+}
+
+.speed5{
+    animation-duration:24s;
+}
+
+@keyframes orbit{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+/* =========================
+   الاختبار
+========================= */
+
+#test{
+    position:relative;
+    z-index:3;
+
+    width:min(92%,700px);
+
+    margin:
+        0 auto 80px;
+
+    display:none;
+}
+
+.panel{
+    background:
+        rgba(9,13,28,.78);
+
+    border:
+        1px solid rgba(150,180,255,.15);
+
+    border-radius:28px;
+
+    padding:28px;
+
+    backdrop-filter:
+        blur(18px);
+
+    box-shadow:
+        0 20px 80px rgba(0,0,0,.45);
+}
+
+.progress{
+    height:6px;
+
+    background:#1a2031;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin-bottom:25px;
+}
+
+.progress-bar{
+    height:100%;
+
+    width:0%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #668cff,
+            #b26cff
+        );
+
+    transition:.4s;
+}
+
+.question-number{
+    color:#8ea9e9;
+
+    font-size:13px;
+
+    margin-bottom:12px;
+}
+
+.question{
+    font-size:24px;
+
+    line-height:1.6;
+
+    margin-bottom:25px;
+}
+
+.answers{
+    display:grid;
+
+    gap:12px;
+}
+
+.answer{
+    padding:17px;
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    border-radius:16px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    color:#fff;
+
+    cursor:pointer;
+
+    text-align:right;
+
+    transition:.25s;
+
+    font-size:15px;
+}
+
+.answer:hover{
+    border-color:#718fff;
+
+    background:
+        rgba(100,120,255,.1);
+
+    transform:
+        translateX(-3px);
+}
+
+.answer.selected{
+    border-color:#8b78ff;
+
+    background:
+        rgba(105,91,255,.2);
+
+    box-shadow:
+        0 0 25px rgba(110,90,255,.15);
+}
+
+.next{
+    margin-top:22px;
+
+    width:100%;
+
+    padding:15px;
+
+    border:0;
+
+    border-radius:15px;
+
+    background:#fff;
+
+    color:#080a12;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    font-size:15px;
+}
+
+.next:disabled{
+    opacity:.35;
+
+    cursor:not-allowed;
+}
+
+/* =========================
+   النتيجة
+========================= */
+
+.result{
+    display:none;
+
+    text-align:center;
+}
+
+.result-icon{
+    font-size:65px;
+
+    margin-bottom:10px;
+}
+
+.result-type{
+    font-size:58px;
+
+    letter-spacing:8px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff,
+            #8eafff,
+            #c17dff
+        );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+    margin:10px 0;
+}
+
+.result-title{
+    font-size:24px;
+
+    color:#b6c7ee;
+
+    margin-bottom:20px;
+}
+
+.result-description{
+    color:#aeb6ca;
+
+    line-height:1.9;
+
+    font-size:15px;
+}
+
+.stats{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:10px;
+
+    margin-top:25px;
+}
+
+.stat{
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    padding:15px 8px;
+
+    border-radius:15px;
+}
+
+.stat b{
+    display:block;
+
+    font-size:18px;
+
+    margin-bottom:5px;
+}
+
+.stat span{
+    color:#7f8aa5;
+
+    font-size:11px;
+}
+
+.restart{
+    margin-top:25px;
+
+    padding:13px 28px;
+
+    border:
+        1px solid rgba(255,255,255,.15);
+
+    background:
+        rgba(255,255,255,.05);
+
+    color:#fff;
+
+    border-radius:50px;
+
+    cursor:pointer;
+}
+
+/* =========================
+   الفوتر
+========================= */
+
+footer{
+    position:relative;
+
+    z-index:3;
+
+    text-align:center;
+
+    padding:30px;
+
+    color:#515b72;
+
+    font-size:12px;
+}
+
+/* =========================
+   الهاتف
+========================= */
+
+@media(max-width:500px){
+
+    header{
+        padding:20px;
+    }
+
+    .logo{
+        font-size:23px;
+    }
+
+    .hero h1{
+        letter-spacing:8px;
+    }
+
+    .hero p{
+        font-size:14px;
+    }
+
+    .solar{
+        margin-top:10px;
+    }
+
+    .question{
+        font-size:20px;
+    }
+
+    .panel{
+        padding:20px;
+    }
+
+    .stats{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- النجوم -->
+
+<div
+    class="space"
+    id="stars">
+</div>
+
+
+<!-- الهيدر -->
+
+<header>
+
+    <div class="logo">
+        DOMA
+    </div>
+
+    <div class="badge">
+        MBTI • PERSONALITY
+    </div>
+
+</header>
+
+
+<!-- الصفحة الرئيسية -->
+
+<section class="hero">
+
+    <h1>
+        DOMA
+    </h1>
+
+    <p>
+        اكتشف النمط الذي يختبئ خلف شخصيتك.
+        أجب عن 20 سؤالًا ودع النظام يحلل شخصيتك.
+    </p>
+
+    <button
+        class="start"
+        onclick="startTest()">
+
+        ابدأ اختبار الشخصية 🚀
+
+    </button>
+
+
+    <!-- النظام الشمسي -->
+
+    <div class="solar">
+
+        <!-- الشمس -->
+
+        <div class="sun"></div>
+
+
+        <!-- المدار الأول -->
+
+        <div class="orbit orbit1">
+
+            <div class="planet-wrap speed1">
+
+                <div class="planet p1"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- المدار الثاني -->
+
+        <div class="orbit orbit2">
+
+            <div class="planet-wrap speed2">
+
+                <div class="planet p2"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- المدار الثالث -->
+
+        <div class="orbit orbit3">
+
+            <div class="planet-wrap speed3">
+
+                <div class="planet p3"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- المدار الرابع -->
+
+        <div class="orbit orbit4">
+
+            <div class="planet-wrap speed4">
+
+                <div class="planet p4"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- المدار الخامس -->
+
+        <div class="orbit orbit5">
+
+            <div class="planet-wrap speed5">
+
+                <div class="planet p5">
+
+                    <div class="ring"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- الاختبار -->
+
+<section id="test">
+
+    <div class="panel">
+
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                id="progress">
+            </div>
+
+        </div>
+
+
+        <div id="quiz"></div>
+
+
+        <div
+            class="result"
+            id="result">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- الفوتر -->
+
+<footer>
+
+    DOMA © 2026
+    •
+    Explore Your Personality 🌌
+
+</footer>
+
+
+<script>
+
+/* =========================
+   إنشاء النجوم
+========================= */
+
+const stars =
+    document.getElementById("stars");
+
+
+for(let i = 0; i < 150; i++){
+
+    const star =
+        document.createElement("div");
+
+    star.className =
+        "star";
+
+    star.style.left =
+        Math.random() * 100 + "%";
+
+    star.style.top =
+        Math.random() * 100 + "%";
+
+    star.style.animationDelay =
+        Math.random() * 3 + "s";
+
+    star.style.opacity =
+        Math.random();
+
+    stars.appendChild(star);
+
+}
+
+
+/* =========================
+   أسئلة الاختبار
+========================= */
+
+const questions = [
+
+{
+    q:"عندما تكون في مكان مليء بالأشخاص، ماذا تفعل غالبًا؟",
+
+    a:[
+        ["أفضل التحدث والتعرف على أشخاص جدد","E"],
+        ["أفضل البقاء هادئًا ومراقبة ما يحدث","I"]
+    ]
+},
+
+{
+    q:"بعد يوم طويل، كيف تستعيد طاقتك؟",
+
+    a:[
+        ["أخرج وأتحدث مع الآخرين","E"],
+        ["أجلس وحدي وأرتاح","I"]
+    ]
+},
+
+{
+    q:"عندما تكون لديك فكرة جديدة، ماذا تفعل؟",
+
+    a:[
+        ["أخبر شخصًا عنها بسرعة","E"],
+        ["أفكر فيها وحدي أولًا","I"]
+    ]
+},
+
+{
+    q:"في التجمعات الكبيرة أنت غالبًا:",
+
+    a:[
+        ["تشارك في الحديث بسهولة","E"],
+        ["تفضل الاستماع أكثر","I"]
+    ]
+},
+
+{
+    q:"عندما تقابل شخصًا لأول مرة:",
+
+    a:[
+        ["أبدأ الحديث بسهولة","E"],
+        ["أنتظر حتى يبدأ هو","I"]
+    ]
+},
+
+{
+    q:"عندما تتعلم شيئًا جديدًا، تفضل:",
+
+    a:[
+        ["أمثلة واقعية وتفاصيل واضحة","S"],
+        ["فهم الفكرة والصورة الكبيرة","N"]
+    ]
+},
+
+{
+    q:"عندما تتحدث عن المستقبل، تميل إلى:",
+
+    a:[
+        ["التفكير فيما يمكن حدوثه واقعيًا","S"],
+        ["تخيل احتمالات كثيرة","N"]
+    ]
+},
+
+{
+    q:"أنت عادة تهتم أكثر بـ:",
+
+    a:[
+        ["ما يحدث الآن","S"],
+        ["ما يمكن أن يحدث لاحقًا","N"]
+    ]
+},
+
+{
+    q:"عندما تواجه مشكلة، تفضل:",
+
+    a:[
+        ["استخدام طريقة جربتها من قبل","S"],
+        ["ابتكار طريقة جديدة","N"]
+    ]
+},
+
+{
+    q:"أصدقاؤك يصفونك غالبًا بأنك:",
+
+    a:[
+        ["واقعي وعملي","S"],
+        ["خيالي وكثير الأفكار","N"]
+    ]
+},
+
+{
+    q:"عند اتخاذ قرار مهم، تعتمد أكثر على:",
+
+    a:[
+        ["المنطق والأدلة","T"],
+        ["المشاعر وتأثير القرار على الآخرين","F"]
+    ]
+},
+
+{
+    q:"إذا أخطأ صديقك، ماذا تفعل؟",
+
+    a:[
+        ["أخبره مباشرة بما أخطأ فيه","T"],
+        ["أحاول مراعاة مشاعره أولًا","F"]
+    ]
+},
+
+{
+    q:"في النقاش، الأهم بالنسبة لك:",
+
+    a:[
+        ["الوصول للحقيقة","T"],
+        ["الحفاظ على الانسجام","F"]
+    ]
+},
+
+{
+    q:"عندما تسمع انتقادًا لك:",
+
+    a:[
+        ["أحلله منطقيًا","T"],
+        ["أفكر في شعوري تجاهه","F"]
+    ]
+},
+
+{
+    q:"عندما يطلب منك شخص النصيحة:",
+
+    a:[
+        ["أعطيه الحل الأكثر منطقية","T"],
+        ["أفكر فيما يحتاج إلى سماعه","F"]
+    ]
+},
+
+{
+    q:"كيف تفضل أن يكون يومك؟",
+
+    a:[
+        ["مخططًا ومنظمًا","J"],
+        ["مرنًا وأقرر حسب الظروف","P"]
+    ]
+},
+
+{
+    q:"عندما يكون لديك مشروع:",
+
+    a:[
+        ["أبدأ مبكرًا وأضع خطة","J"],
+        ["أعمل عليه عندما أشعر أن الوقت مناسب","P"]
+    ]
+},
+
+{
+    q:"غرفتك أو ملفاتك غالبًا:",
+
+    a:[
+        ["مرتبة ومنظمة","J"],
+        ["غير مرتبة تمامًا لكن أعرف أماكن الأشياء","P"]
+    ]
+},
+
+{
+    q:"إذا تغيرت الخطة فجأة:",
+
+    a:[
+        ["يزعجني ذلك","J"],
+        ["لا مشكلة، أتكيف بسهولة","P"]
+    ]
+},
+
+{
+    q:"عندما يكون لديك موعد:",
+
+    a:[
+        ["أفضل الوصول مبكرًا","J"],
+        ["غالبًا أصل في الوقت أو متأخرًا قليلًا","P"]
+    ]
+}
+
+];
+
+
+/* =========================
+   شخصيات MBTI
+========================= */
+
+const personalities = {
+
+INTJ:{
+    title:"المهندس الاستراتيجي 🧠",
+    icon:"♟️",
+    desc:"تحب التخطيط والتفكير العميق وبناء الحلول طويلة المدى. تميل إلى الاستقلالية وتحليل الأشياء قبل اتخاذ قراراتك."
+},
+
+INTP:{
+    title:"المحلل 🔬",
+    icon:"🧠",
+    desc:"فضولي وتحليلي وتحب فهم كيف ولماذا تعمل الأشياء. تستمتع بالأفكار والنظريات وقد تغوص في موضوع واحد لساعات."
+},
+
+ENTJ:{
+    title:"القائد 👑",
+    icon:"⚔️",
+    desc:"طموح ومنظم وتميل إلى تحويل الأفكار إلى نتائج. تحب التحديات واتخاذ القرارات وتحريك الأمور إلى الأمام."
+},
+
+ENTP:{
+    title:"المبتكر ⚡",
+    icon:"💡",
+    desc:"تحب الأفكار الجديدة والنقاش والاستكشاف. سريع في إيجاد الاحتمالات وقد تشعر بالملل من الروتين."
+},
+
+INFJ:{
+    title:"المستشار 🌙",
+    icon:"🔮",
+    desc:"عميق وملاحظ ولديك اهتمام كبير بفهم الناس والأفكار. تميل إلى البحث عن معنى وهدف خلف الأشياء."
+},
+
+INFP:{
+    title:"الحالم 🌌",
+    icon:"🌙",
+    desc:"خيالي وقيمي وتهتم بأن تكون أفعالك متوافقة مع مبادئك. لديك عالم داخلي غني وتقدر الأصالة."
+},
+
+ENFJ:{
+    title:"المرشد ❤️",
+    icon:"✨",
+    desc:"تهتم بالناس وتحب مساعدتهم على التطور. لديك قدرة جيدة على فهم الآخرين وتشجيعهم."
+},
+
+ENFP:{
+    title:"المستكشف 🌟",
+    icon:"🚀",
+    desc:"متحمس وفضولي ومليء بالأفكار. تحب التجارب الجديدة والتواصل مع الآخرين وتكره الشعور بأنك محاصر."
+},
+
+ISTJ:{
+    title:"المنظم 📚",
+    icon:"📐",
+    desc:"عملي ومسؤول ويمكن الاعتماد عليك. تحب الوضوح والنظام وإنجاز الأمور بطريقة صحيحة."
+},
+
+ISFJ:{
+    title:"الحامي 🛡️",
+    icon:"🛡️",
+    desc:"مخلص وهادئ وتهتم بالتفاصيل وبالأشخاص القريبين منك. تحب مساعدة الآخرين وتقدير ما هو مألوف."
+},
+
+ESTJ:{
+    title:"المدير 📊",
+    icon:"📈",
+    desc:"عملي ومنظم وتحب أن تكون الأمور واضحة. تميل إلى تحمل المسؤولية وتحويل الخطط إلى واقع."
+},
+
+ESFJ:{
+    title:"الداعم 🤝",
+    icon:"💙",
+    desc:"اجتماعي ومهتم بالآخرين وتحب خلق جو جيد حولك. تقدر التعاون والعلاقات المستقرة."
+},
+
+ISTP:{
+    title:"المهندس العملي 🔧",
+    icon:"⚙️",
+    desc:"هادئ وعملي وتحب فهم الأشياء من خلال التجربة. جيد في حل المشكلات والتعامل مع المواقف غير المتوقعة."
+},
+
+ISFP:{
+    title:"الفنان 🎨",
+    icon:"🎨",
+    desc:"هادئ وحساس وتقدر الحرية والجمال والتجارب الشخصية. تميل إلى العيش في اللحظة والتعبير عن نفسك بطريقتك."
+},
+
+ESTP:{
+    title:"المغامر ⚡",
+    icon:"🏎️",
+    desc:"جريء وعملي وتحب الحركة والتجارب الجديدة. تتعامل بسرعة مع الواقع وتستمتع بالتحديات."
+},
+
+ESFP:{
+    title:"الممتع 🎉",
+    icon:"🎭",
+    desc:"اجتماعي وعفوي وتحب الاستمتاع بالحياة. لديك طاقة تجعل وجودك ملحوظًا وتحب مشاركة اللحظات مع الآخرين."
+}
+
+};
+
+
+/* =========================
+   حالة الاختبار
+========================= */
+
+let current = 0;
+
+let answers = [];
+
+const test =
+    document.getElementById("test");
+
+const quiz =
+    document.getElementById("quiz");
+
+const progress =
+    document.getElementById("progress");
+
+const result =
+    document.getElementById("result");
+
+
+/* =========================
+   بدء الاختبار
+========================= */
+
+function startTest(){
+
+    test.style.display =
+        "block";
+
+    test.scrollIntoView({
+        behavior:"smooth"
+    });
+
+    current = 0;
+
+    answers = [];
+
+    showQuestion();
+
+}
+
+
+/* =========================
+   عرض السؤال
+========================= */
+
+function showQuestion(){
+
+    const question =
+        questions[current];
+
+    progress.style.width =
+        ((current) /
+        questions.length * 100)
+        + "%";
+
+
+    quiz.innerHTML = `
+
+        <div class="question-number">
+
+            السؤال
+            ${current + 1}
+            من
+            ${questions.length}
+
+        </div>
+
+
+        <div class="question">
+
+            ${question.q}
+
+        </div>
+
+
+        <div class="answers">
+
+            ${question.a.map(
+                (answer,index)=>`
+
+                <button
+                    class="answer"
+                    onclick="
+                        selectAnswer(${index})
+                    ">
+
+                    ${answer[0]}
+
+                </button>
+
+            `).join("")}
+
+        </div>
+
+
+        <button
+            class="next"
+            id="next"
+            onclick="nextQuestion()"
+            disabled>
+
+            ${
+                current ===
+                questions.length - 1
+
+                ? "إظهار النتيجة ✨"
+
+                : "السؤال التالي →"
+            }
+
+        </button>
+
+    `;
+
+}
+
+
+/* =========================
+   اختيار الإجابة
+========================= */
+
+function selectAnswer(index){
+
+    answers[current] =
+        questions[current]
+        .a[index][1];
+
+
+    document
+        .querySelectorAll(".answer")
+        .forEach((button,i)=>{
+
+            button.classList.toggle(
+                "selected",
+                i === index
+            );
+
+        });
+
+
+    document
+        .getElementById("next")
+        .disabled = false;
+
+}
+
+
+/* =========================
+   التالي
+========================= */
+
+function nextQuestion(){
+
+    if(!answers[current])
+        return;
+
+
+    current++;
+
+
+    if(current >= questions.length){
+
+        calculateResult();
+
+        return;
+
+    }
+
+
+    showQuestion();
+
+}
+
+
+/* =========================
+   حساب النتيجة
+========================= */
+
+function calculateResult(){
+
+    const scores = {
+
+        E:0,
+        I:0,
+
+        S:0,
+        N:0,
+
+        T:0,
+        F:0,
+
+        J:0,
+        P:0
+
+    };
+
+
+    answers.forEach(answer=>{
+
+        scores[answer]++;
+
+    });
+
+
+    const type =
+
+        (scores.E >= scores.I
+            ? "E"
+            : "I")
+
+        +
+
+        (scores.S >= scores.N
+            ? "S"
+            : "N")
+
+        +
+
+        (scores.T >= scores.F
+            ? "T"
+            : "F")
+
+        +
+
+        (scores.J >= scores.P
+            ? "J"
+            : "P");
+
+
+    const data =
+        personalities[type];
+
+
+    const percentages = {
+
+        EI:Math.round(
+            Math.max(
+                scores.E,
+                scores.I
+            )
+            /
+            (scores.E + scores.I)
+            * 100
+        ),
+
+        SN:Math.round(
+            Math.max(
+                scores.S,
+                scores.N
+            )
+            /
+            (scores.S + scores.N)
+            * 100
+        ),
+
+        TF:Math.round(
+            Math.max(
+                scores.T,
+                scores.F
+            )
+            /
+            (scores.T + scores.F)
+            * 100
+        ),
+
+        JP:Math.round(
+            Math.max(
+                scores.J,
+                scores.P
+            )
+            /
+            (scores.J + scores.P)
+            * 100
+        )
+
+    };
+
+
+    quiz.style.display =
+        "none";
+
+    progress.style.width =
+        "100%";
+
+    result.style.display =
+        "block";
+
+
+    result.innerHTML = `
+
+        <div class="result-icon">
+
+            ${data.icon}
+
+        </div>
+
+
+        <div class="result-type">
+
+            ${type}
+
+        </div>
+
+
+        <div class="result-title">
+
+            ${data.title}
+
+        </div>
+
+
+        <div class="result-description">
+
+            ${data.desc}
+
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <b>
+                    ${scores.E >= scores.I
+                        ? "E"
+                        : "I"}
+                </b>
+
+                <span>
+                    E / I
+                    •
+                    ${percentages.EI}%
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <b>
+                    ${scores.S >= scores.N
+                        ? "S"
+                        : "N"}
+                </b>
+
+                <span>
+                    S / N
+                    •
+                    ${percentages.SN}%
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <b>
+                    ${scores.T >= scores.F
+                        ? "T"
+                        : "F"}
+                </b>
+
+                <span>
+                    T / F
+                    •
+                    ${percentages.TF}%
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <b>
+                    ${scores.J >= scores.P
+                        ? "J"
+                        : "P"}
+                </b>
+
+                <span>
+                    J / P
+                    •
+                    ${percentages.JP}%
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="restart"
+            onclick="restartTest()">
+
+            إعادة الاختبار 🔄
+
+        </button>
+
+    `;
+
+
+    result.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+}
+
+
+/* =========================
+   إعادة الاختبار
+========================= */
+
+function restartTest(){
+
+    quiz.style.display =
+        "block";
+
+    result.style.display =
+        "none";
+
+    current = 0;
+
+    answers = [];
+
+    showQuestion();
+
+
+    test.scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+</script>
+
+</body>
+</html>
