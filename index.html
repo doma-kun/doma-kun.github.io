@@ -2,60 +2,68 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#070914">
+<title>𝑫𝒐𝒎𝒂 | 𝑼𝒍𝒕𝒓𝒂 𝒗4</title>
 
-<title>𝑫𝒐𝒎𝒂 𝑼𝒍𝒕𝒓𝒂 𝒗4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap');
-
 :root{
-    --bg:#05060b;
-    --panel:rgba(15,18,30,.72);
-    --panel2:rgba(255,255,255,.055);
-    --line:rgba(255,255,255,.09);
+    --bg:#050711;
+    --bg2:#090c1b;
+    --card:rgba(14,18,38,.78);
+    --card2:rgba(255,255,255,.055);
+    --line:rgba(255,255,255,.1);
     --text:#f7f8ff;
-    --muted:#8f96ad;
-    --blue:#6b8cff;
-    --purple:#a86bff;
-    --pink:#f05cff;
-    --cyan:#47ddff;
-    --gold:#ffd76a;
-    --green:#52e39b;
-    --danger:#ff5577;
+    --muted:#8992ad;
+    --blue:#668cff;
+    --purple:#a65cff;
+    --pink:#ef55c8;
+    --cyan:#38dfff;
+    --gold:#ffd66b;
+    --green:#53e5a1;
+    --danger:#ff637f;
     --radius:24px;
 }
 
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
 }
 
 html{
+    width:100%;
+    min-height:100%;
     scroll-behavior:smooth;
 }
 
 body{
+    width:100%;
+    min-width:100%;
     min-height:100vh;
-    background:#03040a;
+    overflow-x:hidden;
+    background:
+        radial-gradient(circle at 15% 15%,rgba(90,60,255,.13),transparent 30%),
+        radial-gradient(circle at 85% 75%,rgba(0,180,255,.09),transparent 30%),
+        var(--bg);
     color:var(--text);
     font-family:Cairo,Tajawal,sans-serif;
-    overflow-x:hidden;
 }
 
-/* ================= BACKGROUND ================= */
+/* =========================
+   BACKGROUND
+========================= */
 
-.background{
+.bg{
     position:fixed;
     inset:0;
-    z-index:-20;
+    z-index:-5;
     overflow:hidden;
-    background:
-        radial-gradient(circle at 15% 20%,rgba(82,74,255,.16),transparent 30%),
-        radial-gradient(circle at 85% 20%,rgba(194,71,255,.13),transparent 28%),
-        radial-gradient(circle at 50% 100%,rgba(20,100,255,.14),transparent 35%),
-        #03040a;
+    pointer-events:none;
 }
 
 .grid{
@@ -63,13 +71,12 @@ body{
     inset:-50%;
     width:200%;
     height:200%;
-    opacity:.18;
     background-image:
-        linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
     background-size:60px 60px;
     transform:perspective(500px) rotateX(55deg);
-    animation:gridMove 30s linear infinite;
+    animation:gridMove 20s linear infinite;
 }
 
 @keyframes gridMove{
@@ -80,230 +87,164 @@ body{
 .orb{
     position:absolute;
     border-radius:50%;
-    filter:blur(80px);
-    opacity:.2;
-    animation:orbMove 15s ease-in-out infinite;
+    filter:blur(70px);
+    opacity:.3;
 }
 
-.orb.one{
+.o1{
+    width:500px;
+    height:500px;
+    background:#5827ff;
+    top:-200px;
+    right:-150px;
+    animation:orb 12s ease-in-out infinite;
+}
+
+.o2{
     width:420px;
     height:420px;
-    background:#573bff;
-    top:-150px;
-    right:-100px;
-}
-
-.orb.two{
-    width:380px;
-    height:380px;
-    background:#ff3de1;
-    bottom:-160px;
+    background:#006dff;
+    bottom:-180px;
     left:-120px;
-    animation-delay:-5s;
+    animation:orb 15s ease-in-out infinite reverse;
 }
 
-.orb.three{
+.o3{
     width:280px;
     height:280px;
-    background:#00aaff;
+    background:#e52bc2;
     top:45%;
     left:45%;
-    animation-delay:-9s;
+    opacity:.08;
 }
 
-@keyframes orbMove{
-    0%,100%{transform:translate(0,0) scale(1)}
-    50%{transform:translate(40px,-50px) scale(1.18)}
+@keyframes orb{
+    50%{transform:translate(50px,-30px) scale(1.2)}
 }
 
-.stars{
-    position:absolute;
-    inset:0;
-    background-image:
-        radial-gradient(circle,#fff 1px,transparent 1.5px),
-        radial-gradient(circle,rgba(150,180,255,.7) .7px,transparent 1.2px);
-    background-size:90px 90px,145px 145px;
-    opacity:.35;
-    animation:stars 100s linear infinite;
-}
+/* =========================
+   APP
+========================= */
 
-@keyframes stars{
-    to{background-position:-500px, -700px}
-}
-
-/* ================= APP ================= */
-
-.app{
-    width:100%;
+#app{
+    width:100vw;
     min-height:100vh;
-    display:flex;
+    max-width:none;
 }
 
-/* ================= SIDEBAR ================= */
-
-.sidebar{
-    width:270px;
-    min-height:100vh;
-    position:fixed;
-    right:0;
-    top:0;
-    padding:25px 18px;
-    background:rgba(5,7,15,.72);
-    backdrop-filter:blur(25px);
-    border-left:1px solid var(--line);
-    z-index:100;
-}
-
-.brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:10px 8px 25px;
-    border-bottom:1px solid var(--line);
-}
-
-.brand-logo{
-    width:45px;
-    height:45px;
-    border-radius:15px;
-    display:grid;
-    place-items:center;
-    background:linear-gradient(135deg,#657dff,#b54cff);
-    box-shadow:0 0 30px rgba(130,90,255,.4);
-    font-weight:900;
-    font-size:20px;
-}
-
-.brand h2{
-    font-size:23px;
-    letter-spacing:2px;
-}
-
-.brand span{
-    color:var(--muted);
-    font-size:9px;
-    display:block;
-}
-
-.nav{
-    margin-top:25px;
-    display:grid;
-    gap:8px;
-}
-
-.nav button{
-    width:100%;
-    border:0;
-    padding:14px 15px;
-    border-radius:15px;
-    background:transparent;
-    color:#9da4b9;
-    font-family:inherit;
-    font-size:14px;
-    cursor:pointer;
-    text-align:right;
-    transition:.3s;
-}
-
-.nav button:hover{
-    background:var(--panel2);
-    color:#fff;
-    transform:translateX(-4px);
-}
-
-.nav button.active{
-    color:#fff;
-    background:linear-gradient(90deg,rgba(104,126,255,.2),rgba(167,80,255,.12));
-    border:1px solid rgba(130,120,255,.15);
-    box-shadow:0 10px 30px rgba(80,70,255,.08);
-}
-
-.nav-icon{
-    margin-left:10px;
-}
-
-.sidebar-bottom{
-    position:absolute;
-    bottom:20px;
-    right:18px;
-    left:18px;
-}
-
-.points-mini{
-    padding:16px;
-    border-radius:18px;
-    background:linear-gradient(135deg,rgba(255,215,100,.1),rgba(160,80,255,.08));
-    border:1px solid rgba(255,255,255,.07);
-}
-
-.points-mini small{
-    color:var(--muted);
-}
-
-.points-mini strong{
-    display:block;
-    font-size:23px;
-    color:var(--gold);
-}
-
-/* ================= MAIN ================= */
-
-.main{
-    width:calc(100% - 270px);
-    margin-right:270px;
-    min-height:100vh;
-}
-
-.topbar{
-    height:80px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 35px;
-    border-bottom:1px solid var(--line);
-    background:rgba(3,4,10,.35);
-    backdrop-filter:blur(20px);
-    position:sticky;
-    top:0;
-    z-index:50;
-}
-
-.welcome{
-    color:var(--muted);
-    font-size:13px;
-}
-
-.welcome b{
-    color:white;
-    font-size:15px;
-}
-
-.profile-mini{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.avatar{
-    width:40px;
-    height:40px;
-    border-radius:13px;
-    display:grid;
-    place-items:center;
-    background:linear-gradient(135deg,#536cff,#b24dff);
-    font-weight:800;
-}
-
-.content{
-    padding:35px;
-    max-width:1500px;
+.container{
+    width:min(1200px,94vw);
     margin:auto;
 }
 
-/* ================= PAGES ================= */
+/* =========================
+   HEADER
+========================= */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    width:100%;
+    background:rgba(5,7,17,.72);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--line);
+}
+
+.nav{
+    width:min(1400px,94vw);
+    margin:auto;
+    height:76px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    font-size:31px;
+    font-weight:900;
+    letter-spacing:3px;
+    background:linear-gradient(90deg,#fff,#8bb5ff,#c477ff,#fff);
+    background-size:300%;
+    -webkit-background-clip:text;
+    color:transparent;
+    animation:shine 6s infinite;
+}
+
+@keyframes shine{
+    50%{background-position:100%}
+}
+
+.userMini{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    box-shadow:0 0 25px rgba(100,100,255,.3);
+    font-weight:900;
+}
+
+.userInfo b{
+    display:block;
+    font-size:13px;
+}
+
+.userInfo span{
+    color:var(--gold);
+    font-size:11px;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.menu{
+    display:flex;
+    gap:8px;
+    padding:12px 0;
+    overflow-x:auto;
+    scrollbar-width:none;
+}
+
+.menu::-webkit-scrollbar{
+    display:none;
+}
+
+.menu button{
+    flex:0 0 auto;
+    border:1px solid transparent;
+    background:transparent;
+    color:var(--muted);
+    padding:11px 16px;
+    border-radius:14px;
+    font-family:inherit;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.menu button:hover,
+.menu button.active{
+    color:#fff;
+    background:rgba(255,255,255,.07);
+    border-color:var(--line);
+}
+
+/* =========================
+   SECTIONS
+========================= */
 
 .page{
     display:none;
+    padding:35px 0 80px;
     animation:pageIn .45s ease;
 }
 
@@ -312,468 +253,301 @@ body{
 }
 
 @keyframes pageIn{
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+    from{opacity:0;transform:translateY(15px)}
+    to{opacity:1;transform:none}
 }
 
-/* ================= HERO ================= */
+/* =========================
+   HERO
+========================= */
 
 .hero{
-    min-height:500px;
+    min-height:430px;
     display:grid;
-    grid-template-columns:1.2fr .8fr;
-    gap:25px;
-    align-items:center;
+    place-items:center;
+    text-align:center;
+    position:relative;
 }
 
-.hero-title{
-    font-size:clamp(45px,6vw,85px);
-    line-height:1;
+.hero .mini{
+    display:inline-flex;
+    padding:8px 15px;
+    border:1px solid rgba(130,140,255,.25);
+    background:rgba(100,100,255,.08);
+    border-radius:100px;
+    color:#aab6ff;
+    font-size:12px;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:clamp(60px,12vw,130px);
+    line-height:.95;
     font-weight:900;
-    background:linear-gradient(100deg,#fff,#91a8ff,#ce82ff,#fff);
+    letter-spacing:5px;
+    background:linear-gradient(90deg,#fff,#84aaff,#d35dff,#fff);
     background-size:300%;
     -webkit-background-clip:text;
     color:transparent;
-    animation:shine 7s ease infinite;
+    animation:shine 7s infinite;
+    filter:drop-shadow(0 0 45px rgba(110,110,255,.25));
 }
 
-@keyframes shine{
-    0%,100%{background-position:0}
-    50%{background-position:100%}
-}
-
-.hero-sub{
-    margin-top:20px;
-    max-width:650px;
-    color:#9ba2b9;
+.hero p{
+    max-width:680px;
+    margin:25px auto;
+    color:var(--muted);
     line-height:2;
-}
-
-.hero-buttons{
-    display:flex;
-    gap:12px;
-    margin-top:30px;
-    flex-wrap:wrap;
 }
 
 .btn{
     border:0;
-    border-radius:15px;
-    padding:14px 22px;
+    padding:14px 23px;
+    border-radius:16px;
+    color:#fff;
     font-family:inherit;
+    font-weight:800;
     cursor:pointer;
-    color:white;
-    font-weight:700;
-    transition:.3s;
+    transition:.25s;
 }
 
 .btn:hover{
     transform:translateY(-3px);
 }
 
-.btn-primary{
-    background:linear-gradient(135deg,#5574ff,#a349ff);
-    box-shadow:0 15px 40px rgba(100,70,255,.25);
+.primary{
+    background:linear-gradient(135deg,#586eff,#9b4dff,#db4fcb);
+    box-shadow:0 12px 40px rgba(110,80,255,.25);
 }
 
-.btn-dark{
-    background:rgba(255,255,255,.05);
+.secondary{
+    background:rgba(255,255,255,.06);
     border:1px solid var(--line);
 }
 
-/* ================= HOLO CARD ================= */
-
-.holo{
-    position:relative;
-    height:390px;
-    border-radius:35px;
-    overflow:hidden;
-    background:
-        radial-gradient(circle at 50% 30%,rgba(117,94,255,.28),transparent 35%),
-        rgba(12,15,28,.72);
-    border:1px solid rgba(150,150,255,.15);
-    box-shadow:0 30px 100px rgba(0,0,0,.45);
+.gold{
+    background:linear-gradient(135deg,#c99628,#ffe18b);
+    color:#1b1405;
 }
 
-.holo::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-        linear-gradient(120deg,transparent 30%,rgba(255,255,255,.08),transparent 70%);
-    animation:holoMove 5s linear infinite;
+/* =========================
+   CARDS
+========================= */
+
+.card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:25px;
+    backdrop-filter:blur(18px);
+    box-shadow:0 25px 80px rgba(0,0,0,.25);
 }
 
-@keyframes holoMove{
-    from{transform:translateX(-100%)}
-    to{transform:translateX(100%)}
+.sectionTitle{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
 }
 
-.holo-core{
-    position:absolute;
-    width:150px;
-    height:150px;
-    border-radius:50%;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-    background:radial-gradient(circle at 35% 30%,#fff,#9bb1ff 15%,#7654ff 40%,#311b91 70%,transparent 72%);
-    box-shadow:
-        0 0 30px #7d72ff,
-        0 0 80px rgba(120,90,255,.6),
-        0 0 160px rgba(130,70,255,.25);
-    animation:core 4s ease-in-out infinite;
+.sectionTitle h2{
+    font-size:23px;
 }
 
-@keyframes core{
-    50%{transform:translate(-50%,-50%) scale(1.15)}
-}
-
-.ring{
-    position:absolute;
-    width:300px;
-    height:100px;
-    border:1px solid rgba(150,170,255,.3);
-    border-radius:50%;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%) rotate(-20deg);
-    animation:ring 8s linear infinite;
-}
-
-.ring.two{
-    width:390px;
-    height:130px;
-    transform:translate(-50%,-50%) rotate(35deg);
-    animation-direction:reverse;
-}
-
-@keyframes ring{
-    to{transform:translate(-50%,-50%) rotate(340deg)}
-}
-
-.holo-label{
-    position:absolute;
-    bottom:25px;
-    right:25px;
-    color:#7f88a8;
-    font-size:11px;
-    letter-spacing:2px;
-}
-
-/* ================= DASHBOARD CARDS ================= */
-
-.section-title{
-    margin-bottom:18px;
-}
-
-.section-title h2{
-    font-size:25px;
-}
-
-.section-title p{
+.sectionTitle span{
     color:var(--muted);
-    font-size:13px;
-    margin-top:4px;
+    font-size:12px;
 }
 
-.cards{
+/* =========================
+   DASHBOARD
+========================= */
+
+.statsGrid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:15px;
 }
 
-.card{
+.statCard{
     padding:22px;
-    border-radius:var(--radius);
-    background:var(--panel);
+    background:var(--card);
     border:1px solid var(--line);
-    backdrop-filter:blur(20px);
-    transition:.3s;
+    border-radius:20px;
 }
 
-.card:hover{
-    transform:translateY(-5px);
-    border-color:rgba(140,140,255,.25);
-    box-shadow:0 20px 50px rgba(0,0,0,.25);
+.statIcon{
+    font-size:24px;
 }
 
-.card-icon{
-    font-size:27px;
-    margin-bottom:15px;
-}
-
-.card small{
-    color:var(--muted);
-}
-
-.card strong{
+.statCard b{
     display:block;
-    font-size:28px;
-    margin-top:4px;
+    margin-top:10px;
+    font-size:25px;
 }
 
-/* ================= AI ================= */
+.statCard span{
+    color:var(--muted);
+    font-size:12px;
+}
 
-.ai-layout{
+/* =========================
+   AI
+========================= */
+
+.aiBox{
     display:grid;
-    grid-template-columns:1fr 300px;
-    gap:20px;
+    grid-template-columns:1fr 330px;
+    gap:18px;
 }
 
 .chat{
-    height:600px;
+    min-height:480px;
     display:flex;
     flex-direction:column;
-    border-radius:28px;
-    background:var(--panel);
-    border:1px solid var(--line);
-    overflow:hidden;
-}
-
-.chat-head{
-    padding:18px 22px;
-    border-bottom:1px solid var(--line);
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.ai-dot{
-    width:10px;
-    height:10px;
-    background:#4cff9c;
-    border-radius:50%;
-    box-shadow:0 0 15px #4cff9c;
 }
 
 .messages{
     flex:1;
     overflow-y:auto;
-    padding:22px;
+    padding:5px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    max-height:390px;
 }
 
-.message{
-    max-width:75%;
+.msg{
+    max-width:82%;
     padding:13px 16px;
-    border-radius:18px;
-    margin-bottom:12px;
+    border-radius:17px;
     line-height:1.8;
     font-size:14px;
 }
 
-.message.ai{
-    background:rgba(100,90,255,.1);
-    border:1px solid rgba(120,100,255,.1);
-    margin-left:auto;
+.msg.user{
+    align-self:flex-start;
+    background:linear-gradient(135deg,#5368ff,#874fff);
 }
 
-.message.user{
+.msg.bot{
+    align-self:flex-end;
     background:rgba(255,255,255,.06);
     border:1px solid var(--line);
-    margin-right:auto;
 }
 
-.chat-input{
+.inputRow{
     display:flex;
     gap:8px;
-    padding:15px;
-    border-top:1px solid var(--line);
-}
-
-.chat-input input{
-    flex:1;
-    border:1px solid var(--line);
-    outline:none;
-    background:rgba(0,0,0,.25);
-    color:#fff;
-    padding:13px;
-    border-radius:14px;
-    font-family:inherit;
-}
-
-.chat-input button{
-    width:50px;
-    border:0;
-    border-radius:14px;
-    background:linear-gradient(135deg,#5f78ff,#a94fff);
-    color:#fff;
-    cursor:pointer;
-}
-
-/* ================= GENERATORS ================= */
-
-.generator{
-    max-width:900px;
-    margin:auto;
-}
-
-.generator-box{
-    padding:28px;
-    border-radius:28px;
-    background:var(--panel);
-    border:1px solid var(--line);
-}
-
-.generator textarea{
-    width:100%;
-    min-height:160px;
-    resize:vertical;
-    background:rgba(0,0,0,.3);
-    color:white;
-    border:1px solid var(--line);
-    outline:none;
-    border-radius:18px;
-    padding:18px;
-    font-family:inherit;
-    font-size:14px;
-}
-
-.gen-actions{
-    display:flex;
-    gap:10px;
     margin-top:15px;
-    flex-wrap:wrap;
 }
 
-.preview{
-    min-height:250px;
-    margin-top:20px;
-    border-radius:22px;
-    background:
-        repeating-conic-gradient(
-            rgba(255,255,255,.025) 0% 25%,
-            transparent 0% 50%
-        ) 50% / 30px 30px;
-    border:1px dashed rgba(255,255,255,.1);
-    display:grid;
-    place-items:center;
-    text-align:center;
-    color:var(--muted);
-    padding:30px;
+.input,
+textarea,
+select{
+    width:100%;
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--line);
+    border-radius:15px;
+    padding:14px;
+    color:#fff;
+    outline:none;
+    font-family:inherit;
 }
 
-/* ================= GAMES ================= */
+textarea{
+    resize:vertical;
+    min-height:110px;
+}
 
-.games{
+select option{
+    background:#101326;
+}
+
+/* =========================
+   GENERATORS
+========================= */
+
+.generatorGrid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:1fr 1fr;
     gap:18px;
 }
 
-.game-card{
-    padding:25px;
-    border-radius:25px;
+.preview{
+    width:100%;
     min-height:220px;
-    background:linear-gradient(145deg,rgba(25,28,50,.75),rgba(10,12,22,.8));
-    border:1px solid var(--line);
-    transition:.3s;
-    cursor:pointer;
-}
-
-.game-card:hover{
-    transform:translateY(-7px);
-    border-color:rgba(150,120,255,.35);
-}
-
-.game-card .emoji{
-    font-size:45px;
-}
-
-.game-card h3{
     margin-top:15px;
-}
-
-.game-card p{
-    color:var(--muted);
-    font-size:13px;
-    margin-top:5px;
-}
-
-/* ================= EVENT ================= */
-
-.event{
-    padding:30px;
-    border-radius:28px;
-    background:
-        radial-gradient(circle at 80% 20%,rgba(255,120,70,.15),transparent 35%),
-        var(--panel);
+    border-radius:18px;
     border:1px solid var(--line);
+    background:
+        linear-gradient(135deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
+    display:grid;
+    place-items:center;
+    overflow:hidden;
+    color:var(--muted);
 }
 
-.event-tag{
-    display:inline-block;
-    padding:7px 12px;
-    border-radius:50px;
-    background:rgba(255,210,80,.1);
-    color:var(--gold);
+.preview img,
+.preview video{
+    width:100%;
+    max-height:500px;
+    object-fit:contain;
+    border-radius:16px;
+}
+
+/* =========================
+   GAMES
+========================= */
+
+.gamesGrid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+}
+
+.game{
+    padding:20px;
+    border-radius:19px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.035);
+    cursor:pointer;
+    transition:.25s;
+}
+
+.game:hover{
+    transform:translateY(-5px);
+    border-color:rgba(130,140,255,.4);
+    background:rgba(100,100,255,.07);
+}
+
+.game .icon{
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.game b{
+    display:block;
+    margin-bottom:5px;
+}
+
+.game span{
+    color:var(--muted);
     font-size:11px;
 }
 
-.event h2{
-    font-size:35px;
-    margin:15px 0;
-}
-
-.event p{
-    color:var(--muted);
-    line-height:2;
-}
-
-/* ================= PROFILE ================= */
-
-.profile{
-    max-width:800px;
-    margin:auto;
-}
-
-.profile-card{
-    padding:35px;
-    border-radius:30px;
-    background:var(--panel);
-    border:1px solid var(--line);
-}
-
-.profile-avatar{
-    width:100px;
-    height:100px;
-    border-radius:30px;
-    display:grid;
-    place-items:center;
-    font-size:40px;
-    background:linear-gradient(135deg,#6179ff,#bc4fff);
-    margin-bottom:20px;
-}
-
-.input{
-    width:100%;
-    padding:14px;
-    margin-top:8px;
-    margin-bottom:16px;
-    border-radius:14px;
-    border:1px solid var(--line);
-    background:rgba(0,0,0,.25);
-    color:white;
-    outline:none;
-    font-family:inherit;
-}
-
-/* ================= MODAL ================= */
+/* =========================
+   GAME MODAL
+========================= */
 
 .modal{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.75);
-    backdrop-filter:blur(12px);
+    z-index:100;
+    background:rgba(0,0,0,.72);
+    backdrop-filter:blur(15px);
     display:none;
     place-items:center;
-    z-index:500;
     padding:20px;
 }
 
@@ -781,124 +555,261 @@ body{
     display:grid;
 }
 
-.modal-box{
-    width:min(500px,100%);
-    padding:35px;
-    border-radius:30px;
-    background:#0d1020;
-    border:1px solid rgba(150,140,255,.2);
+.gameBox{
+    width:min(650px,96vw);
+    max-height:90vh;
+    overflow:auto;
+    background:#0a0d1d;
+    border:1px solid var(--line);
+    border-radius:28px;
+    padding:28px;
     box-shadow:0 30px 100px #000;
-    animation:modalIn .35s ease;
 }
 
-@keyframes modalIn{
-    from{transform:scale(.9);opacity:0}
-    to{transform:scale(1);opacity:1}
+.gameHead{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
 }
 
-.modal-box h2{
-    font-size:28px;
+.close{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.05);
+    color:#fff;
+    cursor:pointer;
 }
 
-.modal-box p{
-    color:var(--muted);
-    margin:8px 0 25px;
+.scramble{
+    font-size:38px;
+    letter-spacing:8px;
+    text-align:center;
+    margin:30px 0;
+    color:#a9baff;
+    font-weight:900;
 }
 
-/* ================= MOBILE ================= */
+.center{
+    text-align:center;
+}
 
-.mobile-menu{
+.timer{
+    font-size:40px;
+    font-weight:900;
+    color:var(--gold);
+}
+
+.feedback{
+    min-height:30px;
+    margin:15px 0;
+    text-align:center;
+    font-weight:700;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profileGrid{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:18px;
+}
+
+.profileAvatar{
+    width:100px;
+    height:100px;
+    margin:auto;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    font-size:35px;
+    font-weight:900;
+    background:linear-gradient(135deg,#586eff,#bd55ff);
+}
+
+.levelBar{
+    height:9px;
+    background:rgba(255,255,255,.08);
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:10px;
+}
+
+.levelFill{
+    height:100%;
+    width:0;
+    background:linear-gradient(90deg,var(--blue),var(--purple),var(--pink));
+}
+
+/* =========================
+   EVENTS
+========================= */
+
+.eventGrid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.event{
+    padding:25px;
+    border-radius:22px;
+    border:1px solid var(--line);
+    background:linear-gradient(145deg,rgba(100,100,255,.09),rgba(255,255,255,.025));
+}
+
+.eventIcon{
+    font-size:35px;
+}
+
+/* =========================
+   WELCOME
+========================= */
+
+#welcome{
+    position:fixed;
+    inset:0;
+    z-index:200;
+    background:
+        radial-gradient(circle at 50% 30%,rgba(100,60,255,.18),transparent 35%),
+        #040610;
+    display:grid;
+    place-items:center;
+    padding:20px;
+}
+
+#welcome.hidden{
     display:none;
 }
 
-@media(max-width:1000px){
+.welcomeBox{
+    width:min(500px,94vw);
+    text-align:center;
+    padding:38px;
+    border-radius:30px;
+    background:rgba(13,17,35,.86);
+    border:1px solid var(--line);
+    box-shadow:0 30px 100px #000;
+}
 
-    .sidebar{
-        transform:translateX(100%);
-        transition:.35s;
-        box-shadow:-20px 0 70px #000;
-    }
+.welcomeLogo{
+    font-size:65px;
+    font-weight:900;
+    background:linear-gradient(90deg,#fff,#9bb5ff,#c866ff);
+    -webkit-background-clip:text;
+    color:transparent;
+    margin-bottom:10px;
+}
 
-    .sidebar.open{
-        transform:translateX(0);
-    }
+.welcomeBox p{
+    color:var(--muted);
+    line-height:1.8;
+    margin-bottom:25px;
+}
 
-    .main{
-        width:100%;
-        margin-right:0;
-    }
+.form{
+    display:grid;
+    gap:12px;
+}
 
-    .mobile-menu{
-        display:block;
-        border:0;
-        background:rgba(255,255,255,.06);
-        color:white;
-        width:42px;
-        height:42px;
-        border-radius:13px;
-        cursor:pointer;
-        font-size:20px;
-    }
+/* =========================
+   FOOTER
+========================= */
 
-    .hero{
-        grid-template-columns:1fr;
-        min-height:auto;
-        padding:40px 0;
-    }
+footer{
+    width:100%;
+    border-top:1px solid var(--line);
+    padding:30px;
+    text-align:center;
+    color:#59627e;
+    font-size:12px;
+}
 
-    .holo{
-        height:300px;
-    }
+/* =========================
+   MOBILE
+========================= */
 
-    .cards{
+@media(max-width:850px){
+
+    .statsGrid{
         grid-template-columns:repeat(2,1fr);
     }
 
-    .games{
+    .aiBox,
+    .generatorGrid,
+    .profileGrid{
+        grid-template-columns:1fr;
+    }
+
+    .gamesGrid{
         grid-template-columns:repeat(2,1fr);
     }
 
-    .ai-layout{
+    .eventGrid{
         grid-template-columns:1fr;
+    }
+
+    .nav{
+        height:68px;
+    }
+
+    .logo{
+        font-size:25px;
     }
 }
 
-@media(max-width:600px){
+@media(max-width:500px){
 
-    .content{
-        padding:20px 14px;
+    .container{
+        width:92vw;
     }
 
-    .topbar{
-        padding:0 15px;
+    .hero{
+        min-height:480px;
     }
 
-    .hero-title{
-        font-size:48px;
+    .hero h1{
+        font-size:72px;
     }
 
-    .cards{
+    .statsGrid{
         grid-template-columns:1fr 1fr;
     }
 
-    .games{
-        grid-template-columns:1fr;
+    .gamesGrid{
+        grid-template-columns:1fr 1fr;
+        gap:9px;
+    }
+
+    .game{
+        padding:15px;
+    }
+
+    .game .icon{
+        font-size:25px;
     }
 
     .card{
-        padding:16px;
+        padding:18px;
     }
 
-    .card strong{
-        font-size:23px;
+    .welcomeBox{
+        padding:25px 18px;
     }
 
-    .chat{
-        height:550px;
+    .welcomeLogo{
+        font-size:52px;
     }
+}
 
-    .message{
-        max-width:90%;
+@media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+        animation:none!important;
+        transition:none!important;
     }
 }
 </style>
@@ -906,868 +817,822 @@ body{
 
 <body>
 
-<div class="background">
+<div class="bg">
     <div class="grid"></div>
-    <div class="stars"></div>
-    <div class="orb one"></div>
-    <div class="orb two"></div>
-    <div class="orb three"></div>
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="orb o3"></div>
 </div>
 
-<div class="app">
+<!-- =========================
+     FIRST LOGIN
+========================= -->
 
-<!-- ================= SIDEBAR ================= -->
+<div id="welcome">
 
-<aside class="sidebar" id="sidebar">
+    <div class="welcomeBox">
 
-    <div class="brand">
-        <div class="brand-logo">D</div>
-        <div>
-            <h2>𝑫𝒐𝒎𝒂</h2>
-            <span>ULTRA EXPERIENCE</span>
-        </div>
-    </div>
+        <div class="welcomeLogo">𝑫𝒐𝒎𝒂</div>
 
-    <nav class="nav">
+        <p>
+            عالم واحد يجمع الذكاء الاصطناعي،
+            الألعاب، النقاط والفعاليات.
+        </p>
 
-        <button class="active" onclick="page('home',this)">
-            🏠 <span class="nav-icon">الرئيسية</span>
-        </button>
+        <div class="form">
 
-        <button onclick="page('ai',this)">
-            🧠 <span class="nav-icon">الذكاء الاصطناعي</span>
-        </button>
+            <input
+                id="nameInput"
+                class="input"
+                placeholder="اسمك">
 
-        <button onclick="page('image',this)">
-            🎨 <span class="nav-icon">استوديو الصور</span>
-        </button>
+            <input
+                id="nickInput"
+                class="input"
+                placeholder="لقبك">
 
-        <button onclick="page('video',this)">
-            🎬 <span class="nav-icon">استوديو الفيديو</span>
-        </button>
+            <input
+                id="ageInput"
+                class="input"
+                type="number"
+                min="1"
+                max="120"
+                placeholder="عمرك">
 
-        <button onclick="page('games',this)">
-            🎮 <span class="nav-icon">الألعاب</span>
-        </button>
+            <button class="btn primary" onclick="saveProfile()">
+                دخول إلى 𝑫𝒐𝒎𝒂 🚀
+            </button>
 
-        <button onclick="page('events',this)">
-            🎁 <span class="nav-icon">الفعاليات</span>
-        </button>
-
-        <button onclick="page('profile',this)">
-            👤 <span class="nav-icon">ملفي</span>
-        </button>
-
-    </nav>
-
-    <div class="sidebar-bottom">
-
-        <div class="points-mini">
-            <small>رصيدك الحالي</small>
-            <strong id="sidePoints">0 ⭐</strong>
-            <small id="sideLevel">المستوى 1</small>
         </div>
 
     </div>
 
-</aside>
+</div>
 
-<!-- ================= MAIN ================= -->
+<div id="app">
 
-<main class="main">
+<header>
 
-<header class="topbar">
+    <div class="nav">
 
-    <div style="display:flex;align-items:center;gap:12px">
+        <div class="logo">𝑫𝒐𝒎𝒂</div>
 
-        <button class="mobile-menu" onclick="toggleMenu()">☰</button>
+        <div class="userMini">
 
-        <div class="welcome">
-            مرحبًا،
-            <b id="topName">زائر</b>
+            <div class="avatar" id="miniAvatar">D</div>
+
+            <div class="userInfo">
+                <b id="miniName">زائر</b>
+                <span id="miniPoints">0 XP</span>
+            </div>
+
         </div>
 
     </div>
 
-    <div class="profile-mini">
+    <div class="container">
 
-        <span id="topPoints">⭐ 0</span>
+        <nav class="menu">
 
-        <div class="avatar" id="topAvatar">D</div>
+            <button class="active" onclick="showPage('home',this)">
+                🏠 الرئيسية
+            </button>
+
+            <button onclick="showPage('ai',this)">
+                🤖 الذكاء
+            </button>
+
+            <button onclick="showPage('create',this)">
+                🎨 الإبداع
+            </button>
+
+            <button onclick="showPage('games',this)">
+                🎮 الألعاب
+            </button>
+
+            <button onclick="showPage('events',this)">
+                🎁 الفعاليات
+            </button>
+
+            <button onclick="showPage('profile',this)">
+                👤 ملفي
+            </button>
+
+        </nav>
 
     </div>
 
 </header>
 
-<div class="content">
+<main class="container">
 
-<!-- ================= HOME ================= -->
+<!-- =========================
+ HOME
+========================= -->
 
-<section id="home" class="page active">
+<section class="page active" id="home">
 
-<div class="hero">
+    <div class="hero">
 
-<div>
+        <div>
 
-<div style="color:#8490ff;font-size:12px;letter-spacing:4px">
-WELCOME TO THE FUTURE
-</div>
+            <div class="mini">
+                ✦ 𝑫𝒐𝒎𝒂 𝑼𝒍𝒕𝒓𝒂 𝒗4
+            </div>
 
-<h1 class="hero-title">𝑫𝒐𝒎𝒂</h1>
+            <h1>𝑫𝒐𝒎𝒂</h1>
 
-<p class="hero-sub">
-مساحتك الرقمية الخاصة. تحدث مع الذكاء الاصطناعي،
-أنشئ أفكارك، العب، اجمع النقاط، شارك في الفعاليات
-واكتشف عالمًا مصممًا لك.
-</p>
+            <p>
+                ذكاء اصطناعي، ألعاب، نقاط، فعاليات،
+                وصناعة المحتوى في عالم واحد.
+            </p>
 
-<div class="hero-buttons">
+            <button
+                class="btn primary"
+                onclick="showPage('ai',document.querySelectorAll('.menu button')[1])">
+                اكتشف Doma ✦
+            </button>
 
-<button class="btn btn-primary" onclick="page('ai')">
-🧠 تحدث مع Doma AI
-</button>
+        </div>
 
-<button class="btn btn-dark" onclick="page('games')">
-🎮 العب الآن
-</button>
+    </div>
 
-</div>
+    <div class="statsGrid">
 
-</div>
+        <div class="statCard">
+            <div class="statIcon">⭐</div>
+            <b id="homePoints">0</b>
+            <span>النقاط</span>
+        </div>
 
-<div class="holo">
+        <div class="statCard">
+            <div class="statIcon">🏆</div>
+            <b id="homeLevel">1</b>
+            <span>المستوى</span>
+        </div>
 
-<div class="ring"></div>
-<div class="ring two"></div>
-<div class="holo-core"></div>
+        <div class="statCard">
+            <div class="statIcon">🎮</div>
+            <b id="homeGames">0</b>
+            <span>الألعاب</span>
+        </div>
 
-<div class="holo-label">
-DOMA CORE • ONLINE
-</div>
+        <div class="statCard">
+            <div class="statIcon">🔥</div>
+            <b id="homeStreak">0</b>
+            <span>سلسلة الأيام</span>
+        </div>
 
-</div>
-
-</div>
-
-<div class="section-title">
-<h2>لوحة التحكم</h2>
-<p>كل شيء مهم في مكان واحد.</p>
-</div>
-
-<div class="cards">
-
-<div class="card">
-<div class="card-icon">⭐</div>
-<small>النقاط</small>
-<strong id="homePoints">0</strong>
-</div>
-
-<div class="card">
-<div class="card-icon">🏆</div>
-<small>المستوى</small>
-<strong id="homeLevel">1</strong>
-</div>
-
-<div class="card">
-<div class="card-icon">🎮</div>
-<small>الألعاب</small>
-<strong>4</strong>
-</div>
-
-<div class="card">
-<div class="card-icon">🔥</div>
-<small>أيام النشاط</small>
-<strong id="streak">1</strong>
-</div>
-
-</div>
+    </div>
 
 </section>
 
-<!-- ================= AI ================= -->
+<!-- =========================
+ AI
+========================= -->
 
-<section id="ai" class="page">
+<section class="page" id="ai">
 
-<div class="section-title">
-<h2>🧠 Doma AI</h2>
-<p>مساعدك الذكي داخل عالم Doma.</p>
-</div>
+    <div class="sectionTitle">
+        <h2>🤖 Doma AI</h2>
+        <span>اسأل أي شيء</span>
+    </div>
 
-<div class="ai-layout">
+    <div class="aiBox">
 
-<div class="chat">
+        <div class="card chat">
 
-<div class="chat-head">
-<div class="ai-dot"></div>
-<div>
-<b>Doma Intelligence</b>
-<div style="font-size:10px;color:#7f88a8">ONLINE</div>
-</div>
-</div>
+            <div class="messages" id="messages">
 
-<div class="messages" id="messages">
+                <div class="msg bot">
+                    مرحبًا 👋 أنا Doma AI.
+                    اكتب سؤالك وسأحاول مساعدتك.
+                </div>
 
-<div class="message ai">
-مرحبًا 👋 أنا Doma AI.
-<br>
-اسألني عن أي شيء، وسأحاول مساعدتك.
-</div>
+            </div>
 
-</div>
+            <div class="inputRow">
 
-<div class="chat-input">
+                <input
+                    id="aiInput"
+                    class="input"
+                    placeholder="اكتب سؤالك هنا..."
+                    onkeydown="if(event.key==='Enter')askAI()">
 
-<input
-id="aiInput"
-placeholder="اكتب سؤالك هنا..."
-onkeydown="if(event.key==='Enter')sendAI()">
+                <button
+                    class="btn primary"
+                    onclick="askAI()">
+                    إرسال
+                </button>
 
-<button onclick="sendAI()">➤</button>
+            </div>
 
-</div>
+        </div>
 
-</div>
+        <div class="card">
 
-<div>
+            <h3>⚙️ نمط الذكاء</h3>
 
-<div class="card">
-<h3>⚡ قدراتي</h3>
-<br>
-<p style="color:#9098ad;line-height:2">
-💬 الإجابة عن الأسئلة<br>
-🧠 شرح المواضيع<br>
-💡 توليد الأفكار<br>
-📝 كتابة النصوص<br>
-🎨 أوامر الصور<br>
-🎬 أوامر الفيديو
-</p>
-</div>
+            <br>
 
-<br>
+            <select id="aiMode">
 
-<div class="card">
-<h3>⭐ مكافأة</h3>
-<br>
-<p style="color:#9098ad">
-كل استخدام للذكاء الاصطناعي يمنحك نقاطًا.
-</p>
-</div>
+                <option value="normal">
+                    🤖 عادي
+                </option>
 
-</div>
+                <option value="creative">
+                    🎨 إبداعي
+                </option>
 
-</div>
+                <option value="expert">
+                    🧠 خبير
+                </option>
 
-</section>
+                <option value="fun">
+                    😂 مرح
+                </option>
 
-<!-- ================= IMAGE ================= -->
+                <option value="anime">
+                    🌸 أنمي
+                </option>
 
-<section id="image" class="page">
+            </select>
 
-<div class="generator">
+            <br><br>
 
-<div class="section-title">
-<h2>🎨 Doma Image Studio</h2>
-<p>اكتب وصف الصورة التي تريدها.</p>
-</div>
+            <p style="color:var(--muted);font-size:12px;line-height:2">
+                يمكنك تغيير شخصية الذكاء الاصطناعي
+                حسب نوع الإجابة التي تريدها.
+            </p>
 
-<div class="generator-box">
+        </div>
 
-<textarea
-id="imagePrompt"
-placeholder="مثال: مدينة مستقبلية عربية ليلًا، أضواء نيون، سيارات رياضية، تصوير سينمائي واقعي جدًا..."></textarea>
-
-<div class="gen-actions">
-
-<button class="btn btn-primary" onclick="generateImage()">
-✨ إنشاء الصورة
-</button>
-
-<button class="btn btn-dark" onclick="clearPrompt('imagePrompt')">
-مسح
-</button>
-
-</div>
-
-<div class="preview" id="imagePreview">
-<div>
-<div style="font-size:45px">🌌</div>
-<p>ستظهر النتيجة هنا</p>
-</div>
-</div>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
-<!-- ================= VIDEO ================= -->
+<!-- =========================
+ CREATE
+========================= -->
 
-<section id="video" class="page">
+<section class="page" id="create">
 
-<div class="generator">
+    <div class="sectionTitle">
+        <h2>✨ استوديو Doma</h2>
+        <span>اصنع شيئًا جديدًا</span>
+    </div>
 
-<div class="section-title">
-<h2>🎬 Doma Video Studio</h2>
-<p>حوّل أفكارك إلى مشاهد فيديو.</p>
-</div>
+    <div class="generatorGrid">
 
-<div class="generator-box">
+        <div class="card">
 
-<textarea
-id="videoPrompt"
-placeholder="مثال: سيارة سوداء فاخرة تسير في مدينة مستقبلية تحت المطر، لقطة سينمائية..."></textarea>
+            <h3>🎨 مولد الصور</h3>
 
-<div class="gen-actions">
+            <br>
 
-<button class="btn btn-primary" onclick="generateVideo()">
-🎬 إنشاء الفيديو
-</button>
+            <textarea
+                id="imagePrompt"
+                placeholder="مثال: محارب أنمي يقف فوق مدينة مستقبلية ليلًا، إضاءة سينمائية..."></textarea>
 
-</div>
+            <br><br>
 
-<div class="preview" id="videoPreview">
-<div>
-<div style="font-size:45px">🎞️</div>
-<p>منطقة معاينة الفيديو</p>
-</div>
-</div>
+            <select id="imageModel">
 
-</div>
+                <option value="flux">Flux</option>
+                <option value="turbo">Turbo</option>
 
-</div>
+            </select>
 
-</section>
+            <br><br>
 
-<!-- ================= GAMES ================= -->
+            <button
+                class="btn primary"
+                onclick="generateImage()">
+                توليد الصورة ✨
+            </button>
 
-<section id="games" class="page">
+            <div class="preview" id="imagePreview">
+                الصورة ستظهر هنا
+            </div>
 
-<div class="section-title">
-<h2>🎮 Doma Games</h2>
-<p>العب واجمع النقاط.</p>
-</div>
+        </div>
 
-<div class="games">
+        <div class="card">
 
-<div class="game-card" onclick="reactionGame()">
-<div class="emoji">⚡</div>
-<h3>اختبار السرعة</h3>
-<p>اضغط بأسرع ما تستطيع.</p>
-</div>
+            <h3>🎬 مولد الفيديو</h3>
 
-<div class="game-card" onclick="guessGame()">
-<div class="emoji">🎯</div>
-<h3>خمن الرقم</h3>
-<p>هل تستطيع اكتشاف الرقم؟</p>
-</div>
+            <br>
 
-<div class="game-card" onclick="memoryGame()">
-<div class="emoji">🧠</div>
-<h3>اختبار الذاكرة</h3>
-<p>اختبر ذاكرتك.</p>
-</div>
+            <textarea
+                id="videoPrompt"
+                placeholder="صف الفيديو الذي تريده..."></textarea>
 
-<div class="game-card" onclick="coinGame()">
-<div class="emoji">🪙</div>
-<h3>عملة Doma</h3>
-<p>حاول الحصول على المكافأة.</p>
-</div>
+            <br><br>
 
-</div>
+            <button
+                class="btn primary"
+                onclick="generateVideo()">
+                إنشاء الفيديو 🎬
+            </button>
 
-</section>
+            <div class="preview" id="videoPreview">
+                الفيديو سيظهر هنا
+            </div>
 
-<!-- ================= EVENTS ================= -->
+            <p style="color:#727b96;font-size:11px;margin-top:12px;line-height:1.8">
+                مولد الفيديو يحتاج endpoint يدعم Video Generation.
+                تم فصل الكود حتى تستطيع ربط أي مزود API مناسب.
+            </p>
 
-<section id="events" class="page">
+        </div>
 
-<div class="section-title">
-<h2>🎁 فعاليات Doma</h2>
-<p>فعاليات متجددة ومكافآت.</p>
-</div>
-
-<div class="event">
-
-<span class="event-tag">🔥 فعالية اليوم</span>
-
-<h2>صيد النجوم</h2>
-
-<p>
-أجب عن الأسئلة، العب الألعاب، واستعمل Doma AI
-لجمع أكبر عدد من النجوم اليوم.
-</p>
-
-<br>
-
-<button class="btn btn-primary" onclick="dailyReward()">
-⭐ احصل على مكافأة اليوم
-</button>
-
-</div>
-
-<br>
-
-<div class="cards">
-
-<div class="card">
-<div class="card-icon">🎯</div>
-<small>المهمة اليومية</small>
-<strong>+50 ⭐</strong>
-</div>
-
-<div class="card">
-<div class="card-icon">🔥</div>
-<small>التسجيل اليومي</small>
-<strong>+20 ⭐</strong>
-</div>
-
-<div class="card">
-<div class="card-icon">🏆</div>
-<small>الإنجاز القادم</small>
-<strong>+100 ⭐</strong>
-</div>
-
-</div>
+    </div>
 
 </section>
 
-<!-- ================= PROFILE ================= -->
+<!-- =========================
+ GAMES
+========================= -->
 
-<section id="profile" class="page">
+<section class="page" id="games">
 
-<div class="profile">
+    <div class="sectionTitle">
+        <h2>🎮 عالم الألعاب</h2>
+        <span id="gameCount">100 لعبة</span>
+    </div>
 
-<div class="section-title">
-<h2>👤 ملفك الشخصي</h2>
-<p>هذه المعلومات محفوظة على جهازك.</p>
-</div>
-
-<div class="profile-card">
-
-<div class="profile-avatar" id="profileAvatar">
-D
-</div>
-
-<label>الاسم / اللقب</label>
-
-<input
-class="input"
-id="profileName"
-placeholder="اسمك">
-
-<label>العمر</label>
-
-<input
-class="input"
-id="profileAge"
-type="number"
-placeholder="العمر">
-
-<button class="btn btn-primary" onclick="saveProfile()">
-💾 حفظ المعلومات
-</button>
-
-</div>
-
-</div>
+    <div class="gamesGrid" id="gamesGrid"></div>
 
 </section>
 
-</div>
+<!-- =========================
+ EVENTS
+========================= -->
+
+<section class="page" id="events">
+
+    <div class="sectionTitle">
+        <h2>🎁 فعاليات Doma</h2>
+        <span>تتجدد يوميًا</span>
+    </div>
+
+    <div class="eventGrid">
+
+        <div class="event">
+
+            <div class="eventIcon">🎁</div>
+
+            <h3>المكافأة اليومية</h3>
+
+            <p style="color:var(--muted);font-size:12px;margin:10px 0 18px">
+                احصل على نقاطك اليومية.
+            </p>
+
+            <button class="btn gold" onclick="dailyReward()">
+                استلام +100 XP
+            </button>
+
+        </div>
+
+        <div class="event">
+
+            <div class="eventIcon">🎯</div>
+
+            <h3>تحدي اليوم</h3>
+
+            <p style="color:var(--muted);font-size:12px;margin:10px 0 18px">
+                العب أي لعبة واحصل على مكافأة إضافية.
+            </p>
+
+            <button class="btn primary" onclick="openGame(1)">
+                ابدأ التحدي
+            </button>
+
+        </div>
+
+        <div class="event">
+
+            <div class="eventIcon">🎡</div>
+
+            <h3>عجلة الحظ</h3>
+
+            <p style="color:var(--muted);font-size:12px;margin:10px 0 18px">
+                جرّب حظك واحصل على نقاط.
+            </p>
+
+            <button class="btn secondary" onclick="spinWheel()">
+                لف العجلة
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+ PROFILE
+========================= -->
+
+<section class="page" id="profile">
+
+    <div class="sectionTitle">
+        <h2>👤 ملفي</h2>
+        <span>إحصائياتك</span>
+    </div>
+
+    <div class="profileGrid">
+
+        <div class="card center">
+
+            <div class="profileAvatar" id="profileAvatar">
+                D
+            </div>
+
+            <br>
+
+            <h2 id="profileName">Doma</h2>
+
+            <p
+                id="profileNick"
+                style="color:var(--muted)">
+                مستكشف
+            </p>
+
+            <br>
+
+            <div>
+                المستوى
+                <b id="profileLevel">1</b>
+            </div>
+
+            <div class="levelBar">
+                <div
+                    class="levelFill"
+                    id="levelFill">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>⚙️ الإعدادات الشخصية</h3>
+
+            <br>
+
+            <label style="color:var(--muted);font-size:12px">
+                النمط المفضل
+            </label>
+
+            <select id="styleSelect" onchange="saveStyle()">
+
+                <option>🌌 مستقبلي</option>
+                <option>🌸 أنمي</option>
+                <option>💎 فاخر</option>
+                <option>🔥 حماسي</option>
+                <option>🎮 ألعاب</option>
+
+            </select>
+
+            <br><br>
+
+            <button
+                class="btn secondary"
+                onclick="resetProfile()">
+                إعادة ضبط الملف
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
 
 </main>
 
-</div>
-
-<!-- ================= FIRST LOGIN ================= -->
-
-<div class="modal" id="welcomeModal">
-
-<div class="modal-box">
-
-<div style="font-size:45px">🌌</div>
-
-<h2>مرحبًا بك في 𝑫𝒐𝒎𝒂</h2>
-
-<p>
-قبل دخول عالمك الخاص، أخبرني كيف تريد أن أناديك.
-</p>
-
-<label>الاسم / اللقب</label>
-
-<input
-class="input"
-id="firstName"
-placeholder="مثال: Doma">
-
-<label>العمر</label>
-
-<input
-class="input"
-id="firstAge"
-type="number"
-placeholder="العمر">
-
-<button class="btn btn-primary" style="width:100%" onclick="createProfile()">
-🚀 دخول Doma
-</button>
+<footer>
+    𝑫𝒐𝒎𝒂 𝑼𝒍𝒕𝒓𝒂 𝒗4
+    <br>
+    جميع الحقوق محفوظة © 2026
+</footer>
 
 </div>
 
-</div>
+<!-- =========================
+ GAME MODAL
+========================= -->
 
-<!-- ================= NOTIFICATION ================= -->
+<div class="modal" id="gameModal">
 
-<div
-id="toast"
-style="
-position:fixed;
-bottom:25px;
-left:25px;
-z-index:999;
-padding:14px 20px;
-border-radius:15px;
-background:rgba(15,18,30,.9);
-border:1px solid rgba(255,255,255,.1);
-backdrop-filter:blur(20px);
-display:none;
-box-shadow:0 20px 50px #000;
-">
+    <div class="gameBox">
+
+        <div class="gameHead">
+
+            <div>
+                <h2 id="gameTitle">لعبة</h2>
+                <span
+                    id="gameDescription"
+                    style="color:var(--muted);font-size:12px">
+                </span>
+            </div>
+
+            <button
+                class="close"
+                onclick="closeGame()">
+                ×
+            </button>
+
+        </div>
+
+        <div id="gameContent"></div>
+
+    </div>
+
 </div>
 
 <script>
 
-/* =========================================================
-   DOMA ULTRA v4 ENGINE
-========================================================= */
+/* =====================================================
+   CONFIG
+===================================================== */
 
-const STORAGE_KEY = "DOMA_ULTRA_V4";
+const CONFIG = {
 
-let data = JSON.parse(
-    localStorage.getItem(STORAGE_KEY)
-) || {
-    name:"",
-    age:"",
-    points:0,
-    level:1,
-    streak:1,
-    daily:false
+    imageAPI:
+        "https://image.pollinations.ai/prompt/",
+
+    textAPI:
+        "https://text.pollinations.ai/",
+
+    videoAPI:
+        "/api/generate-video"
+
 };
 
-/* ================= INIT ================= */
+/* =====================================================
+   USER
+===================================================== */
 
-document.addEventListener("DOMContentLoaded",()=>{
-
-    if(!data.name){
-
-        document.getElementById("welcomeModal")
-        .classList.add("show");
-
-    }else{
-
-        loadProfile();
-
-    }
-
-    updateUI();
-
-});
-
-/* ================= PROFILE ================= */
-
-function createProfile(){
-
-    const name =
-        document.getElementById("firstName").value.trim();
-
-    const age =
-        document.getElementById("firstAge").value;
-
-    if(!name || !age){
-
-        toast("أدخل الاسم والعمر أولًا ⚠️");
-
-        return;
-
-    }
-
-    data.name = name;
-    data.age = age;
-
-    save();
-
-    document.getElementById("welcomeModal")
-    .classList.remove("show");
-
-    loadProfile();
-
-    toast("تم إنشاء ملفك بنجاح 🚀");
-
-    addPoints(20);
-}
+let user = JSON.parse(
+    localStorage.getItem("DOMA_USER") || "null"
+);
 
 function saveProfile(){
 
     const name =
-        document.getElementById("profileName").value.trim();
+        document.getElementById("nameInput").value.trim();
+
+    const nickname =
+        document.getElementById("nickInput").value.trim();
 
     const age =
-        document.getElementById("profileAge").value;
+        Number(document.getElementById("ageInput").value);
 
-    if(!name || !age){
+    if(!name || !nickname || !age){
 
-        toast("أكمل البيانات أولًا");
-
+        alert("أكمل بياناتك أولًا ✨");
         return;
-
     }
 
-    data.name=name;
-    data.age=age;
+    user = {
 
-    save();
-    loadProfile();
+        name,
+        nickname,
+        age,
 
-    toast("تم حفظ معلوماتك 💾");
+        points:0,
+        level:1,
+        gamesPlayed:0,
+        streak:1,
 
-}
+        lastReward:"",
 
-function loadProfile(){
+        style:"🌌 مستقبلي"
 
-    document.getElementById("topName").textContent =
-        data.name;
-
-    document.getElementById("profileName").value =
-        data.name;
-
-    document.getElementById("profileAge").value =
-        data.age;
-
-    const first =
-        data.name.charAt(0).toUpperCase();
-
-    document.getElementById("topAvatar").textContent =
-        first;
-
-    document.getElementById("profileAvatar").textContent =
-        first;
-
-}
-
-/* ================= STORAGE ================= */
-
-function save(){
+    };
 
     localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(data)
+        "DOMA_USER",
+        JSON.stringify(user)
     );
 
+    document
+        .getElementById("welcome")
+        .classList.add("hidden");
+
     updateUI();
-
-}
-
-/* ================= POINTS ================= */
-
-function addPoints(amount){
-
-    data.points += amount;
-
-    data.level =
-        Math.floor(data.points / 250) + 1;
-
-    save();
-
-    toast(`+${amount} ⭐`);
-
 }
 
 function updateUI(){
 
-    document.getElementById("sidePoints").textContent =
-        data.points + " ⭐";
+    if(!user)return;
 
-    document.getElementById("topPoints").textContent =
-        "⭐ " + data.points;
+    document.getElementById("miniName")
+        .textContent = user.nickname;
 
-    document.getElementById("homePoints").textContent =
-        data.points;
+    document.getElementById("miniPoints")
+        .textContent = user.points + " XP";
 
-    document.getElementById("homeLevel").textContent =
-        data.level;
+    document.getElementById("miniAvatar")
+        .textContent =
+        user.name.charAt(0).toUpperCase();
 
-    document.getElementById("sideLevel").textContent =
-        "المستوى " + data.level;
+    document.getElementById("homePoints")
+        .textContent = user.points;
 
-    document.getElementById("streak").textContent =
-        data.streak;
+    document.getElementById("homeLevel")
+        .textContent = user.level;
 
+    document.getElementById("homeGames")
+        .textContent = user.gamesPlayed;
+
+    document.getElementById("homeStreak")
+        .textContent = user.streak;
+
+    document.getElementById("profileName")
+        .textContent = user.name;
+
+    document.getElementById("profileNick")
+        .textContent =
+        "@" + user.nickname;
+
+    document.getElementById("profileLevel")
+        .textContent = user.level;
+
+    document.getElementById("profileAvatar")
+        .textContent =
+        user.name.charAt(0).toUpperCase();
+
+    const levelXP = user.level * 500;
+
+    document.getElementById("levelFill")
+        .style.width =
+        Math.min(
+            100,
+            (user.points % levelXP) /
+            levelXP * 100
+        ) + "%";
+
+    document.getElementById("styleSelect")
+        .value = user.style || "🌌 مستقبلي";
 }
 
-/* ================= NAVIGATION ================= */
+function addPoints(amount){
 
-function page(id,button){
+    user.points += amount;
+
+    const newLevel =
+        Math.floor(user.points / 500) + 1;
+
+    if(newLevel > user.level){
+
+        user.level = newLevel;
+
+        alert(
+            "🎉 ارتقيت إلى المستوى " +
+            user.level
+        );
+    }
+
+    localStorage.setItem(
+        "DOMA_USER",
+        JSON.stringify(user)
+    );
+
+    updateUI();
+}
+
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
+
+function showPage(id,button){
 
     document.querySelectorAll(".page")
-    .forEach(p=>p.classList.remove("active"));
+        .forEach(p => p.classList.remove("active"));
 
-    const target =
-        document.getElementById(id);
+    document.getElementById(id)
+        .classList.add("active");
 
-    if(target){
-        target.classList.add("active");
-    }
+    document.querySelectorAll(".menu button")
+        .forEach(b => b.classList.remove("active"));
 
-    document.querySelectorAll(".nav button")
-    .forEach(b=>b.classList.remove("active"));
-
-    if(button){
+    if(button)
         button.classList.add("active");
-    }
-
-    document.getElementById("sidebar")
-    .classList.remove("open");
 
     window.scrollTo({
         top:0,
         behavior:"smooth"
     });
-
 }
 
-function toggleMenu(){
+/* =====================================================
+   AI
+===================================================== */
 
-    document.getElementById("sidebar")
-    .classList.toggle("open");
-
-}
-
-/* ================= TOAST ================= */
-
-let toastTimer;
-
-function toast(text){
-
-    const el =
-        document.getElementById("toast");
-
-    el.textContent=text;
-    el.style.display="block";
-
-    clearTimeout(toastTimer);
-
-    toastTimer=setTimeout(()=>{
-
-        el.style.display="none";
-
-    },2500);
-
-}
-
-/* ================= AI ================= */
-
-function sendAI(){
+async function askAI(){
 
     const input =
         document.getElementById("aiInput");
 
-    const text =
-        input.value.trim();
+    const text = input.value.trim();
 
     if(!text)return;
 
     addMessage(text,"user");
 
-    input.value="";
+    input.value = "";
 
-    addPoints(5);
+    const loading =
+        addMessage("⏳ أفكر...","bot");
 
-    setTimeout(()=>{
+    try{
 
-        let answer = localAI(text);
+        const mode =
+            document.getElementById("aiMode").value;
 
-        addMessage(answer,"ai");
+        const system = {
 
-    },600);
+            normal:
+                "أنت Doma AI مساعد ذكي ومفيد. أجب بالعربية بوضوح.",
+
+            creative:
+                "أنت Doma AI مبدع. قدم إجابات مبتكرة وممتعة بالعربية.",
+
+            expert:
+                "أنت Doma AI خبير. أعط إجابات دقيقة ومنظمة بالعربية.",
+
+            fun:
+                "أنت Doma AI مرح. أجب بالعربية بأسلوب لطيف وممتع.",
+
+            anime:
+                "أنت Doma AI متخصص بالأنمي والألعاب. أجب بالعربية."
+
+        }[mode];
+
+        const prompt =
+            system +
+            "\n\nالسؤال:\n" +
+            text;
+
+        const url =
+            CONFIG.textAPI +
+            encodeURIComponent(prompt) +
+            "?model=openai";
+
+        const response =
+            await fetch(url);
+
+        if(!response.ok)
+            throw new Error("AI API error");
+
+        const answer =
+            await response.text();
+
+        loading.textContent =
+            answer || "لم تصل إجابة.";
+
+        addPoints(2);
+
+    }catch(error){
+
+        loading.textContent =
+            "تعذر الاتصال بالذكاء الاصطناعي حاليًا. حاول مرة أخرى.";
+
+        console.error(error);
+
+    }
 
 }
 
 function addMessage(text,type){
 
-    const box =
+    const messages =
         document.getElementById("messages");
 
-    const msg =
+    const div =
         document.createElement("div");
 
-    msg.className =
-        "message " + type;
+    div.className =
+        "msg " + type;
 
-    msg.innerHTML =
-        text;
+    div.textContent = text;
 
-    box.appendChild(msg);
+    messages.appendChild(div);
 
-    box.scrollTop =
-        box.scrollHeight;
+    messages.scrollTop =
+        messages.scrollHeight;
 
+    return div;
 }
 
-function localAI(text){
+/* =====================================================
+   IMAGE GENERATOR
+===================================================== */
 
-    const t=text.toLowerCase();
-
-    if(
-        t.includes("مرحبا") ||
-        t.includes("السلام")
-    ){
-
-        return "مرحبًا بك 👋✨ كيف أستطيع مساعدتك اليوم؟";
-
-    }
-
-    if(t.includes("من انت") || t.includes("من أنت")){
-
-        return "أنا Doma AI، المساعد الذكي داخل 𝑫𝒐𝒎𝒂 Ultra v4 🧠🌌";
-
-    }
-
-    if(t.includes("فكرة")){
-
-        return "لدي فكرة لك: اصنع مشروعًا صغيرًا يجمع الألعاب والذكاء الاصطناعي ونظام نقاط، واجعل المستخدم يفتح مستويات جديدة كلما جمع النجوم. 🚀";
-
-    }
-
-    if(t.includes("html")){
-
-        return "HTML يبني هيكل الصفحة، CSS يعطيها الشكل، وJavaScript يجعلها تتفاعل وتعمل.";
-
-    }
-
-    return `
-    فهمت سؤالك: <b>${escapeHTML(text)}</b>
-    <br><br>
-    هذه نسخة Doma المحلية حاليًا. لربط نموذج ذكاء اصطناعي حقيقي،
-    اربط الدالة <b>sendAI()</b> مع API خلفية خاصة بك. 🧠⚡
-    `;
-
-}
-
-function escapeHTML(str){
-
-    return str
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-/* ================= IMAGE ================= */
-
-function generateImage(){
+async function generateImage(){
 
     const prompt =
         document.getElementById("imagePrompt")
@@ -1776,44 +1641,56 @@ function generateImage(){
     const preview =
         document.getElementById("imagePreview");
 
+    const model =
+        document.getElementById("imageModel")
+        .value;
+
     if(!prompt){
 
-        toast("اكتب وصف الصورة أولًا 🎨");
-
+        alert("اكتب وصف الصورة أولًا.");
         return;
-
     }
 
-    addPoints(10);
+    preview.innerHTML =
+        "⏳ يتم إنشاء الصورة...";
 
-    preview.innerHTML=`
+    const url =
+        CONFIG.imageAPI +
+        encodeURIComponent(prompt) +
+        "?model=" +
+        encodeURIComponent(model) +
+        "&width=1024" +
+        "&height=1024" +
+        "&safe=true";
 
-        <div>
+    const img =
+        new Image();
 
-            <div style="font-size:55px">
-                ✨
-            </div>
+    img.onload = () => {
 
-            <h3>تم تجهيز طلب الصورة</h3>
+        preview.innerHTML = "";
 
-            <p style="margin-top:8px">
-                ${escapeHTML(prompt)}
-            </p>
+        preview.appendChild(img);
 
-            <small>
-                اربط generateImage() مع خدمة توليد صور
-                حقيقية للحصول على الصورة.
-            </small>
+        addPoints(5);
 
-        </div>
+    };
 
-    `;
+    img.onerror = () => {
 
+        preview.innerHTML =
+            "❌ تعذر إنشاء الصورة. حاول مرة أخرى.";
+
+    };
+
+    img.src = url;
 }
 
-/* ================= VIDEO ================= */
+/* =====================================================
+   VIDEO
+===================================================== */
 
-function generateVideo(){
+async function generateVideo(){
 
     const prompt =
         document.getElementById("videoPrompt")
@@ -1824,215 +1701,874 @@ function generateVideo(){
 
     if(!prompt){
 
-        toast("اكتب وصف الفيديو أولًا 🎬");
-
+        alert("اكتب وصف الفيديو.");
         return;
+    }
+
+    preview.innerHTML =
+        "⏳ جاري طلب إنشاء الفيديو...";
+
+    try{
+
+        const response =
+            await fetch(CONFIG.videoAPI,{
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body:JSON.stringify({
+                    prompt
+                })
+
+            });
+
+        if(!response.ok)
+            throw new Error("Video API unavailable");
+
+        const data =
+            await response.json();
+
+        if(!data.url)
+            throw new Error("No video URL");
+
+        preview.innerHTML =
+            `<video controls src="${data.url}"></video>`;
+
+        addPoints(10);
+
+    }catch(error){
+
+        preview.innerHTML = `
+            <div style="padding:20px;text-align:center">
+                <b>🎬 مولد الفيديو غير موصول</b>
+                <p style="font-size:11px;margin-top:10px">
+                اربط endpoint الخاص بمزود الفيديو
+                في CONFIG.videoAPI.
+                </p>
+            </div>
+        `;
 
     }
 
-    addPoints(15);
+}
 
-    preview.innerHTML=`
+/* =====================================================
+   100 ANIME NAMES
+===================================================== */
 
-        <div>
+const animeCharacters = [
 
-            <div style="font-size:55px">
-                🎬
-            </div>
+"ناروتو",
+"ساسكي",
+"ساكورا",
+"كاكاشي",
+"إيتاتشي",
+"مادارا",
+"أوبيتو",
+"ميناتو",
+"جيرايا",
+"تسونادي",
 
-            <h3>طلب الفيديو جاهز</h3>
+"لوفي",
+"زورو",
+"سانجي",
+"نامي",
+"روبين",
+"يوسوب",
+"تشوبر",
+"فرانكي",
+"بروك",
+"جينبي",
 
-            <p style="margin-top:8px">
-                ${escapeHTML(prompt)}
+"غوكو",
+"فيجيتا",
+"غوهان",
+"ترانكس",
+"بيكولو",
+"فريزا",
+"سيل",
+"ماجين بو",
+"بيروس",
+"ويس",
+
+"غوجو",
+"غيتو",
+"يوجي",
+"ميغومي",
+"نوبارا",
+"سوكونا",
+"ماكي",
+"توجي",
+"نانامي",
+"باندا",
+
+"تانجيرو",
+"نيزوكو",
+"زينيتسو",
+"إينوسكي",
+"رينغوكو",
+"غيو",
+"شينوبو",
+"موزان",
+"ميتسوري",
+"أوباناي",
+
+"إيرين",
+"ميكاسا",
+"أرمين",
+"ليفاي",
+"إروين",
+"راينر",
+"آني",
+"هانجي",
+"جان",
+"كوني",
+
+"إدوارد",
+"ألفونس",
+"روي",
+"وينري",
+"سكار",
+"إنفي",
+"غرييد",
+"هوهنهايم",
+"موستانغ",
+"أوليفييه",
+
+"إيساغي",
+"رين",
+"باتشيرا",
+"ناغي",
+"بارو",
+"ريو",
+"تشغيري",
+"كايسَر",
+"ساي",
+"نيكو",
+
+"لايت",
+"إل",
+"ميسا",
+"ريوك",
+"ميلو",
+"نير",
+"ماتسودا",
+"ريوكو",
+"تاتسوماكي",
+"سايتاما",
+
+"كيلوا",
+"غون",
+"كورابيكا",
+"ليوريو",
+"هيسوكا",
+"ميرويم",
+"فيتان",
+"تشورولو",
+"إيلومي",
+"نوبوناغا"
+
+];
+
+/* =====================================================
+   100 GAMES
+===================================================== */
+
+const gameTemplates = [
+
+["🧩","فك الشخصية","فك اسم شخصية أنمي"],
+["⌨️","اكتب بسرعة","اكتب الكلمة بأسرع وقت"],
+["🔢","خمن الرقم","اعثر على الرقم الصحيح"],
+["🧠","اختبار الذاكرة","تذكر العناصر"],
+["⚡","رد سريع","اضغط عند ظهور الهدف"],
+["🎯","هدف عشوائي","اختر الإجابة الصحيحة"],
+["🔤","رتب الحروف","رتب الحروف"],
+["❓","صح أم خطأ","اختبار سريع"],
+["🎲","حظك اليوم","اختبار الحظ"],
+["🧮","حساب سريع","حل المسألة"],
+["🕵️","من أنا؟","خمن الشخصية"],
+["🌈","اختار اللون","اختر اللون"],
+["🧠","ذاكرة الأرقام","احفظ الرقم"],
+["🔐","كلمة السر","اكتشف الرمز"],
+["🚀","سباق السرعة","أنهِ التحدي"],
+["🎮","زر سريع","اختبار رد الفعل"],
+["🧩","لغز اليوم","حل اللغز"],
+["🔎","اختلاف الصورة","اعثر على الاختلاف"],
+["💎","اجمع الجواهر","اجمع أكبر عدد"],
+["🔥","سلسلة الإجابات","أجب دون خطأ"],
+["🎯","صيد النقاط","اجمع النقاط"],
+["🌀","متاهة","اعثر على الطريق"],
+["🧊","كسر الجليد","اضغط بسرعة"],
+["🌙","تحدي الليل","اختبار سريع"],
+["☀️","تحدي الصباح","ابدأ يومك"],
+["👑","ملك السرعة","كن الأسرع"],
+["⚔️","مبارزة","اختبر مهارتك"],
+["🛡️","الدفاع","صد الهجمات"],
+["🏎️","سباق","اختر الأسرع"],
+["🚁","طيران","تجنب العقبات"],
+["🐉","صيد التنين","خمن الكلمة"],
+["🧙","الساحر","رتب التعويذة"],
+["🥷","نينجا","اختبار سرعة"],
+["🤖","روبوت","حل التحدي"],
+["👽","فضائي","خمن الكوكب"],
+["🌌","الكون","احفظ النجوم"],
+["🪐","الكواكب","رتب الكواكب"],
+["🌟","النجم","اعثر على النجم"],
+["💫","وميض","اضغط عند الوميض"],
+["🎵","الإيقاع","اختبر الذاكرة"],
+["🎨","الفنان","خمن اللون"],
+["📚","المثقف","سؤال معلومات"],
+["🌍","العالم","خمن الدولة"],
+["🏆","البطل","تحدي شامل"],
+["🥇","الذهبي","اجمع 100 نقطة"],
+["🥈","الفضي","اجمع 75 نقطة"],
+["🥉","البرونزي","اجمع 50 نقطة"],
+["💰","جامع الذهب","اجمع العملات"],
+["💡","الفكرة","حل اللغز"],
+["🧪","المختبر","اختبر ذاكرتك"],
+["🔬","العالم","أجب بسرعة"],
+["📡","الإشارة","اتبع الإشارة"],
+["📱","الهاتف","تحدي السرعة"],
+["💻","الهاكر","اكسر الرمز"],
+["⌛","الوقت","قبل انتهاء الوقت"],
+["⏱️","الساعة","رد في ثانية"],
+["🔔","الجرس","اضغط عند الصوت"],
+["🎁","الصندوق","اختر الصندوق"],
+["🎈","البالون","اختر الصحيح"],
+["🍀","الحظ","اختر الحظ"],
+["❤️","القلب","اختبار الشخصية"],
+["💜","الطاقة","اختر الطاقة"],
+["💙","المحيط","اختبار التركيز"],
+["🧡","النار","تحدي السرعة"],
+["💚","الغابة","اعثر على الطريق"],
+["🖤","الظل","خمن الشخصية"],
+["🤍","النور","اختر الإجابة"],
+["🐺","الذئب","اختبار الذكاء"],
+["🦊","الثعلب","اكتشف الخدعة"],
+["🐼","الباندا","لعبة الذاكرة"],
+["🐯","النمر","تحدي القوة"],
+["🦁","الأسد","ملك الأسئلة"],
+["🐸","الضفدع","اقفز للإجابة"],
+["🐙","الأخطبوط","احفظ الأشكال"],
+["🦋","الفراشة","تتبع الحركة"],
+["🐝","النحلة","اجمع النقاط"],
+["🦅","النسر","اعثر على الهدف"],
+["🐉","التنين","تحدي الأسطورة"],
+["🗡️","السيف","اختر السيف"],
+["🏹","القوس","صوّب الهدف"],
+["💣","القنبلة","تجنب الخطأ"],
+["🧨","الانفجار","اضغط بسرعة"],
+["🕹️","الأركيد","لعبة كلاسيكية"],
+["👾","الفضائي","اهزم الهدف"],
+["👻","الشبح","خمن الشبح"],
+["💀","الجمجمة","تحدي صعب"],
+["😈","الشرير","اختر الإجابة"],
+["😎","النخبة","تحدي محترفين"],
+["🤓","العبقري","أسئلة ذكية"],
+["🥳","الحفلة","تحدي مرح"],
+["😂","الضحك","أسئلة مضحكة"],
+["🧩","المفكك","أعد الكلمة"],
+["🔠","الحروف","رتب الكلمة"],
+["🔡","الكلمات","اختبار لغوي"],
+["📖","القصة","تذكر القصة"],
+["🎬","الفيلم","خمن الشخصية"],
+["🍿","السينما","سؤال سريع"],
+["🌸","الأنمي","تحدي الأنمي"],
+["🔥","الأسطورة","تحدي نهائي"]
+
+];
+
+const games = gameTemplates.map(
+    (g,i)=>({
+        id:i+1,
+        icon:g[0],
+        title:g[1],
+        desc:g[2]
+    })
+);
+
+/* =====================================================
+   RENDER GAMES
+===================================================== */
+
+function renderGames(){
+
+    const grid =
+        document.getElementById("gamesGrid");
+
+    grid.innerHTML = "";
+
+    games.forEach(game => {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "game";
+
+        div.innerHTML = `
+            <div class="icon">${game.icon}</div>
+            <b>${game.title}</b>
+            <span>${game.desc}</span>
+        `;
+
+        div.onclick =
+            () => openGame(game.id);
+
+        grid.appendChild(div);
+
+    });
+
+}
+
+/* =====================================================
+   GAME ENGINE
+===================================================== */
+
+let currentAnime = null;
+let gameTimer = null;
+let gameStart = 0;
+
+function openGame(id){
+
+    const game =
+        games.find(g => g.id === id) || games[0];
+
+    document
+        .getElementById("gameModal")
+        .classList.add("show");
+
+    document
+        .getElementById("gameTitle")
+        .textContent =
+        game.icon + " " + game.title;
+
+    document
+        .getElementById("gameDescription")
+        .textContent =
+        game.desc;
+
+    const content =
+        document.getElementById("gameContent");
+
+    if(id === 1){
+
+        startScrambleGame();
+
+    }else if(id === 2){
+
+        startTypingGame();
+
+    }else if(id === 3){
+
+        startNumberGame();
+
+    }else{
+
+        genericGame(game);
+
+    }
+
+}
+
+function closeGame(){
+
+    clearInterval(gameTimer);
+
+    document
+        .getElementById("gameModal")
+        .classList.remove("show");
+
+}
+
+/* =====================================================
+   GAME 1
+   ANIME SCRAMBLE
+===================================================== */
+
+function shuffleString(str){
+
+    return [...str]
+        .sort(()=>Math.random()-.5)
+        .join("");
+}
+
+function startScrambleGame(){
+
+    currentAnime =
+        animeCharacters[
+            Math.floor(
+                Math.random() *
+                animeCharacters.length
+            )
+        ];
+
+    let scrambled =
+        shuffleString(currentAnime);
+
+    if(scrambled === currentAnime)
+        scrambled =
+            shuffleString(currentAnime);
+
+    gameStart =
+        Date.now();
+
+    document.getElementById("gameContent")
+        .innerHTML = `
+
+        <div class="center">
+
+            <p style="color:var(--muted)">
+                أعد ترتيب الحروف واكتب اسم الشخصية.
             </p>
 
-            <small>
-                اربط هذه الدالة مع API لتوليد الفيديو.
-            </small>
+            <div class="scramble">
+                ${scrambled}
+            </div>
+
+            <input
+                id="scrambleInput"
+                class="input"
+                placeholder="اكتب اسم الشخصية هنا"
+                onkeydown="if(event.key==='Enter')checkScramble()">
+
+            <div
+                class="feedback"
+                id="scrambleFeedback">
+            </div>
+
+            <button
+                class="btn primary"
+                onclick="checkScramble()">
+                تحقق ⚡
+            </button>
 
         </div>
-
     `;
-
 }
 
-/* ================= CLEAR ================= */
+function checkScramble(){
 
-function clearPrompt(id){
+    const input =
+        document.getElementById("scrambleInput")
+        .value.trim();
 
-    document.getElementById(id).value="";
+    const feedback =
+        document.getElementById("scrambleFeedback");
 
-}
+    if(
+        input.toLowerCase() ===
+        currentAnime.toLowerCase()
+    ){
 
-/* ================= DAILY ================= */
+        const seconds =
+            (Date.now()-gameStart)/1000;
 
-function dailyReward(){
+        const points =
+            Math.max(
+                10,
+                Math.round(
+                    80 - seconds*4
+                )
+            );
 
-    if(data.daily){
+        feedback.innerHTML =
+            `🎉 صحيح! +${points} XP`;
 
-        toast("أخذت مكافأة اليوم بالفعل 🌙");
+        user.gamesPlayed++;
 
-        return;
+        addPoints(points);
+
+        setTimeout(
+            startScrambleGame,
+            1000
+        );
+
+    }else{
+
+        feedback.innerHTML =
+            "❌ ليست الإجابة الصحيحة.";
 
     }
 
-    data.daily=true;
-
-    addPoints(50);
-
-    save();
-
-    toast("🎁 حصلت على 50 ⭐!");
-
 }
 
-/* ================= GAME 1 ================= */
+/* =====================================================
+   GAME 2
+   TYPING
+===================================================== */
 
-function reactionGame(){
+function startTypingGame(){
 
-    const start =
-        performance.now();
+    const words = [
+        "ناروتو",
+        "غوجو",
+        "لوفي",
+        "غوكو",
+        "تانجيرو",
+        "ساسكي",
+        "ليفاي",
+        "إيرين",
+        "زورو",
+        "إيتاتشي"
+    ];
 
-    const wait =
-        1000 + Math.random()*3000;
+    const word =
+        words[
+            Math.floor(
+                Math.random()*words.length
+            )
+        ];
 
-    toast("استعد... ⚡");
+    gameStart = Date.now();
+
+    document.getElementById("gameContent")
+        .innerHTML = `
+
+        <div class="center">
+
+            <p>اكتب الكلمة بأسرع ما يمكنك:</p>
+
+            <div class="scramble">
+                ${word}
+            </div>
+
+            <input
+                id="typingInput"
+                class="input"
+                autofocus
+                placeholder="اكتب هنا..."
+                onkeydown="if(event.key==='Enter')checkTyping('${word}')">
+
+            <div
+                id="typingFeedback"
+                class="feedback">
+            </div>
+
+        </div>
+    `;
 
     setTimeout(()=>{
+        const input =
+            document.getElementById("typingInput");
 
-        const result =
-            prompt("⚡ اضغط OK بأسرع ما تستطيع!");
-
-        const time =
-            Math.round(performance.now()-start-wait);
-
-        if(result!==null){
-
-            let reward =
-                Math.max(5,50-Math.floor(time/50));
-
-            addPoints(reward);
-
-            alert(
-                `سرعتك: ${time}ms\n+${reward} ⭐`
-            );
-
-        }
-
-    },wait);
+        if(input)
+            input.focus();
+    },100);
 
 }
 
-/* ================= GAME 2 ================= */
+function checkTyping(word){
 
-function guessGame(){
+    const input =
+        document.getElementById("typingInput")
+        .value.trim();
 
-    const number =
-        Math.floor(Math.random()*10)+1;
+    const feedback =
+        document.getElementById("typingFeedback");
 
-    const guess =
-        Number(prompt("🎯 خمن رقمًا من 1 إلى 10"));
+    if(input === word){
 
-    if(guess===number){
+        const seconds =
+            (Date.now()-gameStart)/1000;
+
+        const points =
+            Math.max(
+                5,
+                Math.round(60-seconds*3)
+            );
+
+        feedback.innerHTML =
+            `⚡ ممتاز! ${seconds.toFixed(2)} ثانية | +${points} XP`;
+
+        user.gamesPlayed++;
+
+        addPoints(points);
+
+        setTimeout(
+            startTypingGame,
+            1200
+        );
+
+    }else{
+
+        feedback.innerHTML =
+            "❌ حاول مرة أخرى.";
+
+    }
+
+}
+
+/* =====================================================
+   GAME 3
+   GUESS NUMBER
+===================================================== */
+
+let secretNumber = 0;
+
+function startNumberGame(){
+
+    secretNumber =
+        Math.floor(
+            Math.random()*100
+        )+1;
+
+    document.getElementById("gameContent")
+        .innerHTML = `
+
+        <div class="center">
+
+            <p style="color:var(--muted)">
+                خمن رقمًا بين 1 و100.
+            </p>
+
+            <br>
+
+            <input
+                id="numberInput"
+                class="input"
+                type="number"
+                min="1"
+                max="100"
+                placeholder="رقم">
+
+            <div
+                id="numberFeedback"
+                class="feedback">
+            </div>
+
+            <button
+                class="btn primary"
+                onclick="checkNumber()">
+                تخمين
+            </button>
+
+        </div>
+    `;
+}
+
+function checkNumber(){
+
+    const n =
+        Number(
+            document.getElementById("numberInput")
+            .value
+        );
+
+    const feedback =
+        document.getElementById("numberFeedback");
+
+    if(n === secretNumber){
+
+        feedback.innerHTML =
+            "🏆 أصبت! +50 XP";
+
+        user.gamesPlayed++;
 
         addPoints(50);
 
-        alert("🔥 صحيح! +50 ⭐");
-
-    }else{
-
-        alert(
-            "ليس صحيحًا 😄 الرقم كان "+number
+        setTimeout(
+            startNumberGame,
+            1000
         );
 
-    }
+    }else if(n < secretNumber){
 
-}
-
-/* ================= GAME 3 ================= */
-
-function memoryGame(){
-
-    const sequence =
-        Math.floor(1000+Math.random()*9000);
-
-    alert(
-        "🧠 احفظ الرقم:\n\n"+sequence
-    );
-
-    setTimeout(()=>{
-
-        const answer =
-            prompt("اكتب الرقم الذي حفظته");
-
-        if(answer===String(sequence)){
-
-            addPoints(40);
-
-            alert("ممتاز! ذاكرتك حديد 🧠🔥 +40 ⭐");
-
-        }else{
-
-            alert("قريب! حاول مرة أخرى.");
-
-        }
-
-    },2500);
-
-}
-
-/* ================= GAME 4 ================= */
-
-function coinGame(){
-
-    const result =
-        Math.random();
-
-    if(result>.65){
-
-        addPoints(30);
-
-        alert("🪙 JACKPOT!\n+30 ⭐");
+        feedback.innerHTML =
+            "⬆️ الرقم أكبر.";
 
     }else{
 
-        addPoints(5);
-
-        alert("🪙 حصلت على +5 ⭐");
+        feedback.innerHTML =
+            "⬇️ الرقم أصغر.";
 
     }
 
 }
 
-/* ================= KEYBOARD ================= */
+/* =====================================================
+   GENERIC GAMES
+===================================================== */
 
-document.addEventListener("keydown",e=>{
+function genericGame(game){
 
-    if(e.key==="Escape"){
+    const questions = [
+        "ما هو الخيار الصحيح؟",
+        "اختر الإجابة الأسرع.",
+        "أي خيار يبدو منطقيًا؟",
+        "هل تستطيع حل التحدي؟"
+    ];
 
-        document.getElementById("sidebar")
-        .classList.remove("open");
+    const q =
+        questions[
+            Math.floor(
+                Math.random()*questions.length
+            )
+        ];
 
+    document.getElementById("gameContent")
+        .innerHTML = `
+
+        <div class="center">
+
+            <div style="font-size:55px">
+                ${game.icon}
+            </div>
+
+            <h2>${q}</h2>
+
+            <p style="color:var(--muted);margin:15px">
+                هذه اللعبة تستخدم محرك Doma
+                ويمكن تطويرها إلى تحدٍ كامل.
+            </p>
+
+            <button
+                class="btn primary"
+                onclick="winGeneric()">
+                أبدأ التحدي
+            </button>
+
+        </div>
+    `;
+}
+
+function winGeneric(){
+
+    const points =
+        5 + Math.floor(Math.random()*21);
+
+    user.gamesPlayed++;
+
+    addPoints(points);
+
+    alert(
+        "🎉 حصلت على " +
+        points +
+        " XP"
+    );
+
+}
+
+/* =====================================================
+   EVENTS
+===================================================== */
+
+function dailyReward(){
+
+    const today =
+        new Date()
+        .toISOString()
+        .slice(0,10);
+
+    if(user.lastReward === today){
+
+        alert(
+            "🎁 أخذت مكافأتك اليوم بالفعل."
+        );
+
+        return;
     }
 
-});
+    user.lastReward = today;
 
-/* ================= SAVE ================= */
+    addPoints(100);
 
-window.addEventListener("beforeunload",save);
+    localStorage.setItem(
+        "DOMA_USER",
+        JSON.stringify(user)
+    );
+
+    alert(
+        "🎉 حصلت على 100 XP!"
+    );
+
+}
+
+function spinWheel(){
+
+    const rewards =
+        [10,20,30,50,75,100,150];
+
+    const reward =
+        rewards[
+            Math.floor(
+                Math.random()*rewards.length
+            )
+        ];
+
+    addPoints(reward);
+
+    alert(
+        "🎡 العجلة توقفت على +" +
+        reward +
+        " XP!"
+    );
+
+}
+
+/* =====================================================
+   STYLE
+===================================================== */
+
+function saveStyle(){
+
+    user.style =
+        document.getElementById("styleSelect")
+        .value;
+
+    localStorage.setItem(
+        "DOMA_USER",
+        JSON.stringify(user)
+    );
+
+}
+
+/* =====================================================
+   RESET
+===================================================== */
+
+function resetProfile(){
+
+    if(
+        !confirm(
+            "هل تريد حذف بيانات ملفك؟"
+        )
+    )return;
+
+    localStorage.removeItem(
+        "DOMA_USER"
+    );
+
+    location.reload();
+
+}
+
+/* =====================================================
+   INIT
+===================================================== */
+
+renderGames();
+
+if(user){
+
+    document
+        .getElementById("welcome")
+        .classList.add("hidden");
+
+    updateUI();
+
+}else{
+
+    document
+        .getElementById("welcome")
+        .classList.remove("hidden");
+
+}
 
 </script>
-
-<footer style="
-position:relative;
-text-align:center;
-padding:30px;
-color:#555d75;
-font-size:11px;
-border-top:1px solid rgba(255,255,255,.05);
-">
-𝑫𝒐𝒎𝒂 𝑼𝒍𝒕𝒓𝒂 𝒗4
-</footer>
 
 </body>
 </html>
