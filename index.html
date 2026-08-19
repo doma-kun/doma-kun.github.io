@@ -188,6 +188,9 @@ select option{background:#101010;}
 }
 .preview img, .preview video{width:100%; max-height:500px; object-fit:contain; border-radius:16px;}
 
+/* ============ MUSIC ============ */
+.musicGen{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+
 /* ============ GAMES ============ */
 .gamesGrid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
 .game{
@@ -258,7 +261,7 @@ footer{width:100%; border-top:1px solid var(--line); padding:30px; text-align:ce
 /* ============ MOBILE ============ */
 @media(max-width:850px){
     .statsGrid{grid-template-columns:repeat(2,1fr);}
-    .aiBox, .generatorGrid, .profileGrid{grid-template-columns:1fr;}
+    .aiBox, .generatorGrid, .profileGrid, .musicGen{grid-template-columns:1fr;}
     .gamesGrid{grid-template-columns:repeat(2,1fr);}
     .eventGrid{grid-template-columns:1fr;}
     .nav{height:68px;}
@@ -320,6 +323,7 @@ footer{width:100%; border-top:1px solid var(--line); padding:30px; text-align:ce
                 <button class="active" onclick="showPage('home',this)">🏠 الرئيسية</button>
                 <button onclick="showPage('ai',this)">🤖 الذكاء</button>
                 <button onclick="showPage('create',this)">🎨 الإبداع</button>
+                <button onclick="showPage('music',this)">🎵 الموسيقى</button>
                 <button onclick="showPage('games',this)">🎮 الألعاب</button>
                 <button onclick="showPage('events',this)">🎁 الفعاليات</button>
                 <button onclick="showPage('profile',this)">👤 ملفي</button>
@@ -370,7 +374,7 @@ footer{width:100%; border-top:1px solid var(--line); padding:30px; text-align:ce
                         💡 توليد الأفكار<br>
                         📝 كتابة النصوص<br>
                         🎨 أوامر الصور<br>
-                        🎬 أوامر الفيديو
+                        🎵 توليد الموسيقى
                     </p>
                     <br>
                     <p style="color:var(--muted);font-size:12px">كل محادثة تمنحك نقاطًا.</p>
@@ -378,7 +382,7 @@ footer{width:100%; border-top:1px solid var(--line); padding:30px; text-align:ce
             </div>
         </section>
 
-        <!-- CREATE -->
+        <!-- CREATE (Image & Video) -->
         <section class="page" id="create">
             <div class="sectionTitle"><h2>✨ استوديو Doma</h2><span>اصنع شيئًا جديدًا</span></div>
             <div class="generatorGrid">
@@ -386,6 +390,19 @@ footer{width:100%; border-top:1px solid var(--line); padding:30px; text-align:ce
                     <h3>🎨 مولد الصور</h3><br>
                     <textarea id="imagePrompt" placeholder="مثال: محارب أنمي يقف فوق مدينة مستقبلية ليلًا، إضاءة سينمائية..."></textarea>
                     <br><br>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                        <button class="btn secondary" style="padding:8px 12px;font-size:12px;" onclick="setImageStyle('anime')">🌸 أنمي</button>
+                        <button class="btn secondary" style="padding:8px 12px;font-size:12px;" onclick="setImageStyle('cartoon')">🎨 كرتون</button>
+                        <button class="btn secondary" style="padding:8px 12px;font-size:12px;" onclick="setImageStyle('oil')">🖼️ زيتي</button>
+                        <button class="btn secondary" style="padding:8px 12px;font-size:12px;" onclick="setImageStyle('pencil')">✏️ رصاص</button>
+                        <button class="btn secondary" style="padding:8px 12px;font-size:12px;" onclick="setImageStyle('watercolor')">💧 ماء</button>
+                        <button class="btn secondary" style="padding:8px 12px;font-size:12px;" onclick="setImageStyle('3d')">🎭 ثلاثي</button>
+                        <button class="btn secondary" style="padding:8px 12px;font-size:12px;" onclick="setImageStyle('fantasy')">🔮 فانتازيا</button>
+                        <button class="btn secondary" style="padding:8px 12px;font-size:12px;" onclick="setImageStyle('cyber')">🌆 سايبر</button>
+                        <button class="btn secondary" style="padding:8px 12px;font-size:12px;" onclick="setImageStyle('vintage')">📷 قديم</button>
+                        <button class="btn secondary" style="padding:8px 12px;font-size:12px;" onclick="setImageStyle('bw')">⬛ أبيض/أسود</button>
+                    </div>
+                    <br>
                     <select id="imageModel"><option value="flux">Flux</option><option value="turbo">Turbo</option></select>
                     <br><br>
                     <button class="btn primary" onclick="generateImage()">توليد الصورة ✨</button>
@@ -398,6 +415,47 @@ footer{width:100%; border-top:1px solid var(--line); padding:30px; text-align:ce
                     <button class="btn primary" onclick="generateVideo()">إنشاء الفيديو 🎬</button>
                     <div class="preview" id="videoPreview">الفيديو سيظهر هنا</div>
                     <p style="color:#777;font-size:11px;margin-top:12px;line-height:1.8">مولد الفيديو يستخدم endpoint مجاني.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MUSIC -->
+        <section class="page" id="music">
+            <div class="sectionTitle"><h2>🎵 مولد الموسيقى</h2><span>أنشئ أغانيك بالذكاء الاصطناعي</span></div>
+            <div class="musicGen">
+                <div class="card">
+                    <h3>🎼 وصف الأغنية</h3><br>
+                    <textarea id="musicPrompt" placeholder="مثال: أغنية حزينة عن الفراق"></textarea>
+                    <br><br>
+                    <select id="musicGenre">
+                        <option value="pop">pop</option>
+                        <option value="rock">rock</option>
+                        <option value="sad">sad</option>
+                        <option value="rap">rap</option>
+                        <option value="trap">trap</option>
+                        <option value="lofi">lofi</option>
+                        <option value="arabic">arabic</option>
+                        <option value="chill">chill</option>
+                        <option value="romantic">romantic</option>
+                        <option value="dance">dance</option>
+                    </select>
+                    <br><br>
+                    <select id="musicVoice">
+                        <option value="1">ذكر</option>
+                        <option value="2">أنثى</option>
+                        <option value="0">محايد</option>
+                    </select>
+                    <br><br>
+                    <button class="btn primary" onclick="generateMusic()">توليد الأغنية 🎵</button>
+                    <div class="preview" id="musicPreview">الأغنية ستظهر هنا</div>
+                </div>
+                <div class="card">
+                    <h3>🎧 معلومات</h3>
+                    <p style="color:var(--muted);line-height:2;font-size:14px;">
+                        يمكنك توليد أغانٍ قصيرة بالذكاء الاصطناعي.
+                        <br>اختر النوع والصوت ثم اضغط توليد.
+                        <br>الوقت المتوقع: 30-60 ثانية.
+                    </p>
                 </div>
             </div>
         </section>
@@ -475,8 +533,30 @@ footer{width:100%; border-top:1px solid var(--line); padding:30px; text-align:ce
 // ==================== CONFIG ====================
 const CONFIG = {
     imageAPI: "https://image.pollinations.ai/prompt/",
-    aiAPI: "https://text.pollinations.ai/",
-    videoAPI: "https://engez.a7a.online/api/v1"
+    aiAPI: "https://notrack.ai/api/dispatch",
+    videoAPI: "https://engez.a7a.online/api/v1",
+    musicAPI: "https://engez.a7a.online/api/v1/ai/ai/sono"
+};
+
+const NOTRACK_COOKIE = 'si_usr_id=54MdSvFT_14LFH4; uid=3d7d0119-aa54-44dd-9210-730e0995d422; si_ses_id=54MrGORj_1X3JTL';
+
+const NOTRACK_HEADERS = {
+    'accept': '*/*',
+    'accept-language': 'ar-SD',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    'cookie': NOTRACK_COOKIE,
+    'origin': 'https://notrack.ai',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://notrack.ai/chat',
+    'sec-ch-ua': '"Chromium";v="127", "Not)A;Brand";v="99", "Microsoft Edge Simulate";v="127", "Lemur";v="127"',
+    'sec-ch-ua-mobile': '?1',
+    'sec-ch-ua-platform': '"Android"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Mobile Safari/537.36'
 };
 
 // ==================== USER ====================
@@ -531,7 +611,7 @@ function showPage(id, button) {
     window.scrollTo({ top:0, behavior:"smooth" });
 }
 
-// ==================== AI (Pollinations text) ====================
+// ==================== AI CHAT (Notrack) ====================
 async function askAI() {
     const input = document.getElementById("aiInput");
     const text = input.value.trim();
@@ -540,14 +620,58 @@ async function askAI() {
     input.value = "";
     const loadingMsg = addMessage("⏳ أفكر...", "bot");
     try {
-        const url = CONFIG.aiAPI + encodeURIComponent(text) + "?model=openai";
-        const response = await fetch(url);
-        if(!response.ok) throw new Error("HTTP " + response.status);
-        const answer = await response.text();
-        loadingMsg.textContent = answer || "لم أستطع معالجة طلبك.";
+        const payload = {
+            user_input: text,
+            mode: 'usual',
+            model: 'C',
+            persona: 'normal',
+            max_turns: 6,
+            chat_id: null,
+            attachments: [],
+            regenerate: false,
+            edit: false,
+            edit_mid: null
+        };
+        const response = await fetch(CONFIG.aiAPI, {
+            method: "POST",
+            headers: NOTRACK_HEADERS,
+            body: JSON.stringify(payload)
+        });
+        if(!response.ok) {
+            if(response.status === 403 || response.status === 401) {
+                throw new Error("انتهت صلاحية الجلسة. يرجى تحديث الكوكيز في الكود.");
+            }
+            throw new Error(`HTTP ${response.status}`);
+        }
+        // Process stream
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let fullAnswer = '';
+        let buffer = '';
+        while(true) {
+            const {done, value} = await reader.read();
+            if(done) break;
+            buffer += decoder.decode(value, {stream:true});
+            const lines = buffer.split('\n');
+            buffer = lines.pop() || '';
+            for(const line of lines) {
+                const trimmed = line.trim();
+                if(!trimmed || !trimmed.startsWith('data: ')) continue;
+                const jsonPart = trimmed.substring(6);
+                try {
+                    const parsed = JSON.parse(jsonPart);
+                    if(parsed.type === 'delta' && parsed.chunk) {
+                        fullAnswer += parsed.chunk;
+                    } else if(parsed.type === 'message' && parsed.content) {
+                        fullAnswer = parsed.content;
+                    }
+                } catch(e) {}
+            }
+        }
+        loadingMsg.textContent = fullAnswer.trim() || "لم أستطع معالجة طلبك.";
         addPoints(2);
     } catch(error) {
-        loadingMsg.textContent = "تعذر الاتصال بالذكاء الاصطناعي. حاول مرة أخرى لاحقًا.";
+        loadingMsg.textContent = "تعذر الاتصال بالذكاء الاصطناعي: " + (error.message || "خطأ غير معروف");
         console.error(error);
     }
 }
@@ -562,14 +686,38 @@ function addMessage(text, type) {
     return div;
 }
 
-// ==================== IMAGE GENERATOR ====================
+// ==================== IMAGE GENERATOR (with styles) ====================
+let selectedImageStyle = 'anime';
+const imageStyles = {
+    anime: { suffix: 'anime style, studio ghibli, detailed anime art', emoji: '🌸' },
+    cartoon: { suffix: 'cartoon style, pixar, vibrant colors', emoji: '🎨' },
+    oil: { suffix: 'oil painting, classical art, rich textures', emoji: '🖼️' },
+    pencil: { suffix: 'pencil sketch, black and white, detailed drawing', emoji: '✏️' },
+    watercolor: { suffix: 'watercolor painting, soft colors, artistic', emoji: '💧' },
+    '3d': { suffix: '3D render, hyperrealistic, cinema 4D, octane render', emoji: '🎭' },
+    fantasy: { suffix: 'fantasy art, magical, epic, concept art', emoji: '🔮' },
+    cyber: { suffix: 'cyberpunk, neon lights, futuristic, dark atmosphere', emoji: '🌆' },
+    vintage: { suffix: 'vintage, retro, old photo style, sepia', emoji: '📷' },
+    bw: { suffix: 'black and white, monochrome, artistic photography', emoji: '⬛' }
+};
+
+function setImageStyle(style) {
+    selectedImageStyle = style;
+    // Update button states (optional)
+    const buttons = document.querySelectorAll('.generatorGrid button');
+    buttons.forEach(btn => btn.style.borderColor = '');
+    event.target.style.borderColor = 'var(--gold)';
+}
+
 async function generateImage() {
     const prompt = document.getElementById("imagePrompt").value.trim();
     const preview = document.getElementById("imagePreview");
     const model = document.getElementById("imageModel").value;
     if(!prompt) { alert("اكتب وصف الصورة أولًا."); return; }
     preview.innerHTML = "⏳ يتم إنشاء الصورة...";
-    const url = CONFIG.imageAPI + encodeURIComponent(prompt) + "?model=" + encodeURIComponent(model) + "&width=1024&height=1024&safe=true";
+    const style = imageStyles[selectedImageStyle] || imageStyles.anime;
+    const fullPrompt = `${prompt}, ${style.suffix}, high quality, highly detailed`;
+    const url = CONFIG.imageAPI + encodeURIComponent(fullPrompt) + "?model=" + encodeURIComponent(model) + "&width=1024&height=1024&safe=true";
     const img = new Image();
     img.onload = () => { preview.innerHTML = ""; preview.appendChild(img); addPoints(5); };
     img.onerror = () => { preview.innerHTML = "❌ تعذر إنشاء الصورة. حاول مرة أخرى."; };
@@ -595,6 +743,41 @@ async function generateVideo() {
         addPoints(10);
     } catch(error) {
         preview.innerHTML = `<div style="padding:20px;text-align:center"><b>🎬 مولد الفيديو غير موصول</b><p style="font-size:11px;margin-top:10px">تحقق من endpoint في CONFIG.videoAPI.</p></div>`;
+    }
+}
+
+// ==================== MUSIC GENERATOR ====================
+async function generateMusic() {
+    const prompt = document.getElementById("musicPrompt").value.trim();
+    const genre = document.getElementById("musicGenre").value;
+    const voice = document.getElementById("musicVoice").value;
+    const preview = document.getElementById("musicPreview");
+    if(!prompt) { alert("اكتب وصف الأغنية أولًا."); return; }
+    preview.innerHTML = "⏳ جاري توليد الأغنية...";
+    try {
+        const url = new URL(CONFIG.musicAPI);
+        url.searchParams.append('prompt', prompt);
+        url.searchParams.append('musicStyle', genre);
+        url.searchParams.append('genderType', voice);
+        const response = await fetch(url.toString());
+        if(!response.ok) throw new Error("HTTP " + response.status);
+        const data = await response.json();
+        if(!data.success || !data.response || !data.response.results || data.response.results.length === 0) {
+            throw new Error("لم يتم إنشاء أغنية");
+        }
+        const song = data.response.results[0];
+        preview.innerHTML = '';
+        if(song.cover_image) {
+            preview.innerHTML += `<img src="${song.cover_image}" style="max-width:200px;border-radius:12px;margin-bottom:10px;">`;
+        }
+        preview.innerHTML += `<audio controls src="${song.music_file}" style="width:100%;margin-top:10px;"></audio>`;
+        if(song.lyrics) {
+            preview.innerHTML += `<p style="margin-top:15px;white-space:pre-line;color:var(--muted);font-size:12px;">${song.lyrics}</p>`;
+        }
+        addPoints(10);
+    } catch(error) {
+        preview.innerHTML = `<div style="text-align:center;color:var(--red);">❌ فشل توليد الأغنية: ${error.message}</div>`;
+        console.error(error);
     }
 }
 
