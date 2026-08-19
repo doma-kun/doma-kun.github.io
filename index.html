@@ -475,7 +475,7 @@ footer{width:100%; border-top:1px solid var(--line); padding:30px; text-align:ce
 // ==================== CONFIG ====================
 const CONFIG = {
     imageAPI: "https://image.pollinations.ai/prompt/",
-    aiAPI: "https://notrack.ai/api/dispatch",
+    aiAPI: "https://text.pollinations.ai/",
     videoAPI: "https://engez.a7a.online/api/v1"
 };
 
@@ -531,7 +531,7 @@ function showPage(id, button) {
     window.scrollTo({ top:0, behavior:"smooth" });
 }
 
-// ==================== AI (notrack.ai) ====================
+// ==================== AI (Pollinations text) ====================
 async function askAI() {
     const input = document.getElementById("aiInput");
     const text = input.value.trim();
@@ -540,18 +540,11 @@ async function askAI() {
     input.value = "";
     const loadingMsg = addMessage("⏳ أفكر...", "bot");
     try {
-        const response = await fetch(CONFIG.aiAPI, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                prompt: text,
-                model: "gpt-3.5-turbo"
-            })
-        });
-        if(!response.ok) throw new Error("API error: " + response.status);
-        const data = await response.json();
-        let answer = data?.text || data?.response || data?.message || "لم أستطع معالجة طلبك.";
-        loadingMsg.textContent = answer;
+        const url = CONFIG.aiAPI + encodeURIComponent(text) + "?model=openai";
+        const response = await fetch(url);
+        if(!response.ok) throw new Error("HTTP " + response.status);
+        const answer = await response.text();
+        loadingMsg.textContent = answer || "لم أستطع معالجة طلبك.";
         addPoints(2);
     } catch(error) {
         loadingMsg.textContent = "تعذر الاتصال بالذكاء الاصطناعي. حاول مرة أخرى لاحقًا.";
