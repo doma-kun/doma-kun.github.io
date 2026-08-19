@@ -344,11 +344,15 @@ footer{width:100%; border-top:1px solid var(--line); padding:30px; text-align:ce
                 <div class="statCard"><div class="statIcon">🎮</div><b id="homeGames">0</b><span>الألعاب</span></div>
                 <div class="statCard"><div class="statIcon">🔥</div><b id="homeStreak">0</b><span>سلسلة الأيام</span></div>
             </div>
+            <!-- زر اختبار MBTI في الصفحة الرئيسية -->
+            <div style="margin-top:25px;text-align:center;">
+                <button class="btn primary" onclick="openMBTI()">🧠 اختبار الشخصية MBTI</button>
+            </div>
         </section>
 
         <!-- AI -->
         <section class="page" id="ai">
-            <div class="sectionTitle"><h2>🤖 Doma AI</h2><span>اسأل أي شيء</span></div>
+            <div class="sectionTitle"><h2>🤖 Doma AI</h2><span>تحدث معي</span></div>
             <div class="aiBox">
                 <div class="card chat">
                     <div class="messages" id="messages">
@@ -360,16 +364,17 @@ footer{width:100%; border-top:1px solid var(--line); padding:30px; text-align:ce
                     </div>
                 </div>
                 <div class="card">
-                    <h3>⚙️ نمط الذكاء</h3><br>
-                    <select id="aiMode">
-                        <option value="normal">🤖 عادي</option>
-                        <option value="creative">🎨 إبداعي</option>
-                        <option value="expert">🧠 خبير</option>
-                        <option value="fun">😂 مرح</option>
-                        <option value="anime">🌸 أنمي</option>
-                    </select>
-                    <br><br>
-                    <p style="color:var(--muted);font-size:12px;line-height:2">يمكنك تغيير شخصية الذكاء الاصطناعي حسب نوع الإجابة التي تريدها.</p>
+                    <h3>⚙️ قدراتي</h3><br>
+                    <p style="color:var(--muted);font-size:13px;line-height:2">
+                        💬 الإجابة عن الأسئلة<br>
+                        🧠 شرح المواضيع<br>
+                        💡 توليد الأفكار<br>
+                        📝 كتابة النصوص<br>
+                        🎨 أوامر الصور<br>
+                        🎬 أوامر الفيديو
+                    </p>
+                    <br>
+                    <p style="color:var(--muted);font-size:12px">كل محادثة تمنحك نقاطًا.</p>
                 </div>
             </div>
         </section>
@@ -527,34 +532,18 @@ function showPage(id, button) {
     window.scrollTo({ top:0, behavior:"smooth" });
 }
 
-// ==================== AI ====================
-async function askAI() {
+// ==================== AI (محلي) ====================
+function askAI() {
     const input = document.getElementById("aiInput");
     const text = input.value.trim();
     if(!text) return;
     addMessage(text, "user");
     input.value = "";
-    const loading = addMessage("⏳ أفكر...", "bot");
-    try {
-        const mode = document.getElementById("aiMode").value;
-        const system = {
-            normal: "أنت Doma AI مساعد ذكي ومفيد. أجب بالعربية بوضوح.",
-            creative: "أنت Doma AI مبدع. قدم إجابات مبتكرة وممتعة بالعربية.",
-            expert: "أنت Doma AI خبير. أعط إجابات دقيقة ومنظمة بالعربية.",
-            fun: "أنت Doma AI مرح. أجب بالعربية بأسلوب لطيف وممتع.",
-            anime: "أنت Doma AI متخصص بالأنمي والألعاب. أجب بالعربية."
-        }[mode];
-        const prompt = system + "\n\nالسؤال:\n" + text;
-        const url = CONFIG.textAPI + encodeURIComponent(prompt) + "?model=openai";
-        const response = await fetch(url);
-        if(!response.ok) throw new Error("AI API error");
-        const answer = await response.text();
-        loading.textContent = answer || "لم تصل إجابة.";
-        addPoints(2);
-    } catch(error) {
-        loading.textContent = "تعذر الاتصال بالذكاء الاصطناعي حاليًا. حاول مرة أخرى.";
-        console.error(error);
-    }
+    addPoints(2); // نقاط لكل سؤال
+    setTimeout(() => {
+        const answer = localAI(text);
+        addMessage(answer, "bot");
+    }, 400);
 }
 
 function addMessage(text, type) {
@@ -565,6 +554,29 @@ function addMessage(text, type) {
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
     return div;
+}
+
+function localAI(text) {
+    const t = text.toLowerCase();
+    if(t.includes("مرحبا") || t.includes("السلام")) {
+        return "مرحبًا بك 👋✨ كيف أستطيع مساعدتك اليوم؟";
+    }
+    if(t.includes("من انت") || t.includes("من أنت")) {
+        return "أنا Doma AI، المساعد الذكي داخل 𝑫𝒐𝒎𝒂 Ultra v4 🧠🌌";
+    }
+    if(t.includes("فكرة")) {
+        return "لدي فكرة لك: اصنع مشروعًا صغيرًا يجمع الألعاب والذكاء الاصطناعي ونظام نقاط، واجعل المستخدم يفتح مستويات جديدة كلما جمع النجوم. 🚀";
+    }
+    if(t.includes("html")) {
+        return "HTML يبني هيكل الصفحة، CSS يعطيها الشكل، وJavaScript يجعلها تتفاعل وتعمل.";
+    }
+    if(t.includes("css")) {
+        return "CSS تتحكم في الألوان والخطوط والتخطيط والحركات. يمكنك إنشاء تصميمات مذهلة باستخدامها.";
+    }
+    if(t.includes("js") || t.includes("جافاسكريبت")) {
+        return "JavaScript هي لغة البرمجة التي تجعل صفحات الويب تفاعلية وديناميكية.";
+    }
+    return "فهمت سؤالك: " + text + "\nهذه نسخة Doma المحلية. اربطني مع API للذكاء الاصطناعي الحقيقي للحصول على إجابات أعمق. 🧠⚡";
 }
 
 // ==================== IMAGE GENERATOR ====================
