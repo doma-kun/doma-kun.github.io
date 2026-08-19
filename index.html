@@ -2,25 +2,29 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#08090c">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0a0a">
 <title>𝑫𝒐𝒎𝒂 | 𝑼𝒍𝒕𝒓𝒂 𝒗4</title>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
-
 :root{
-    --bg:#060709;
-    --card:#0d0f12;
-    --card2:#111418;
-    --gold:#d9ad54;
-    --gold2:#f4d88b;
-    --silver:#d9dde4;
-    --muted:#858b96;
-    --line:rgba(255,255,255,.09);
-    --green:#52d99a;
-    --red:#ff6262;
-    --shadow:0 20px 70px rgba(0,0,0,.55);
+    --bg:#050505;
+    --bg2:#0a0a0a;
+    --card:rgba(20,20,20,.85);
+    --card2:rgba(255,255,255,.05);
+    --line:rgba(255,255,255,.12);
+    --text:#f2f2f2;
+    --muted:#9a9a9a;
+    --gold:#d4af37;
+    --gold2:#f5d77b;
+    --silver:#c0c0c0;
+    --silver2:#e0e0e0;
+    --black:#0a0a0a;
+    --green:#5ceaa0;
+    --red:#ff6b6b;
+    --radius:24px;
 }
 
 *{
@@ -28,2392 +32,1214 @@
     margin:0;
     padding:0;
 }
-
 html{
+    width:100%;
+    min-height:100%;
     scroll-behavior:smooth;
 }
-
 body{
+    width:100%;
+    min-width:100%;
     min-height:100vh;
-    background:
-        radial-gradient(circle at 10% 10%,rgba(217,173,84,.07),transparent 30%),
-        radial-gradient(circle at 90% 80%,rgba(180,190,210,.06),transparent 30%),
-        #060709;
-    color:#fff;
-    font-family:Cairo,Arial,sans-serif;
     overflow-x:hidden;
+    background:
+        radial-gradient(circle at 15% 15%, rgba(212,175,55,.08), transparent 30%),
+        radial-gradient(circle at 85% 75%, rgba(192,192,192,.06), transparent 30%),
+        var(--bg);
+    color:var(--text);
+    font-family:'Cairo','Tajawal',sans-serif;
 }
 
-/* ================= BACKGROUND ================= */
-
+/* ============ BACKGROUND ============ */
 .bg{
-    position:fixed;
-    inset:0;
-    z-index:-5;
-    pointer-events:none;
-    overflow:hidden;
+    position:fixed; inset:0; z-index:-5; overflow:hidden; pointer-events:none;
 }
-
 .grid{
-    position:absolute;
-    inset:-50%;
-    width:200%;
-    height:200%;
+    position:absolute; inset:-50%; width:200%; height:200%;
     background-image:
-        linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
     background-size:60px 60px;
-    transform:perspective(500px) rotateX(60deg);
-    opacity:.3;
+    transform:perspective(500px) rotateX(55deg);
+    animation:gridMove 20s linear infinite;
 }
-
-.glow{
-    position:absolute;
-    width:500px;
-    height:500px;
-    border-radius:50%;
-    filter:blur(100px);
-    opacity:.08;
+@keyframes gridMove{
+    from{transform:perspective(500px) rotateX(55deg) translateY(0)}
+    to{transform:perspective(500px) rotateX(55deg) translateY(60px)}
 }
-
-.glow.g1{
-    top:-200px;
-    right:-150px;
-    background:#d9ad54;
+.orb{
+    position:absolute; border-radius:50%; filter:blur(70px); opacity:.2;
 }
+.o1{width:500px; height:500px; background:var(--gold); top:-200px; right:-150px; animation:orb 12s ease-in-out infinite;}
+.o2{width:420px; height:420px; background:var(--silver); bottom:-180px; left:-120px; animation:orb 15s ease-in-out infinite reverse;}
+.o3{width:280px; height:280px; background:var(--gold2); top:45%; left:45%; opacity:.05;}
+@keyframes orb{50%{transform:translate(50px,-30px) scale(1.2)}}
 
-.glow.g2{
-    bottom:-200px;
-    left:-150px;
-    background:#bfc8d8;
-}
+/* ============ APP ============ */
+#app{width:100vw; min-height:100vh; max-width:none;}
+.container{width:min(1200px,94vw); margin:auto;}
 
-/* ================= APP ================= */
-
-.app{
-    width:min(1180px,94%);
-    margin:auto;
-    min-height:100vh;
-}
-
+/* ============ HEADER ============ */
 header{
-    position:sticky;
-    top:0;
-    z-index:100;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-    padding:18px 0;
-    background:rgba(6,7,9,.82);
-    backdrop-filter:blur(20px);
+    position:sticky; top:0; z-index:50; width:100%;
+    background:rgba(5,5,5,.85); backdrop-filter:blur(20px);
     border-bottom:1px solid var(--line);
 }
-
-.brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
+.nav{
+    width:min(1400px,94vw); margin:auto; height:76px; display:flex;
+    align-items:center; justify-content:space-between; gap:20px;
 }
-
 .logo{
-    font-size:28px;
-    font-weight:900;
-    letter-spacing:2px;
-    background:linear-gradient(120deg,#fff,var(--gold2),var(--silver),#fff);
-    -webkit-background-clip:text;
-    color:transparent;
+    font-size:31px; font-weight:900; letter-spacing:3px;
+    background:linear-gradient(90deg, #fff, #d4af37, #c0c0c0, #fff);
+    background-size:300%; -webkit-background-clip:text; color:transparent;
+    animation:shine 6s infinite;
 }
-
-.version{
-    font-size:10px;
-    color:#777;
-    border:1px solid var(--line);
-    padding:4px 8px;
-    border-radius:20px;
-}
-
-.userbar{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
+@keyframes shine{50%{background-position:100%}}
+.userMini{display:flex; align-items:center; gap:10px;}
 .avatar{
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    display:grid;
-    place-items:center;
-    background:linear-gradient(145deg,#22262d,#08090b);
-    border:1px solid rgba(217,173,84,.4);
+    width:42px; height:42px; border-radius:50%; display:grid; place-items:center;
+    background:linear-gradient(135deg, var(--gold), var(--silver));
+    box-shadow:0 0 25px rgba(212,175,55,.3); font-weight:900; color:#0a0a0a;
+}
+.userInfo b{display:block; font-size:13px;}
+.userInfo span{color:var(--gold); font-size:11px;}
+
+/* ============ NAVIGATION ============ */
+.menu{
+    display:flex; gap:8px; padding:12px 0; overflow-x:auto; scrollbar-width:none;
+}
+.menu::-webkit-scrollbar{display:none;}
+.menu button{
+    flex:0 0 auto; border:1px solid transparent; background:transparent;
+    color:var(--muted); padding:11px 16px; border-radius:14px; font-family:inherit;
+    cursor:pointer; transition:.25s;
+}
+.menu button:hover, .menu button.active{
+    color:#fff; background:rgba(255,255,255,.07); border-color:var(--line);
 }
 
-.points{
-    color:var(--gold2);
-    font-weight:800;
-    font-size:13px;
-}
+/* ============ SECTIONS ============ */
+.page{display:none; padding:35px 0 80px; animation:pageIn .45s ease;}
+.page.active{display:block;}
+@keyframes pageIn{from{opacity:0; transform:translateY(15px)} to{opacity:1; transform:none}}
 
-/* ================= HERO ================= */
-
+/* ============ HERO ============ */
 .hero{
-    padding:75px 0 45px;
-    text-align:center;
+    min-height:430px; display:grid; place-items:center; text-align:center; position:relative;
 }
-
 .hero .mini{
-    color:var(--gold);
-    font-size:12px;
-    letter-spacing:3px;
-    margin-bottom:15px;
+    display:inline-flex; padding:8px 15px; border:1px solid rgba(212,175,55,.25);
+    background:rgba(212,175,55,.08); border-radius:100px; color:#d4af37; font-size:12px; margin-bottom:20px;
 }
-
 .hero h1{
-    font-size:clamp(65px,13vw,145px);
-    line-height:.9;
-    font-weight:900;
-    letter-spacing:3px;
-    background:linear-gradient(
-        120deg,
-        #ffffff 0%,
-        #aaaeb7 20%,
-        #f1d58a 40%,
-        #8d929b 60%,
-        #fff 80%,
-        #d4aa58 100%
-    );
-    background-size:300%;
-    -webkit-background-clip:text;
-    color:transparent;
-    animation:shine 8s linear infinite;
-    filter:drop-shadow(0 20px 45px rgba(217,173,84,.15));
+    font-size:clamp(60px,12vw,130px); line-height:.95; font-weight:900; letter-spacing:5px;
+    background:linear-gradient(90deg, #fff, #d4af37, #c0c0c0, #fff); background-size:300%;
+    -webkit-background-clip:text; color:transparent; animation:shine 7s infinite;
+    filter:drop-shadow(0 0 45px rgba(212,175,55,.25));
 }
-
-@keyframes shine{
-    0%{background-position:0%}
-    50%{background-position:100%}
-    100%{background-position:0%}
-}
-
-.hero p{
-    max-width:680px;
-    margin:25px auto;
-    color:#9da3ad;
-    line-height:2;
-}
-
-.hero-actions{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:12px;
-}
-
-/* ================= BUTTONS ================= */
-
-button{
-    font-family:inherit;
-}
-
+.hero p{max-width:680px; margin:25px auto; color:var(--muted); line-height:2;}
 .btn{
-    border:1px solid var(--line);
-    color:#fff;
-    background:#101317;
-    padding:13px 22px;
-    border-radius:14px;
-    cursor:pointer;
-    transition:.25s;
+    border:0; padding:14px 23px; border-radius:16px; color:#fff; font-family:inherit;
+    font-weight:800; cursor:pointer; transition:.25s;
 }
+.btn:hover{transform:translateY(-3px);}
+.primary{background:linear-gradient(135deg, #b8860b, #d4af37, #c0c0c0); box-shadow:0 12px 40px rgba(212,175,55,.25); color:#0a0a0a;}
+.secondary{background:rgba(255,255,255,.06); border:1px solid var(--line);}
+.gold{background:linear-gradient(135deg, #b8860b, #f5d77b); color:#1b1405;}
 
-.btn:hover{
-    transform:translateY(-2px);
-    border-color:rgba(217,173,84,.45);
-}
-
-.btn.gold{
-    background:linear-gradient(135deg,#9e762c,#e6bd63,#8b6424);
-    color:#080808;
-    font-weight:900;
-    border:none;
-    box-shadow:0 12px 35px rgba(217,173,84,.18);
-}
-
-.btn.danger{
-    color:#ff8a8a;
-}
-
-/* ================= DASHBOARD ================= */
-
-.dashboard{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
-    margin:25px 0 35px;
-}
-
-.stat{
-    background:linear-gradient(145deg,#101216,#0b0d10);
-    border:1px solid var(--line);
-    border-radius:20px;
-    padding:18px;
-    box-shadow:var(--shadow);
-}
-
-.stat small{
-    color:#747b86;
-}
-
-.stat strong{
-    display:block;
-    color:var(--silver);
-    font-size:24px;
-    margin-top:5px;
-}
-
-.stat.gold strong{
-    color:var(--gold2);
-}
-
-/* ================= SECTIONS ================= */
-
-.section{
-    margin:35px 0;
-}
-
-.section-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:16px;
-}
-
-.section-title h2{
-    font-size:22px;
-}
-
-.section-title span{
-    color:#737983;
-    font-size:12px;
-}
-
-.cards{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
+/* ============ CARDS ============ */
 .card{
-    position:relative;
-    overflow:hidden;
-    min-height:170px;
-    padding:22px;
-    border-radius:22px;
-    background:
-        linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.01)),
-        #0b0d10;
-    border:1px solid var(--line);
-    box-shadow:var(--shadow);
-    cursor:pointer;
-    transition:.3s;
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:25px; backdrop-filter:blur(18px); box-shadow:0 25px 80px rgba(0,0,0,.5);
 }
+.sectionTitle{display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;}
+.sectionTitle h2{font-size:23px;}
+.sectionTitle span{color:var(--muted); font-size:12px;}
 
-.card:hover{
-    transform:translateY(-5px);
-    border-color:rgba(217,173,84,.35);
+/* ============ DASHBOARD ============ */
+.statsGrid{display:grid; grid-template-columns:repeat(4,1fr); gap:15px;}
+.statCard{padding:22px; background:var(--card); border:1px solid var(--line); border-radius:20px;}
+.statIcon{font-size:24px;}
+.statCard b{display:block; margin-top:10px; font-size:25px; color:var(--gold);}
+.statCard span{color:var(--muted); font-size:12px;}
+
+/* ============ AI ============ */
+.aiBox{display:grid; grid-template-columns:1fr 330px; gap:18px;}
+.chat{min-height:480px; display:flex; flex-direction:column;}
+.messages{flex:1; overflow-y:auto; padding:5px; display:flex; flex-direction:column; gap:12px; max-height:390px;}
+.msg{max-width:82%; padding:13px 16px; border-radius:17px; line-height:1.8; font-size:14px;}
+.msg.user{align-self:flex-start; background:linear-gradient(135deg, #b8860b, #d4af37); color:#0a0a0a;}
+.msg.bot{align-self:flex-end; background:rgba(255,255,255,.06); border:1px solid var(--line);}
+.inputRow{display:flex; gap:8px; margin-top:15px;}
+.input, textarea, select{
+    width:100%; background:rgba(255,255,255,.05); border:1px solid var(--line);
+    border-radius:15px; padding:14px; color:#fff; outline:none; font-family:inherit;
 }
+textarea{resize:vertical; min-height:110px;}
+select option{background:#101010;}
 
-.card::after{
-    content:"";
-    position:absolute;
-    width:150px;
-    height:150px;
-    background:var(--gold);
-    filter:blur(90px);
-    opacity:.05;
-    top:-80px;
-    left:-80px;
+/* ============ GENERATORS ============ */
+.generatorGrid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+.preview{
+    width:100%; min-height:220px; margin-top:15px; border-radius:18px; border:1px solid var(--line);
+    background:linear-gradient(135deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+    display:grid; place-items:center; overflow:hidden; color:var(--muted);
 }
+.preview img, .preview video{width:100%; max-height:500px; object-fit:contain; border-radius:16px;}
 
-.card .icon{
-    font-size:32px;
-    margin-bottom:12px;
+/* ============ GAMES ============ */
+.gamesGrid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+.game{
+    padding:20px; border-radius:19px; border:1px solid var(--line); background:rgba(255,255,255,.035);
+    cursor:pointer; transition:.25s;
 }
+.game:hover{transform:translateY(-5px); border-color:rgba(212,175,55,.4); background:rgba(212,175,55,.07);}
+.game .icon{font-size:30px; margin-bottom:10px;}
+.game b{display:block; margin-bottom:5px;}
+.game span{color:var(--muted); font-size:11px;}
 
-.card h3{
-    margin-bottom:7px;
-}
-
-.card p{
-    color:#777f8b;
-    font-size:12px;
-    line-height:1.8;
-}
-
-/* ================= MODAL ================= */
-
+/* ============ GAME MODAL ============ */
 .modal{
-    position:fixed;
-    inset:0;
-    z-index:500;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:15px;
-    background:rgba(0,0,0,.78);
-    backdrop-filter:blur(15px);
+    position:fixed; inset:0; z-index:100; background:rgba(0,0,0,.8); backdrop-filter:blur(15px);
+    display:none; place-items:center; padding:20px;
 }
-
-.modal.show{
-    display:flex;
+.modal.show{display:grid;}
+.gameBox{
+    width:min(650px,96vw); max-height:90vh; overflow:auto; background:#0a0a0a;
+    border:1px solid var(--line); border-radius:28px; padding:28px; box-shadow:0 30px 100px #000;
 }
+.gameHead{display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;}
+.close{width:40px; height:40px; border-radius:50%; border:1px solid var(--line); background:rgba(255,255,255,.05); color:#fff; cursor:pointer;}
+.scramble{font-size:38px; letter-spacing:8px; text-align:center; margin:30px 0; color:#d4af37; font-weight:900;}
+.center{text-align:center;}
+.timer{font-size:40px; font-weight:900; color:var(--gold);}
+.feedback{min-height:30px; margin:15px 0; text-align:center; font-weight:700;}
+.progress-bar{width:100%; height:8px; background:#1a1a1a; border-radius:20px; overflow:hidden; margin-bottom:20px;}
+.progress-fill{height:100%; width:0; background:linear-gradient(90deg, var(--gold), var(--silver)); transition:.4s;}
 
-.modal-box{
-    width:min(850px,100%);
-    max-height:90vh;
-    overflow:auto;
-    background:#0b0d10;
-    border:1px solid rgba(217,173,84,.2);
-    border-radius:26px;
-    padding:25px;
-    box-shadow:0 30px 100px #000;
+/* ============ PROFILE ============ */
+.profileGrid{display:grid; grid-template-columns:280px 1fr; gap:18px;}
+.profileAvatar{
+    width:100px; height:100px; margin:auto; border-radius:50%; display:grid; place-items:center;
+    font-size:35px; font-weight:900; background:linear-gradient(135deg, #b8860b, #d4af37, #c0c0c0); color:#0a0a0a;
 }
+.levelBar{height:9px; background:rgba(255,255,255,.08); border-radius:20px; overflow:hidden; margin-top:10px;}
+.levelFill{height:100%; width:0; background:linear-gradient(90deg, #b8860b, #d4af37, #c0c0c0);}
 
-.modal-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
+/* ============ EVENTS ============ */
+.eventGrid{display:grid; grid-template-columns:repeat(3,1fr); gap:15px;}
+.event{
+    padding:25px; border-radius:22px; border:1px solid var(--line);
+    background:linear-gradient(145deg, rgba(212,175,55,.09), rgba(255,255,255,.025));
 }
+.eventIcon{font-size:35px;}
 
-.close{
-    width:38px;
-    height:38px;
-    border-radius:50%;
-    border:1px solid var(--line);
-    background:#15181c;
-    color:#fff;
-    cursor:pointer;
+/* ============ WELCOME ============ */
+#welcome{
+    position:fixed; inset:0; z-index:200; background:radial-gradient(circle at 50% 30%, rgba(212,175,55,.15), transparent 35%), #050505;
+    display:grid; place-items:center; padding:20px;
 }
-
-/* ================= FORMS ================= */
-
-.input,
-textarea,
-select{
-    width:100%;
-    padding:14px;
-    border-radius:13px;
-    border:1px solid var(--line);
-    outline:none;
-    background:#080a0d;
-    color:#fff;
-    font:inherit;
+#welcome.hidden{display:none;}
+.welcomeBox{
+    width:min(500px,94vw); text-align:center; padding:38px; border-radius:30px;
+    background:rgba(10,10,10,.95); border:1px solid var(--line); box-shadow:0 30px 100px #000;
 }
-
-textarea{
-    min-height:130px;
-    resize:vertical;
+.welcomeLogo{
+    font-size:65px; font-weight:900; background:linear-gradient(90deg, #fff, #d4af37, #c0c0c0);
+    -webkit-background-clip:text; color:transparent; margin-bottom:10px;
 }
+.welcomeBox p{color:var(--muted); line-height:1.8; margin-bottom:25px;}
+.form{display:grid; gap:12px;}
 
-.form-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
+/* ============ FOOTER ============ */
+footer{width:100%; border-top:1px solid var(--line); padding:30px; text-align:center; color:#777; font-size:12px;}
 
-.form-group{
-    margin-bottom:14px;
-}
-
-.form-group label{
-    display:block;
-    color:#9aa0aa;
-    font-size:12px;
-    margin-bottom:7px;
-}
-
-/* ================= GAME GRID ================= */
-
-.game-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-}
-
-.game-card{
-    padding:16px;
-    border:1px solid var(--line);
-    background:#0d1013;
-    border-radius:17px;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.game-card:hover{
-    border-color:rgba(217,173,84,.4);
-    transform:translateY(-3px);
-}
-
-.game-card b{
-    display:block;
-    margin-bottom:5px;
-}
-
-.game-card small{
-    color:#6e7580;
-}
-
-/* ================= GAME ================= */
-
-.game-area{
-    text-align:center;
-}
-
-.game-score{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    margin-bottom:20px;
-}
-
-.game-score span{
-    padding:8px 13px;
-    background:#121519;
-    border:1px solid var(--line);
-    border-radius:12px;
-    color:var(--gold2);
-}
-
-.game-question{
-    font-size:27px;
-    font-weight:900;
-    margin:25px 0;
-}
-
-.game-options{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-}
-
-.game-option{
-    padding:18px;
-    border:1px solid var(--line);
-    background:#111419;
-    border-radius:15px;
-    color:#fff;
-    cursor:pointer;
-}
-
-.game-option:hover{
-    border-color:var(--gold);
-}
-
-.correct{
-    border-color:var(--green)!important;
-    background:rgba(82,217,154,.08)!important;
-}
-
-.wrong{
-    border-color:var(--red)!important;
-    background:rgba(255,98,98,.08)!important;
-}
-
-/* ================= MBTI ================= */
-
-.mbti-question{
-    font-size:22px;
-    font-weight:800;
-    line-height:1.8;
-    margin:20px 0;
-}
-
-.mbti-options{
-    display:grid;
-    gap:10px;
-}
-
-.mbti-option{
-    text-align:right;
-    padding:17px;
-    background:#101318;
-    color:#fff;
-    border:1px solid var(--line);
-    border-radius:15px;
-    cursor:pointer;
-}
-
-.mbti-option:hover{
-    border-color:var(--gold);
-}
-
-.progress{
-    width:100%;
-    height:7px;
-    background:#181b20;
-    border-radius:20px;
-    overflow:hidden;
-}
-
-.progress i{
-    display:block;
-    width:0;
-    height:100%;
-    background:linear-gradient(90deg,#888,#f0ca70,#fff);
-    transition:.4s;
-}
-
-/* ================= CHAT ================= */
-
-.chat{
-    height:420px;
-    overflow:auto;
-    padding:12px;
-    background:#080a0d;
-    border-radius:18px;
-    border:1px solid var(--line);
-    margin-bottom:12px;
-}
-
-.msg{
-    max-width:85%;
-    padding:12px 15px;
-    margin:8px 0;
-    border-radius:15px;
-    line-height:1.8;
-    font-size:14px;
-}
-
-.msg.user{
-    margin-right:auto;
-    background:#181b20;
-}
-
-.msg.ai{
-    margin-left:auto;
-    background:linear-gradient(145deg,#171512,#111317);
-    border:1px solid rgba(217,173,84,.12);
-}
-
-.chat-input{
-    display:flex;
-    gap:8px;
-}
-
-/* ================= IMAGE ================= */
-
-.generated-image{
-    width:100%;
-    max-height:600px;
-    object-fit:contain;
-    border-radius:20px;
-    margin-top:18px;
-    border:1px solid var(--line);
-}
-
-/* ================= PROFILE ================= */
-
-.profile{
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-
-.profile-avatar{
-    width:70px;
-    height:70px;
-    display:grid;
-    place-items:center;
-    border-radius:50%;
-    background:linear-gradient(145deg,#24272c,#090a0c);
-    border:2px solid var(--gold);
-    font-size:28px;
-}
-
-/* ================= TOAST ================= */
-
-#toast{
-    position:fixed;
-    bottom:25px;
-    left:50%;
-    transform:translateX(-50%) translateY(30px);
-    opacity:0;
-    z-index:1000;
-    background:#111419;
-    border:1px solid rgba(217,173,84,.3);
-    padding:13px 20px;
-    border-radius:30px;
-    color:#fff;
-    transition:.3s;
-    pointer-events:none;
-}
-
-#toast.show{
-    opacity:1;
-    transform:translateX(-50%) translateY(0);
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-    text-align:center;
-    padding:45px 0;
-    color:#5e646e;
-    border-top:1px solid var(--line);
-    margin-top:50px;
-}
-
-footer strong{
-    color:var(--gold);
-}
-
-/* ================= RESPONSIVE ================= */
-
+/* ============ MOBILE ============ */
 @media(max-width:850px){
-    .dashboard{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .cards{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .game-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
+    .statsGrid{grid-template-columns:repeat(2,1fr);}
+    .aiBox, .generatorGrid, .profileGrid{grid-template-columns:1fr;}
+    .gamesGrid{grid-template-columns:repeat(2,1fr);}
+    .eventGrid{grid-template-columns:1fr;}
+    .nav{height:68px;}
+    .logo{font-size:25px;}
 }
-
-@media(max-width:600px){
-    .app{
-        width:92%;
-    }
-
-    header{
-        padding:13px 0;
-    }
-
-    .logo{
-        font-size:21px;
-    }
-
-    .version{
-        display:none;
-    }
-
-    .hero{
-        padding:55px 0 30px;
-    }
-
-    .hero h1{
-        font-size:72px;
-    }
-
-    .dashboard,
-    .cards,
-    .form-grid,
-    .game-options{
-        grid-template-columns:1fr;
-    }
-
-    .game-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .modal-box{
-        padding:18px;
-    }
-
-    .game-question{
-        font-size:22px;
-    }
+@media(max-width:500px){
+    .container{width:92vw;}
+    .hero{min-height:480px;}
+    .hero h1{font-size:72px;}
+    .statsGrid{grid-template-columns:1fr 1fr;}
+    .gamesGrid{grid-template-columns:1fr 1fr; gap:9px;}
+    .game{padding:15px;}
+    .game .icon{font-size:25px;}
+    .card{padding:18px;}
+    .welcomeBox{padding:25px 18px;}
+    .welcomeLogo{font-size:52px;}
+}
+@media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important; transition:none!important;}
 }
 </style>
 </head>
-
 <body>
-
 <div class="bg">
     <div class="grid"></div>
-    <div class="glow g1"></div>
-    <div class="glow g2"></div>
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="orb o3"></div>
 </div>
 
-<div class="app">
-
-<header>
-    <div class="brand">
-        <div class="logo">𝑫𝒐𝒎𝒂</div>
-        <div class="version">ULTRA v4</div>
-    </div>
-
-    <div class="userbar">
-        <div>
-            <div id="userName">زائر</div>
-            <div class="points">⭐ <span id="points">0</span></div>
+<!-- ============ FIRST LOGIN ============ -->
+<div id="welcome">
+    <div class="welcomeBox">
+        <div class="welcomeLogo">𝑫𝒐𝒎𝒂</div>
+        <p>عالم واحد يجمع الذكاء الاصطناعي، الألعاب، النقاط والفعاليات.</p>
+        <div class="form">
+            <input id="nameInput" class="input" placeholder="اسمك">
+            <input id="nickInput" class="input" placeholder="لقبك">
+            <input id="ageInput" class="input" type="number" min="1" max="120" placeholder="عمرك">
+            <button class="btn primary" onclick="saveProfile()">دخول إلى 𝑫𝒐𝒎𝒂 🚀</button>
         </div>
-        <div class="avatar">♛</div>
     </div>
-</header>
-
-<section class="hero">
-    <div class="mini">𝑫𝑶𝑴𝑨 • 𝑼𝑳𝑻𝑹𝑨 𝑽𝟒</div>
-
-    <h1>𝑫𝒐𝒎𝒂</h1>
-
-    <p>
-        عالم واحد يجمع الذكاء الاصطناعي، الألعاب، الاختبارات،
-        النقاط والتحديات في تجربة واحدة.
-    </p>
-
-    <div class="hero-actions">
-        <button class="btn gold" onclick="openProfile()">ابدأ الآن ✦</button>
-        <button class="btn" onclick="openGames()">الألعاب 🎮</button>
-        <button class="btn" onclick="openAI()">الذكاء الاصطناعي 🤖</button>
-    </div>
-</section>
-
-<section class="dashboard">
-    <div class="stat gold">
-        <small>النقاط</small>
-        <strong id="dashPoints">0</strong>
-    </div>
-
-    <div class="stat">
-        <small>المستوى</small>
-        <strong id="level">1</strong>
-    </div>
-
-    <div class="stat">
-        <small>الألعاب</small>
-        <strong id="gamesPlayed">0</strong>
-    </div>
-
-    <div class="stat">
-        <small>MBTI</small>
-        <strong id="mbtiType">---</strong>
-    </div>
-</section>
-
-<section class="section">
-
-<div class="section-title">
-    <h2>⚡ مركز Doma</h2>
-    <span>كل شيء في مكان واحد</span>
 </div>
 
-<div class="cards">
+<div id="app">
+    <header>
+        <div class="nav">
+            <div class="logo">𝑫𝒐𝒎𝒂</div>
+            <div class="userMini">
+                <div class="avatar" id="miniAvatar">D</div>
+                <div class="userInfo">
+                    <b id="miniName">زائر</b>
+                    <span id="miniPoints">0 XP</span>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <nav class="menu">
+                <button class="active" onclick="showPage('home',this)">🏠 الرئيسية</button>
+                <button onclick="showPage('ai',this)">🤖 الذكاء</button>
+                <button onclick="showPage('create',this)">🎨 الإبداع</button>
+                <button onclick="showPage('games',this)">🎮 الألعاب</button>
+                <button onclick="showPage('events',this)">🎁 الفعاليات</button>
+                <button onclick="showPage('profile',this)">👤 ملفي</button>
+            </nav>
+        </div>
+    </header>
 
-    <div class="card" onclick="openAI()">
-        <div class="icon">🤖</div>
-        <h3>المساعد الذكي</h3>
-        <p>اسأل، ناقش، اطلب شرحًا أو فكرة.</p>
-    </div>
+    <main class="container">
+        <!-- HOME -->
+        <section class="page active" id="home">
+            <div class="hero">
+                <div>
+                    <div class="mini">✦ 𝑫𝒐𝒎𝒂 𝑼𝒍𝒕𝒓𝒂 𝒗4</div>
+                    <h1>𝑫𝒐𝒎𝒂</h1>
+                    <p>ذكاء اصطناعي، ألعاب، نقاط، فعاليات، وصناعة المحتوى في عالم واحد.</p>
+                    <button class="btn primary" onclick="showPage('ai',document.querySelectorAll('.menu button')[1])">اكتشف Doma ✦</button>
+                </div>
+            </div>
+            <div class="statsGrid">
+                <div class="statCard"><div class="statIcon">⭐</div><b id="homePoints">0</b><span>النقاط</span></div>
+                <div class="statCard"><div class="statIcon">🏆</div><b id="homeLevel">1</b><span>المستوى</span></div>
+                <div class="statCard"><div class="statIcon">🎮</div><b id="homeGames">0</b><span>الألعاب</span></div>
+                <div class="statCard"><div class="statIcon">🔥</div><b id="homeStreak">0</b><span>سلسلة الأيام</span></div>
+            </div>
+        </section>
 
-    <div class="card" onclick="openImageAI()">
-        <div class="icon">🎨</div>
-        <h3>استوديو الصور</h3>
-        <p>حوّل وصفك إلى صورة بالذكاء الاصطناعي.</p>
-    </div>
+        <!-- AI -->
+        <section class="page" id="ai">
+            <div class="sectionTitle"><h2>🤖 Doma AI</h2><span>اسأل أي شيء</span></div>
+            <div class="aiBox">
+                <div class="card chat">
+                    <div class="messages" id="messages">
+                        <div class="msg bot">مرحبًا 👋 أنا Doma AI. اكتب سؤالك وسأحاول مساعدتك.</div>
+                    </div>
+                    <div class="inputRow">
+                        <input id="aiInput" class="input" placeholder="اكتب سؤالك هنا..." onkeydown="if(event.key==='Enter')askAI()">
+                        <button class="btn primary" onclick="askAI()">إرسال</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>⚙️ نمط الذكاء</h3><br>
+                    <select id="aiMode">
+                        <option value="normal">🤖 عادي</option>
+                        <option value="creative">🎨 إبداعي</option>
+                        <option value="expert">🧠 خبير</option>
+                        <option value="fun">😂 مرح</option>
+                        <option value="anime">🌸 أنمي</option>
+                    </select>
+                    <br><br>
+                    <p style="color:var(--muted);font-size:12px;line-height:2">يمكنك تغيير شخصية الذكاء الاصطناعي حسب نوع الإجابة التي تريدها.</p>
+                </div>
+            </div>
+        </section>
 
-    <div class="card" onclick="openVideoAI()">
-        <div class="icon">🎬</div>
-        <h3>استوديو الفيديو</h3>
-        <p>تجربة توليد فيديو عبر واجهة Pollinations عند توفر API.</p>
-    </div>
+        <!-- CREATE -->
+        <section class="page" id="create">
+            <div class="sectionTitle"><h2>✨ استوديو Doma</h2><span>اصنع شيئًا جديدًا</span></div>
+            <div class="generatorGrid">
+                <div class="card">
+                    <h3>🎨 مولد الصور</h3><br>
+                    <textarea id="imagePrompt" placeholder="مثال: محارب أنمي يقف فوق مدينة مستقبلية ليلًا، إضاءة سينمائية..."></textarea>
+                    <br><br>
+                    <select id="imageModel"><option value="flux">Flux</option><option value="turbo">Turbo</option></select>
+                    <br><br>
+                    <button class="btn primary" onclick="generateImage()">توليد الصورة ✨</button>
+                    <div class="preview" id="imagePreview">الصورة ستظهر هنا</div>
+                </div>
+                <div class="card">
+                    <h3>🎬 مولد الفيديو</h3><br>
+                    <textarea id="videoPrompt" placeholder="صف الفيديو الذي تريده..."></textarea>
+                    <br><br>
+                    <button class="btn primary" onclick="generateVideo()">إنشاء الفيديو 🎬</button>
+                    <div class="preview" id="videoPreview">الفيديو سيظهر هنا</div>
+                    <p style="color:#777;font-size:11px;margin-top:12px;line-height:1.8">مولد الفيديو يستخدم endpoint مجاني.</p>
+                </div>
+            </div>
+        </section>
 
-    <div class="card" onclick="openMBTI()">
-        <div class="icon">🧠</div>
-        <h3>اختبار الشخصية</h3>
-        <p>20 سؤالًا لاكتشاف نمط MBTI.</p>
-    </div>
+        <!-- GAMES -->
+        <section class="page" id="games">
+            <div class="sectionTitle"><h2>🎮 عالم الألعاب</h2><span id="gameCount">100 لعبة</span></div>
+            <div class="gamesGrid" id="gamesGrid"></div>
+        </section>
 
-    <div class="card" onclick="openGames()">
-        <div class="icon">🎮</div>
-        <h3>100 لعبة</h3>
-        <p>مجموعة ألعاب قصيرة قابلة للعب داخل Doma.</p>
-    </div>
+        <!-- EVENTS -->
+        <section class="page" id="events">
+            <div class="sectionTitle"><h2>🎁 فعاليات Doma</h2><span>تتجدد يوميًا</span></div>
+            <div class="eventGrid">
+                <div class="event">
+                    <div class="eventIcon">🎁</div><h3>المكافأة اليومية</h3>
+                    <p style="color:var(--muted);font-size:12px;margin:10px 0 18px">احصل على نقاطك اليومية.</p>
+                    <button class="btn gold" onclick="dailyReward()">استلام +100 XP</button>
+                </div>
+                <div class="event">
+                    <div class="eventIcon">🎯</div><h3>تحدي اليوم</h3>
+                    <p style="color:var(--muted);font-size:12px;margin:10px 0 18px">العب أي لعبة واحصل على مكافأة إضافية.</p>
+                    <button class="btn primary" onclick="openGame(1)">ابدأ التحدي</button>
+                </div>
+                <div class="event">
+                    <div class="eventIcon">🎡</div><h3>عجلة الحظ</h3>
+                    <p style="color:var(--muted);font-size:12px;margin:10px 0 18px">جرّب حظك واحصل على نقاط.</p>
+                    <button class="btn secondary" onclick="spinWheel()">لف العجلة</button>
+                </div>
+            </div>
+        </section>
 
-    <div class="card" onclick="dailyReward()">
-        <div class="icon">🎁</div>
-        <h3>المكافأة اليومية</h3>
-        <p>ادخل يوميًا واحصل على نقاط.</p>
-    </div>
+        <!-- PROFILE -->
+        <section class="page" id="profile">
+            <div class="sectionTitle"><h2>👤 ملفي</h2><span>إحصائياتك</span></div>
+            <div class="profileGrid">
+                <div class="card center">
+                    <div class="profileAvatar" id="profileAvatar">D</div><br>
+                    <h2 id="profileName">Doma</h2>
+                    <p id="profileNick" style="color:var(--muted)">مستكشف</p><br>
+                    <div>المستوى <b id="profileLevel">1</b></div>
+                    <div class="levelBar"><div class="levelFill" id="levelFill"></div></div>
+                </div>
+                <div class="card">
+                    <h3>⚙️ الإعدادات الشخصية</h3><br>
+                    <label style="color:var(--muted);font-size:12px">النمط المفضل</label>
+                    <select id="styleSelect" onchange="saveStyle()">
+                        <option>🌌 مستقبلي</option><option>🌸 أنمي</option><option>💎 فاخر</option><option>🔥 حماسي</option><option>🎮 ألعاب</option>
+                    </select>
+                    <br><br>
+                    <button class="btn secondary" onclick="resetProfile()">إعادة ضبط الملف</button>
+                </div>
+            </div>
+        </section>
+    </main>
 
+    <footer>𝑫𝒐𝒎𝒂 𝑼𝒍𝒕𝒓𝒂 𝒗4<br>جميع الحقوق محفوظة © 2026</footer>
 </div>
-</section>
 
-<section class="section">
-
-<div class="section-title">
-    <h2>🏆 فعاليات اليوم</h2>
-    <span>تتغير حسب نشاطك</span>
-</div>
-
-<div class="cards">
-
-    <div class="card" onclick="dailyChallenge()">
-        <div class="icon">🎯</div>
-        <h3>تحدي اليوم</h3>
-        <p>أكمل تحديًا واحصل على نقاط إضافية.</p>
+<!-- GAME MODAL -->
+<div class="modal" id="gameModal">
+    <div class="gameBox">
+        <div class="gameHead">
+            <div>
+                <h2 id="gameTitle">لعبة</h2>
+                <span id="gameDescription" style="color:var(--muted);font-size:12px"></span>
+            </div>
+            <button class="close" onclick="closeGame()">×</button>
+        </div>
+        <div id="gameContent"></div>
     </div>
-
-    <div class="card" onclick="openAnimeGame()">
-        <div class="icon">⚡</div>
-        <h3>اكتب بسرعة</h3>
-        <p>رتب اسم شخصية الأنمي المفكك قبل انتهاء الوقت.</p>
-    </div>
-
-    <div class="card" onclick="openProfile()">
-        <div class="icon">👤</div>
-        <h3>ملفي</h3>
-        <p>الاسم، اللقب، العمر، النقاط والمستوى.</p>
-    </div>
-
-</div>
-</section>
-
-<footer>
-    <strong>𝑫𝒐𝒎𝒂 𝑼𝒍𝒕𝒓𝒂 𝒗4</strong>
-    <br>
-    جميع الحقوق محفوظة © 2026
-</footer>
-
-</div>
-
-<div id="toast"></div>
-
-<!-- ================= MODAL ================= -->
-
-<div class="modal" id="modal">
-<div class="modal-box">
-
-    <div class="modal-head">
-        <h2 id="modalTitle">Doma</h2>
-        <button class="close" onclick="closeModal()">×</button>
-    </div>
-
-    <div id="modalContent"></div>
-
-</div>
 </div>
 
 <script>
+// ==================== CONFIG ====================
+const CONFIG = {
+    imageAPI: "https://image.pollinations.ai/prompt/",
+    textAPI: "https://text.pollinations.ai/",
+    videoAPI: "https://engez.a7a.online/api/v1"
+};
 
-/* =========================================================
-   DOMA ULTRA V4
-   البيانات
-========================================================= */
+// ==================== USER ====================
+let user = JSON.parse(localStorage.getItem("DOMA_USER") || "null");
 
-const state = JSON.parse(
-    localStorage.getItem("DOMA_ULTRA_DATA") ||
-    '{"name":"","nickname":"","age":"","points":0,"games":0,"mbti":"","daily":"","best":{}}'
-);
-
-const POLLINATIONS_KEY = localStorage.getItem("DOMA_POLLINATIONS_KEY") || "";
-
-/* =========================================================
-   أدوات
-========================================================= */
-
-function save(){
-    localStorage.setItem("DOMA_ULTRA_DATA",JSON.stringify(state));
+function saveProfile() {
+    const name = document.getElementById("nameInput").value.trim();
+    const nickname = document.getElementById("nickInput").value.trim();
+    const age = Number(document.getElementById("ageInput").value);
+    if(!name || !nickname || !age) { alert("أكمل بياناتك أولًا ✨"); return; }
+    user = { name, nickname, age, points:0, level:1, gamesPlayed:0, streak:1, lastReward:"", style:"🌌 مستقبلي", mbti:"" };
+    localStorage.setItem("DOMA_USER", JSON.stringify(user));
+    document.getElementById("welcome").classList.add("hidden");
     updateUI();
 }
 
-function updateUI(){
-
-    document.getElementById("userName").textContent =
-        state.nickname || state.name || "زائر";
-
-    document.getElementById("points").textContent =
-        state.points;
-
-    document.getElementById("dashPoints").textContent =
-        state.points;
-
-    document.getElementById("level").textContent =
-        Math.floor(state.points / 100) + 1;
-
-    document.getElementById("gamesPlayed").textContent =
-        state.games;
-
-    document.getElementById("mbtiType").textContent =
-        state.mbti || "---";
+function updateUI() {
+    if(!user) return;
+    document.getElementById("miniName").textContent = user.nickname;
+    document.getElementById("miniPoints").textContent = user.points + " XP";
+    document.getElementById("miniAvatar").textContent = user.name.charAt(0).toUpperCase();
+    document.getElementById("homePoints").textContent = user.points;
+    document.getElementById("homeLevel").textContent = user.level;
+    document.getElementById("homeGames").textContent = user.gamesPlayed;
+    document.getElementById("homeStreak").textContent = user.streak;
+    document.getElementById("profileName").textContent = user.name;
+    document.getElementById("profileNick").textContent = "@" + user.nickname;
+    document.getElementById("profileLevel").textContent = user.level;
+    document.getElementById("profileAvatar").textContent = user.name.charAt(0).toUpperCase();
+    const levelXP = user.level * 500;
+    document.getElementById("levelFill").style.width = Math.min(100, (user.points % levelXP) / levelXP * 100) + "%";
+    document.getElementById("styleSelect").value = user.style || "🌌 مستقبلي";
 }
 
-function addPoints(n){
-    state.points += n;
-    save();
-
-    toast(`+${n} ⭐ نقاط`);
-}
-
-function toast(text){
-
-    const t=document.getElementById("toast");
-
-    t.textContent=text;
-    t.classList.add("show");
-
-    setTimeout(()=>{
-        t.classList.remove("show");
-    },2200);
-}
-
-function openModal(title,html){
-
-    document.getElementById("modalTitle").textContent=title;
-    document.getElementById("modalContent").innerHTML=html;
-
-    document.getElementById("modal").classList.add("show");
-}
-
-function closeModal(){
-    document.getElementById("modal").classList.remove("show");
-}
-
-/* =========================================================
-   الملف الشخصي
-========================================================= */
-
-function openProfile(){
-
-    openModal("👤 ملف Doma",`
-
-        <div class="profile">
-            <div class="profile-avatar">♛</div>
-
-            <div>
-                <h2>${escapeHTML(state.nickname || state.name || "زائر")}</h2>
-                <p style="color:#777">
-                    المستوى ${Math.floor(state.points/100)+1}
-                </p>
-            </div>
-        </div>
-
-        <br>
-
-        <div class="form-grid">
-
-            <div class="form-group">
-                <label>الاسم</label>
-                <input id="pName"
-                    class="input"
-                    value="${escapeAttr(state.name)}"
-                    placeholder="مثال: عبدالحكيم">
-            </div>
-
-            <div class="form-group">
-                <label>اللقب</label>
-                <input id="pNick"
-                    class="input"
-                    value="${escapeAttr(state.nickname)}"
-                    placeholder="مثال: Doma">
-            </div>
-
-            <div class="form-group">
-                <label>العمر</label>
-                <input id="pAge"
-                    class="input"
-                    type="number"
-                    min="1"
-                    max="120"
-                    value="${escapeAttr(state.age)}"
-                    placeholder="18">
-            </div>
-
-        </div>
-
-        <button class="btn gold" onclick="saveProfile()">
-            حفظ البيانات ✓
-        </button>
-
-        <button class="btn danger"
-                onclick="resetData()"
-                style="margin-right:8px">
-            مسح البيانات
-        </button>
-    `);
-}
-
-function saveProfile(){
-
-    state.name=document.getElementById("pName").value.trim();
-    state.nickname=document.getElementById("pNick").value.trim();
-    state.age=document.getElementById("pAge").value.trim();
-
-    save();
-
-    closeModal();
-
-    toast("تم حفظ ملفك داخل Doma ✓");
-}
-
-function resetData(){
-
-    if(!confirm("هل تريد حذف بيانات Doma المحلية؟")) return;
-
-    localStorage.removeItem("DOMA_ULTRA_DATA");
-    location.reload();
-}
-
-/* =========================================================
-   AI
-========================================================= */
-
-function openAI(){
-
-    openModal("🤖 Doma AI",`
-
-        <div class="chat" id="chat">
-            <div class="msg ai">
-                مرحبًا ${escapeHTML(state.nickname || "يا صديقي")} 👋
-                <br>
-                اكتب سؤالك وسأحاول مساعدتك.
-            </div>
-        </div>
-
-        <div class="chat-input">
-
-            <input
-                id="aiInput"
-                class="input"
-                placeholder="اكتب سؤالك هنا...">
-
-            <button class="btn gold"
-                    onclick="sendAI()">
-                إرسال
-            </button>
-
-        </div>
-
-        <div style="margin-top:12px">
-
-            <input
-                id="apiKey"
-                class="input"
-                type="password"
-                placeholder="Pollinations API Key اختياري">
-
-            <button
-                class="btn"
-                style="margin-top:8px"
-                onclick="saveAPIKey()">
-                حفظ المفتاح
-            </button>
-
-        </div>
-    `);
-}
-
-function saveAPIKey(){
-
-    const key=document.getElementById("apiKey").value.trim();
-
-    if(key){
-        localStorage.setItem("DOMA_POLLINATIONS_KEY",key);
-        toast("تم حفظ المفتاح");
+function addPoints(amount) {
+    user.points += amount;
+    const newLevel = Math.floor(user.points / 500) + 1;
+    if(newLevel > user.level) {
+        user.level = newLevel;
+        alert("🎉 ارتقيت إلى المستوى " + user.level);
     }
+    localStorage.setItem("DOMA_USER", JSON.stringify(user));
+    updateUI();
 }
 
-async function sendAI(){
+// ==================== PAGE NAVIGATION ====================
+function showPage(id, button) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+    document.querySelectorAll(".menu button").forEach(b => b.classList.remove("active"));
+    if(button) button.classList.add("active");
+    window.scrollTo({ top:0, behavior:"smooth" });
+}
 
-    const input=document.getElementById("aiInput");
-    const chat=document.getElementById("chat");
-
-    const text=input.value.trim();
-
+// ==================== AI ====================
+async function askAI() {
+    const input = document.getElementById("aiInput");
+    const text = input.value.trim();
     if(!text) return;
-
-    chat.innerHTML += `
-        <div class="msg user">
-            ${escapeHTML(text)}
-        </div>
-    `;
-
-    input.value="";
-
-    const loading=document.createElement("div");
-
-    loading.className="msg ai";
-    loading.textContent="جاري التفكير... 🧠";
-
-    chat.appendChild(loading);
-    chat.scrollTop=chat.scrollHeight;
-
-    try{
-
-        const key=localStorage.getItem("DOMA_POLLINATIONS_KEY") || "";
-
-        let response;
-
-        if(key){
-
-            response=await fetch(
-                "https://gen.pollinations.ai/v1/chat/completions",
-                {
-                    method:"POST",
-                    headers:{
-                        "Content-Type":"application/json",
-                        "Authorization":"Bearer "+key
-                    },
-                    body:JSON.stringify({
-                        model:"openai",
-                        messages:[
-                            {
-                                role:"system",
-                                content:"أنت مساعد عربي مفيد وواضح ومختصر."
-                            },
-                            {
-                                role:"user",
-                                content:text
-                            }
-                        ]
-                    })
-                }
-            );
-
-            const data=await response.json();
-
-            loading.textContent=
-                data?.choices?.[0]?.message?.content ||
-                "لم يصل رد من الخدمة.";
-
-        }else{
-
-            /*
-              fallback للواجهة القديمة.
-              إذا رفضت الخدمة الطلب بسبب تغييرات
-              المصادقة، ضع مفتاح Pollinations في الإعدادات.
-            */
-
-            const url=
-                "https://text.pollinations.ai/" +
-                encodeURIComponent(text);
-
-            response=await fetch(url);
-
-            const data=await response.text();
-
-            loading.textContent=data || "لم يصل رد.";
-        }
-
+    addMessage(text, "user");
+    input.value = "";
+    const loading = addMessage("⏳ أفكر...", "bot");
+    try {
+        const mode = document.getElementById("aiMode").value;
+        const system = {
+            normal: "أنت Doma AI مساعد ذكي ومفيد. أجب بالعربية بوضوح.",
+            creative: "أنت Doma AI مبدع. قدم إجابات مبتكرة وممتعة بالعربية.",
+            expert: "أنت Doma AI خبير. أعط إجابات دقيقة ومنظمة بالعربية.",
+            fun: "أنت Doma AI مرح. أجب بالعربية بأسلوب لطيف وممتع.",
+            anime: "أنت Doma AI متخصص بالأنمي والألعاب. أجب بالعربية."
+        }[mode];
+        const prompt = system + "\n\nالسؤال:\n" + text;
+        const url = CONFIG.textAPI + encodeURIComponent(prompt) + "?model=openai";
+        const response = await fetch(url);
+        if(!response.ok) throw new Error("AI API error");
+        const answer = await response.text();
+        loading.textContent = answer || "لم تصل إجابة.";
         addPoints(2);
-
-    }catch(error){
-
-        loading.textContent=
-            "تعذر الاتصال بخدمة الذكاء الاصطناعي. " +
-            "تحقق من الإنترنت أو أضف API Key.";
-
-    }
-
-    chat.scrollTop=chat.scrollHeight;
-}
-
-/* =========================================================
-   IMAGE AI
-========================================================= */
-
-function openImageAI(){
-
-    openModal("🎨 Doma Image Studio",`
-
-        <div class="form-group">
-
-            <label>صف الصورة</label>
-
-            <textarea
-                id="imagePrompt"
-                placeholder="مثال: مدينة مستقبلية سوداء وذهبية ليلًا، إضاءة سينمائية، واقعية جدًا"></textarea>
-
-        </div>
-
-        <div class="form-grid">
-
-            <select id="imageSize" class="input">
-                <option value="1024x1024">مربع 1024×1024</option>
-                <option value="1280x720">16:9</option>
-                <option value="720x1280">9:16</option>
-            </select>
-
-            <select id="imageModel" class="input">
-                <option value="flux">Flux</option>
-                <option value="turbo">Turbo</option>
-            </select>
-
-        </div>
-
-        <br>
-
-        <button class="btn gold"
-                onclick="generateImage()">
-            توليد الصورة ✨
-        </button>
-
-        <div id="imageResult"></div>
-    `);
-}
-
-function generateImage(){
-
-    const prompt=document.getElementById("imagePrompt").value.trim();
-
-    if(!prompt){
-        toast("اكتب وصف الصورة أولًا");
-        return;
-    }
-
-    const [width,height]=
-        document.getElementById("imageSize")
-        .value.split("x");
-
-    const model=
-        document.getElementById("imageModel").value;
-
-    const url=
-        "https://image.pollinations.ai/prompt/" +
-        encodeURIComponent(prompt) +
-        `?width=${width}&height=${height}&model=${model}&safe=true`;
-
-    document.getElementById("imageResult").innerHTML=`
-
-        <img
-            class="generated-image"
-            src="${url}"
-            alt="Doma AI">
-
-        <br><br>
-
-        <a
-            href="${url}"
-            target="_blank"
-            class="btn gold"
-            style="display:inline-block;text-decoration:none">
-            فتح الصورة
-        </a>
-    `;
-
-    addPoints(3);
-}
-
-/* =========================================================
-   VIDEO AI
-========================================================= */
-
-function openVideoAI(){
-
-    openModal("🎬 Doma Video Studio",`
-
-        <p style="color:#888;line-height:2;margin-bottom:15px">
-            توليد الفيديو يعتمد على توفر نموذج الفيديو
-            وحساب/API صالح في Pollinations.
-        </p>
-
-        <textarea
-            id="videoPrompt"
-            placeholder="مثال: سيارة رياضية سوداء وذهبية تسير في مدينة مستقبلية ليلًا"></textarea>
-
-        <br><br>
-
-        <div class="form-grid">
-
-            <input
-                id="videoKey"
-                class="input"
-                type="password"
-                placeholder="Pollinations API Key">
-
-            <select id="videoDuration" class="input">
-                <option value="5">5 ثوان</option>
-                <option value="8">8 ثوان</option>
-                <option value="10">10 ثوان</option>
-            </select>
-
-        </div>
-
-        <br>
-
-        <button class="btn gold"
-                onclick="generateVideo()">
-            توليد الفيديو 🎬
-        </button>
-
-        <div id="videoResult" style="margin-top:20px"></div>
-    `);
-}
-
-async function generateVideo(){
-
-    const prompt=
-        document.getElementById("videoPrompt").value.trim();
-
-    const key=
-        document.getElementById("videoKey").value.trim() ||
-        localStorage.getItem("DOMA_POLLINATIONS_KEY");
-
-    const duration=
-        Number(document.getElementById("videoDuration").value);
-
-    if(!prompt){
-        toast("اكتب وصف الفيديو");
-        return;
-    }
-
-    if(!key){
-
-        document.getElementById("videoResult").innerHTML=`
-
-            <div style="
-                padding:18px;
-                border:1px solid rgba(217,173,84,.2);
-                border-radius:15px;
-                color:#aaa;
-                line-height:2">
-
-                ⚠️ توليد الفيديو الحديث يحتاج API Key صالحًا.
-                <br>
-                ضع المفتاح في خانة API ثم أعد المحاولة.
-
-            </div>
-        `;
-
-        return;
-    }
-
-    const box=document.getElementById("videoResult");
-
-    box.innerHTML=
-        `<p style="color:#aaa">جاري إرسال طلب الفيديو... 🎬</p>`;
-
-    try{
-
-        /*
-          Pollinations الحديثة توفر توليد الفيديو،
-          لكن تفاصيل النموذج والمعاملات قد تتغير.
-        */
-
-        const response=await fetch(
-            "https://gen.pollinations.ai/v1/videos/generations",
-            {
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json",
-                    "Authorization":"Bearer "+key
-                },
-                body:JSON.stringify({
-                    prompt:prompt,
-                    duration:duration
-                })
-            }
-        );
-
-        const data=await response.json();
-
-        if(data?.url){
-
-            box.innerHTML=`
-
-                <video
-                    controls
-                    playsinline
-                    style="
-                        width:100%;
-                        border-radius:18px;
-                        margin-top:10px">
-                    <source src="${data.url}">
-                </video>
-
-            `;
-
-            addPoints(10);
-
-        }else{
-
-            box.innerHTML=
-                `<p style="color:#ff9b9b">
-                    لم يرجع الخادم رابط فيديو.
-                    تحقق من نموذج الفيديو المتاح في حسابك.
-                </p>`;
-
-        }
-
-    }catch(e){
-
-        box.innerHTML=
-            `<p style="color:#ff9b9b">
-                حدث خطأ في الاتصال بخدمة الفيديو.
-            </p>`;
-
+    } catch(error) {
+        loading.textContent = "تعذر الاتصال بالذكاء الاصطناعي حاليًا. حاول مرة أخرى.";
+        console.error(error);
     }
 }
 
-/* =========================================================
-   MBTI
-========================================================= */
+function addMessage(text, type) {
+    const messages = document.getElementById("messages");
+    const div = document.createElement("div");
+    div.className = "msg " + type;
+    div.textContent = text;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+    return div;
+}
 
-const mbtiQuestions=[
+// ==================== IMAGE GENERATOR ====================
+async function generateImage() {
+    const prompt = document.getElementById("imagePrompt").value.trim();
+    const preview = document.getElementById("imagePreview");
+    const model = document.getElementById("imageModel").value;
+    if(!prompt) { alert("اكتب وصف الصورة أولًا."); return; }
+    preview.innerHTML = "⏳ يتم إنشاء الصورة...";
+    const url = CONFIG.imageAPI + encodeURIComponent(prompt) + "?model=" + encodeURIComponent(model) + "&width=1024&height=1024&safe=true";
+    const img = new Image();
+    img.onload = () => { preview.innerHTML = ""; preview.appendChild(img); addPoints(5); };
+    img.onerror = () => { preview.innerHTML = "❌ تعذر إنشاء الصورة. حاول مرة أخرى."; };
+    img.src = url;
+}
+
+// ==================== VIDEO GENERATOR ====================
+async function generateVideo() {
+    const prompt = document.getElementById("videoPrompt").value.trim();
+    const preview = document.getElementById("videoPreview");
+    if(!prompt) { alert("اكتب وصف الفيديو."); return; }
+    preview.innerHTML = "⏳ جاري طلب إنشاء الفيديو...";
+    try {
+        const response = await fetch(CONFIG.videoAPI, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt })
+        });
+        if(!response.ok) throw new Error("Video API unavailable");
+        const data = await response.json();
+        if(!data.url) throw new Error("No video URL");
+        preview.innerHTML = `<video controls src="${data.url}"></video>`;
+        addPoints(10);
+    } catch(error) {
+        preview.innerHTML = `<div style="padding:20px;text-align:center"><b>🎬 مولد الفيديو غير موصول</b><p style="font-size:11px;margin-top:10px">تحقق من endpoint في CONFIG.videoAPI.</p></div>`;
+    }
+}
+
+// ==================== MBTI ====================
+const mbtiQuestions = [
     ["في تجمع كبير، غالبًا أنت:",["أبدأ الحديث مع الآخرين","أفضل البقاء هادئًا ومراقبة الموقف"],["E","I"]],
     ["بعد يوم متعب تستعيد طاقتك عبر:",["الخروج والتحدث","الهدوء والوحدة"],["E","I"]],
     ["عندما تأتيك فكرة:",["أشاركها بسرعة","أفكر بها وحدي"],["E","I"]],
     ["مع الأشخاص الجدد:",["أبدأ الحديث بسهولة","أنتظر حتى يبدأوا"],["E","I"]],
     ["في المناسبات:",["أشارك كثيرًا","أستمع أكثر"],["E","I"]],
-
     ["عندما تتعلم:",["أحب التفاصيل والأمثلة","أحب الفكرة العامة"],["S","N"]],
     ["المستقبل بالنسبة لك:",["خطوات واقعية","احتمالات كثيرة"],["S","N"]],
     ["عند حل مشكلة:",["حل مجرب","طريقة جديدة"],["S","N"]],
     ["أنت تميل إلى:",["الواقع","الخيال"],["S","N"]],
     ["تفضل المعلومات:",["المثبتة والعملية","المبتكرة والمحتملة"],["S","N"]],
-
     ["عند اتخاذ قرار:",["أستخدم المنطق","أراعي المشاعر"],["T","F"]],
     ["إذا أخطأ صديق:",["أخبره مباشرة","أراعي مشاعره"],["T","F"]],
     ["في النقاش:",["الحقيقة أهم","الانسجام أهم"],["T","F"]],
     ["النقد بالنسبة لك:",["أحلله","أهتم بتأثيره"],["T","F"]],
     ["النصيحة الأفضل:",["الحل المنطقي","الحل الإنساني"],["T","F"]],
-
     ["تحب يومك:",["منظمًا","مرنًا"],["J","P"]],
     ["في المشروع:",["أضع خطة","أترك الخيارات مفتوحة"],["J","P"]],
     ["إذا تغيرت الخطة:",["أفضل الأصلية","أتكيف"],["J","P"]],
-    ["المواعيد:",["أصل مبكرًا","أصل في الوقت تقريبًا"],["J","P"]]
+    ["المواعيد:",["أصل مبكرًا","أصل في الوقت تقريبًا"],["J","P"]],
+    ["في عملك:",["أفضل الإغلاق","أفضل الاستمرار"],["J","P"]]
 ];
-
-function openMBTI(){
-
-    let i=0;
-    let answers=[];
-
-    function render(){
-
-        const q=mbtiQuestions[i];
-
-        openModal("🧠 اختبار Doma MBTI",`
-
-            <div class="progress">
-                <i style="width:${(i/20)*100}%"></i>
-            </div>
-
-            <div style="
-                color:#777;
-                margin-top:12px">
-                السؤال ${i+1} من 20
-            </div>
-
-            <div class="mbti-question">
-                ${q[0]}
-            </div>
-
-            <div class="mbti-options">
-
-                <button class="mbti-option"
-                    id="m1">
-                    ${q[1][0]}
-                </button>
-
-                <button class="mbti-option"
-                    id="m2">
-                    ${q[1][1]}
-                </button>
-
-            </div>
-        `);
-
-        document.getElementById("m1").onclick=()=>answer(q[2][0]);
-        document.getElementById("m2").onclick=()=>answer(q[2][1]);
-    }
-
-    function answer(letter){
-
-        answers.push(letter);
-
-        i++;
-
-        if(i<20){
-
-            render();
-
-        }else{
-
-            finish();
-        }
-    }
-
-    function finish(){
-
-        const count={
-            E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0
-        };
-
-        answers.forEach(x=>count[x]++);
-
-        const type=
-            (count.E>=count.I?"E":"I")+
-            (count.S>=count.N?"S":"N")+
-            (count.T>=count.F?"T":"F")+
-            (count.J>=count.P?"J":"P");
-
-        state.mbti=type;
-
-        save();
-
-        addPoints(20);
-
-        openModal("✨ نتيجتك",`
-
-            <div style="text-align:center">
-
-                <div style="
-                    font-size:65px;
-                    font-weight:900;
-                    color:#f0cf7a">
-                    ${type}
-                </div>
-
-                <h2>${mbtiNames[type]}</h2>
-
-                <p style="
-                    color:#8c929d;
-                    line-height:2;
-                    margin:15px 0">
-                    ${mbtiDesc[type]}
-                </p>
-
-                <button
-                    class="btn gold"
-                    onclick="closeModal()">
-                    رائع ✓
-                </button>
-
-            </div>
-        `);
-    }
-
-    render();
+const mbtiNames = {
+    INTJ:"المهندس الاستراتيجي", INTP:"المحلل", ENTJ:"القائد", ENTP:"المبتكر",
+    INFJ:"المستشار", INFP:"الحالم", ENFJ:"المرشد", ENFP:"المستكشف",
+    ISTJ:"المنظم", ISFJ:"الحامي", ESTJ:"المدير", ESFJ:"الداعم",
+    ISTP:"المهندس العملي", ISFP:"الفنان", ESTP:"المغامر", ESFP:"الممتع"
+};
+const mbtiDesc = {
+    INTJ:"تحليلي واستراتيجي وتميل للتخطيط بعيد المدى.", INTP:"فضولي وتحب فهم الأنظمة والأفكار.",
+    ENTJ:"طموح ومنظم وتميل للقيادة وتحقيق النتائج.", ENTP:"تحب الأفكار الجديدة والنقاش والتجربة.",
+    INFJ:"عميق وملاحظ وتهتم بالمعنى وفهم الآخرين.", INFP:"خيالي وقيمي وتبحث عن الأصالة.",
+    ENFJ:"اجتماعي وتهتم بتطوير وتشجيع الآخرين.", ENFP:"فضولي ومتحمس ومليء بالأفكار.",
+    ISTJ:"عملي ومسؤول وتحب النظام.", ISFJ:"هادئ ومخلص وتهتم بالتفاصيل.",
+    ESTJ:"منظم وعملي وتحب تحمل المسؤولية.", ESFJ:"اجتماعي وتحب التعاون والعلاقات.",
+    ISTP:"عملي وهادئ وتحب التجربة وفهم الأشياء.", ISFP:"حساس وهادئ وتقدر الحرية والجمال.",
+    ESTP:"جريء وعملي وتحب الحركة والتحديات.", ESFP:"عفوي واجتماعي وتحب التجارب الممتعة."
+};
+let mbtiIndex = 0, mbtiAnswers = [];
+function openMBTI() {
+    mbtiIndex = 0; mbtiAnswers = [];
+    renderMBTI();
 }
-
-const mbtiNames={
-INTJ:"المهندس الاستراتيجي",
-INTP:"المحلل",
-ENTJ:"القائد",
-ENTP:"المبتكر",
-INFJ:"المستشار",
-INFP:"الحالم",
-ENFJ:"المرشد",
-ENFP:"المستكشف",
-ISTJ:"المنظم",
-ISFJ:"الحامي",
-ESTJ:"المدير",
-ESFJ:"الداعم",
-ISTP:"المهندس العملي",
-ISFP:"الفنان",
-ESTP:"المغامر",
-ESFP:"الممتع"
-};
-
-const mbtiDesc={
-
-INTJ:"تحليلي واستراتيجي وتميل للتخطيط بعيد المدى.",
-INTP:"فضولي وتحب فهم الأنظمة والأفكار.",
-ENTJ:"طموح ومنظم وتميل للقيادة وتحقيق النتائج.",
-ENTP:"تحب الأفكار الجديدة والنقاش والتجربة.",
-INFJ:"عميق وملاحظ وتهتم بالمعنى وفهم الآخرين.",
-INFP:"خيالي وقيمي وتبحث عن الأصالة.",
-ENFJ:"اجتماعي وتهتم بتطوير وتشجيع الآخرين.",
-ENFP:"فضولي ومتحمس ومليء بالأفكار.",
-ISTJ:"عملي ومسؤول وتحب النظام.",
-ISFJ:"هادئ ومخلص وتهتم بالتفاصيل.",
-ESTJ:"منظم وعملي وتحب تحمل المسؤولية.",
-ESFJ:"اجتماعي وتحب التعاون والعلاقات.",
-ISTP:"عملي وهادئ وتحب التجربة وفهم الأشياء.",
-ISFP:"حساس وهادئ وتقدر الحرية والجمال.",
-ESTP:"جريء وعملي وتحب الحركة والتحديات.",
-ESFP:"عفوي واجتماعي وتحب التجارب الممتعة."
-};
-
-/* =========================================================
-   100 شخصية أنمي
-========================================================= */
-
-const animeNames=[
-"ناروتو","ساسكي","ساكورا","كاكاشي","إيتاتشي",
-"مادارا","أوبيتو","جيرايا","تسونادي","غارا",
-
-"لوفي","زورو","سانجي","نامي","روبين",
-"شانكس","كايدو","بيغ مام","تيتش","إيس",
-
-"غوكو","فيجيتا","غوهان","فريزا","بيكولو",
-"ترانكس","برولي","سيل","كريلين","يامشا",
-
-"تانجيرو","نيزوكو","زينيتسو","إينوسكي","غيو",
-"شينوبو","رينغوكو","موزان","تنجن","ميتسوري",
-
-"إيرين","ميكاسا","أرمين","ليفاي","إروين",
-"هانجي","راينر","بيرتولت","آني","زيك",
-
-"إيتشيغو","روكيا","أوريهيمي","أوريو","رينجي",
-"بياكويا","آيزن","كينباتشي","توشيرو","يوروئيتشي",
-
-"غون","كيلوا","كورابيكا","ليوريو","هيسوكا",
-"ميرويم","نتروا","كرولو","فيتان","إيلومي",
-
-"إدوارد إلريك","ألفونس إلريك","روي موستانغ","وينري",
-"لايت ياغامي","إل","ريوك","ميسا",
-
-"ساتورو غوجو","يوجي إيتادوري","ميغومي فوشيغورو",
-"نوبارا كوغيساكي","سوكونا","ماكي زينين",
-
-"سينكو","تسوكا ساي","تايجو","كروم",
-"أسونا","كيريتو","إيميليا","ريم"
-];
-
-/* =========================================================
-   ألعاب
-========================================================= */
-
-/*
-  بدل كتابة 100 لعبة منفصلة بآلاف الأسطر،
-  Doma يستخدم 100 لعبة فعلية مبنية على
-  مجموعة ميكانيكيات قابلة للتوليد.
-*/
-
-const gameModes=[
-"اختيار سريع","صح أم خطأ","اختبر ذاكرتك","الأكبر يفوز",
-"الأصغر يفوز","رقم عشوائي","حساب سريع","جمع سريع",
-"طرح سريع","ضرب سريع","قسمة سريعة","زوجي أم فردي",
-"مضاعفات","رقم مفقود","ترتيب الأرقام","أعلى نتيجة",
-"أسرع إجابة","تحدي الوقت","اختيار اللون","اختيار الرمز",
-"حجر ورق مقص","تخمين الرقم","عملة","نرد",
-"حظك اليوم","الرقم السري","تحدي التركيز","ذاكرة قصيرة",
-"تذكر التسلسل","تذكر اللون","تذكر الرمز","الكلمة المختلفة",
-"الحرف المختلف","الحرف المفقود","كلمة صحيحة","كلمة معكوسة",
-"جمع الحروف","فك كلمة","رتب الكلمة","اسم الأنمي",
-"أنمي سريع","شخصية عشوائية","خمن الشخصية","أكمل الاسم",
-"أول حرف","آخر حرف","عدد الحروف","كلمة طويلة",
-"كلمة قصيرة","ترتيب الكلمات","مرادف","ضد الكلمة",
-"جمع عربي","اختيار عربي","تحدي المعرفة","معلومات عامة",
-"جغرافيا","علوم","فضاء","رياضيات",
-"منطق","ذاكرة الأرقام","رقم محظوظ","أقرب رقم",
-"الاختيار الذهبي","تحدي 10 ثوان","تحدي 20 ثانية","نقطة واحدة",
-"ثلاث نقاط","خمس نقاط","سلسلة الفوز","لا تخطئ",
-"سرعة العين","اختيار صحيح","الجواب المخفي","لغز",
-"لغز منطقي","لغز رقمي","لغز كلمات","لغز أنمي",
-"تحدي عشوائي","مباراة النقاط","مضاعف النقاط","النجم الذهبي",
-"الزعيم","المحترف","الخبير","المبتدئ",
-"التحدي الفضي","التحدي الذهبي","التحدي الكربوني","Doma Rush",
-"Doma Quick","Doma Master","Doma Ultra","النهائي"
-];
-
-function openGames(){
-
-    let html=`
-
-        <div class="game-grid">
-
+function renderMBTI() {
+    if(mbtiIndex >= mbtiQuestions.length) { finishMBTI(); return; }
+    const q = mbtiQuestions[mbtiIndex];
+    const html = `
+        <div class="progress-bar"><div class="progress-fill" style="width:${(mbtiIndex/20)*100}%"></div></div>
+        <div style="color:var(--muted);margin-top:12px">السؤال ${mbtiIndex+1} من 20</div>
+        <div class="scramble" style="font-size:28px;letter-spacing:0">${q[0]}</div>
+        <div class="center">
+            <button class="btn primary" onclick="answerMBTI('${q[2][0]}')">${q[1][0]}</button>
+            <button class="btn secondary" style="margin-top:10px" onclick="answerMBTI('${q[2][1]}')">${q[1][1]}</button>
+        </div>
     `;
-
-    gameModes.forEach((name,index)=>{
-
-        html+=`
-
-            <div class="game-card"
-                onclick="startGame(${index})">
-
-                <b>${index+1}. ${name}</b>
-
-                <small>
-                    ${gameDescription(index)}
-                </small>
-
-            </div>
-
-        `;
-
-    });
-
-    html+=`</div>`;
-
-    openModal("🎮 100 لعبة Doma",html);
+    openGameModal("🧠 اختبار Doma MBTI", "اكتشف شخصيتك", html);
 }
-
-function gameDescription(i){
-
-    const descriptions=[
-        "اختيار الإجابة الأسرع",
-        "حدد الحقيقة",
-        "اختبر ذاكرتك",
-        "اختر الرقم الأكبر",
-        "اختر الرقم الأصغر",
-        "توقع الرقم",
-        "احسب بسرعة",
-        "عملية جمع",
-        "عملية طرح",
-        "عملية ضرب",
-        "عملية قسمة",
-        "زوجي أو فردي",
-        "اختبر المضاعفات",
-        "أكمل الرقم",
-        "رتب الأرقام",
-        "حقق أعلى نتيجة",
-        "جاوب بسرعة",
-        "ضد الساعة",
-        "اختر اللون",
-        "اختر الرمز"
-    ];
-
-    if(i===39) return "فك اسم شخصية أنمي";
-    if(i>=40 && i<=49) return "تحدي كلمات وشخصيات";
-    if(i>=50 && i<=59) return "أسئلة معرفة";
-    if(i>=60 && i<=79) return "تحديات منطقية";
-    if(i>=80) return "وضع تحدي خاص";
-
-    return descriptions[i%descriptions.length];
+function answerMBTI(letter) {
+    mbtiAnswers.push(letter);
+    mbtiIndex++;
+    if(mbtiIndex < mbtiQuestions.length) renderMBTI();
+    else finishMBTI();
 }
-
-/* =========================================================
-   محرك الألعاب
-========================================================= */
-
-let currentGame=null;
-
-function startGame(index){
-
-    if(index===39){
-        openAnimeGame();
-        return;
-    }
-
-    const mode=index%12;
-
-    currentGame={
-        index,
-        mode,
-        score:0,
-        round:1,
-        target:10
-    };
-
-    renderGame();
-}
-
-function renderGame(){
-
-    const g=currentGame;
-
-    let content="";
-
-    if(g.round>g.target){
-
-        const reward=Math.max(5,g.score);
-
-        addPoints(reward);
-
-        state.games++;
-        save();
-
-        openModal("🏆 انتهت اللعبة",`
-
-            <div style="text-align:center">
-
-                <div style="
-                    font-size:55px;
-                    color:#f0cf7a">
-                    🏆
-                </div>
-
-                <h2>نتيجتك ${g.score}</h2>
-
-                <p style="color:#888;margin:12px">
-                    حصلت على ${reward} نقطة
-                </p>
-
-                <button
-                    class="btn gold"
-                    onclick="startGame(${g.index})">
-                    العب مرة أخرى
-                </button>
-
-            </div>
-        `);
-
-        return;
-    }
-
-    const q=createGameQuestion(g.mode);
-
-    g.answer=q.answer;
-
-    openModal(
-        `🎮 ${gameModes[g.index]}`,
-        `
-
-        <div class="game-area">
-
-            <div class="game-score">
-
-                <span>
-                    الجولة ${g.round}/${g.target}
-                </span>
-
-                <span>
-                    ⭐ ${g.score}
-                </span>
-
-            </div>
-
-            <div class="game-question">
-                ${q.question}
-            </div>
-
-            <div class="game-options">
-
-                ${q.options.map((x,i)=>`
-
-                    <button
-                        class="game-option"
-                        onclick="gameAnswer(${i})">
-
-                        ${escapeHTML(String(x))}
-
-                    </button>
-
-                `).join("")}
-
-            </div>
-
+function finishMBTI() {
+    const count = {E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0};
+    mbtiAnswers.forEach(x=>count[x]++);
+    const type = (count.E>=count.I?"E":"I")+(count.S>=count.N?"S":"N")+(count.T>=count.F?"T":"F")+(count.J>=count.P?"J":"P");
+    user.mbti = type;
+    localStorage.setItem("DOMA_USER", JSON.stringify(user));
+    updateUI();
+    addPoints(20);
+    const html = `
+        <div class="center">
+            <div style="font-size:65px;font-weight:900;color:var(--gold)">${type}</div>
+            <h2>${mbtiNames[type]}</h2>
+            <p style="color:var(--muted);line-height:2;margin:15px">${mbtiDesc[type]}</p>
+            <button class="btn gold" onclick="closeGame()">رائع ✓</button>
         </div>
-        `
-    );
+    `;
+    openGameModal("✨ نتيجتك", "", html);
 }
 
-function gameAnswer(index){
+// ==================== 100 ANIME CHARACTERS ====================
+const animeCharacters = [
+    "ناروتو","ساسكي","ساكورا","كاكاشي","إيتاتشي","مادارا","أوبيتو","ميناتو","جيرايا","تسونادي",
+    "لوفي","زورو","سانجي","نامي","روبين","يوسوب","تشوبر","فرانكي","بروك","جينبي",
+    "غوكو","فيجيتا","غوهان","ترانكس","بيكولو","فريزا","سيل","ماجين بو","بيروس","ويس",
+    "غوجو","غيتو","يوجي","ميغومي","نوبارا","سوكونا","ماكي","توجي","نانامي","باندا",
+    "تانجيرو","نيزوكو","زينيتسو","إينوسكي","رينغوكو","غيو","شينوبو","موزان","ميتسوري","أوباناي",
+    "إيرين","ميكاسا","أرمين","ليفاي","إروين","راينر","آني","هانجي","جان","كوني",
+    "إدوارد","ألفونس","روي","وينري","سكار","إنفي","غرييد","هوهنهايم","موستانغ","أوليفييه",
+    "إيساغي","رين","باتشيرا","ناغي","بارو","ريو","تشغيري","كايسَر","ساي","نيكو",
+    "لايت","إل","ميسا","ريوك","ميلو","نير","ماتسودا","ريوكو","تاتسوماكي","سايتاما",
+    "كيلوا","غون","كورابيكا","ليوريو","هيسوكا","ميرويم","فيتان","تشورولو","إيلومي","نوبوناغا"
+];
 
-    const buttons=
-        document.querySelectorAll(".game-option");
+// ==================== 100 GAMES ====================
+const gameTemplates = [
+    ["🧩","فك الشخصية","فك اسم شخصية أنمي", "scramble"],
+    ["⌨️","اكتب بسرعة","اكتب الكلمة بأسرع وقت", "typing"],
+    ["🔢","خمن الرقم","اعثر على الرقم الصحيح", "guess_number"],
+    ["🧠","اختبار الذاكرة","تذكر العناصر", "memory"],
+    ["⚡","رد سريع","اضغط عند ظهور الهدف", "reaction"],
+    ["🎯","هدف عشوائي","اختر الإجابة الصحيحة", "random_choice"],
+    ["🔤","رتب الحروف","رتب الحروف", "scramble"],
+    ["❓","صح أم خطأ","اختبار سريع", "true_false"],
+    ["🎲","حظك اليوم","اختبار الحظ", "luck"],
+    ["🧮","حساب سريع","حل المسألة", "math"],
+    ["🕵️","من أنا؟","خمن الشخصية", "guess_anime"],
+    ["🌈","اختار اللون","اختر اللون", "color_match"],
+    ["🧠","ذاكرة الأرقام","احفظ الرقم", "number_memory"],
+    ["🔐","كلمة السر","اكتشف الرمز", "secret_code"],
+    ["🚀","سباق السرعة","أنهِ التحدي", "speed"],
+    ["🎮","زر سريع","اختبار رد الفعل", "reaction"],
+    ["🧩","لغز اليوم","حل اللغز", "riddle"],
+    ["🔎","اختلاف الصورة","اعثر على الاختلاف", "spot_diff"],
+    ["💎","اجمع الجواهر","اجمع أكبر عدد", "collect"],
+    ["🔥","سلسلة الإجابات","أجب دون خطأ", "streak_answers"],
+    ["🎯","صيد النقاط","اجمع النقاط", "catch"],
+    ["🌀","متاهة","اعثر على الطريق", "maze"],
+    ["🧊","كسر الجليد","اضغط بسرعة", "reaction"],
+    ["🌙","تحدي الليل","اختبار سريع", "night"],
+    ["☀️","تحدي الصباح","ابدأ يومك", "morning"],
+    ["👑","ملك السرعة","كن الأسرع", "speed_king"],
+    ["⚔️","مبارزة","اختبر مهارتك", "duel"],
+    ["🛡️","الدفاع","صد الهجمات", "defense"],
+    ["🏎️","سباق","اختر الأسرع", "race"],
+    ["🚁","طيران","تجنب العقبات", "flight"],
+    ["🐉","صيد التنين","خمن الكلمة", "dragon"],
+    ["🧙","الساحر","رتب التعويذة", "wizard"],
+    ["🥷","نينجا","اختبار سرعة", "ninja"],
+    ["🤖","روبوت","حل التحدي", "robot"],
+    ["👽","فضائي","خمن الكوكب", "alien"],
+    ["🌌","الكون","احفظ النجوم", "cosmos"],
+    ["🪐","الكواكب","رتب الكواكب", "planets"],
+    ["🌟","النجم","اعثر على النجم", "star"],
+    ["💫","وميض","اضغط عند الوميض", "flash"],
+    ["🎵","الإيقاع","اختبر الذاكرة", "rhythm"],
+    ["🎨","الفنان","خمن اللون", "color_match"],
+    ["📚","المثقف","سؤال معلومات", "quiz_general"],
+    ["🌍","العالم","خمن الدولة", "quiz_geo"],
+    ["🏆","البطل","تحدي شامل", "all_round"],
+    ["🥇","الذهبي","اجمع 100 نقطة", "gold_rush"],
+    ["🥈","الفضي","اجمع 75 نقطة", "silver_rush"],
+    ["🥉","البرونزي","اجمع 50 نقطة", "bronze_rush"],
+    ["💰","جامع الذهب","اجمع العملات", "coin_collect"],
+    ["💡","الفكرة","حل اللغز", "riddle"],
+    ["🧪","المختبر","اختبر ذاكرتك", "memory"],
+    ["🔬","العالم","أجب بسرعة", "quiz_science"],
+    ["📡","الإشارة","اتبع الإشارة", "signal"],
+    ["📱","الهاتف","تحدي السرعة", "phone"],
+    ["💻","الهاكر","اكسر الرمز", "hacker"],
+    ["⌛","الوقت","قبل انتهاء الوقت", "time"],
+    ["⏱️","الساعة","رد في ثانية", "timer"],
+    ["🔔","الجرس","اضغط عند الصوت", "bell"],
+    ["🎁","الصندوق","اختر الصندوق", "box_choice"],
+    ["🎈","البالون","اختر الصحيح", "balloon"],
+    ["🍀","الحظ","اختر الحظ", "luck"],
+    ["❤️","القلب","اختبار الشخصية", "personality"],
+    ["💜","الطاقة","اختر الطاقة", "energy"],
+    ["💙","المحيط","اختبار التركيز", "focus"],
+    ["🧡","النار","تحدي السرعة", "speed"],
+    ["💚","الغابة","اعثر على الطريق", "maze"],
+    ["🖤","الظل","خمن الشخصية", "guess_anime"],
+    ["🤍","النور","اختر الإجابة", "random_choice"],
+    ["🐺","الذئب","اختبار الذكاء", "quiz_general"],
+    ["🦊","الثعلب","اكتشف الخدعة", "trick"],
+    ["🐼","الباندا","لعبة الذاكرة", "memory"],
+    ["🐯","النمر","تحدي القوة", "strength"],
+    ["🦁","الأسد","ملك الأسئلة", "quiz_general"],
+    ["🐸","الضفدع","اقفز للإجابة", "jump"],
+    ["🐙","الأخطبوط","احفظ الأشكال", "shape_memory"],
+    ["🦋","الفراشة","تتبع الحركة", "tracking"],
+    ["🐝","النحلة","اجمع النقاط", "collect"],
+    ["🦅","النسر","اعثر على الهدف", "target"],
+    ["🐉","التنين","تحدي الأسطورة", "dragon"],
+    ["🗡️","السيف","اختر السيف", "sword"],
+    ["🏹","القوس","صوّب الهدف", "archery"],
+    ["💣","القنبلة","تجنب الخطأ", "bomb"],
+    ["🧨","الانفجار","اضغط بسرعة", "reaction"],
+    ["🕹️","الأركيد","لعبة كلاسيكية", "arcade"],
+    ["👾","الفضائي","اهزم الهدف", "space_invader"],
+    ["👻","الشبح","خمن الشبح", "ghost"],
+    ["💀","الجمجمة","تحدي صعب", "hard"],
+    ["😈","الشرير","اختر الإجابة", "random_choice"],
+    ["😎","النخبة","تحدي محترفين", "pro"],
+    ["🤓","العبقري","أسئلة ذكية", "quiz_general"],
+    ["🥳","الحفلة","تحدي مرح", "fun"],
+    ["😂","الضحك","أسئلة مضحكة", "fun"],
+    ["🧩","المفكك","أعد الكلمة", "scramble"],
+    ["🔠","الحروف","رتب الكلمة", "scramble"],
+    ["🔡","الكلمات","اختبار لغوي", "word_quiz"],
+    ["📖","القصة","تذكر القصة", "story"],
+    ["🎬","الفيلم","خمن الشخصية", "guess_anime"],
+    ["🍿","السينما","سؤال سريع", "quiz_general"],
+    ["🌸","الأنمي","تحدي الأنمي", "anime_quiz"],
+    ["🔥","الأسطورة","تحدي نهائي", "legend"]
+];
 
-    const chosen=buttons[index];
+const games = gameTemplates.map((g,i)=>({ id:i+1, icon:g[0], title:g[1], desc:g[2], type:g[3] }));
 
-    if(String(index)===String(currentGame.answer)){
-
-        chosen.classList.add("correct");
-
-        currentGame.score+=1;
-
-        toast("إجابة صحيحة! +1 🔥");
-
-    }else{
-
-        chosen.classList.add("wrong");
-
-        buttons[currentGame.answer]?.classList.add("correct");
-
-        toast("ليست صحيحة 😅");
-
-    }
-
-    setTimeout(()=>{
-
-        currentGame.round++;
-
-        renderGame();
-
-    },650);
+function renderGames() {
+    const grid = document.getElementById("gamesGrid");
+    grid.innerHTML = "";
+    games.forEach(game => {
+        const div = document.createElement("div");
+        div.className = "game";
+        div.innerHTML = `<div class="icon">${game.icon}</div><b>${game.title}</b><span>${game.desc}</span>`;
+        div.onclick = () => openGame(game.id);
+        grid.appendChild(div);
+    });
 }
 
-function createGameQuestion(mode){
+// ==================== GAME ENGINE ====================
+let gameSession = null;
 
-    /* 0 اختيار سريع */
-    if(mode===0){
-
-        const a=random(1,20);
-        const b=random(1,20);
-
-        const correct=a+b;
-
-        const opts=shuffle([
-            correct,
-            correct+random(1,5),
-            correct-random(1,5),
-            correct+random(6,10)
-        ]);
-
-        return makeQuestion(
-            `${a} + ${b} = ؟`,
-            opts,
-            correct
-        );
-    }
-
-    /* 1 صح خطأ */
-    if(mode===1){
-
-        const a=random(1,20);
-        const b=random(1,20);
-        const correct=a+b;
-        const shown=Math.random()<.5
-            ? correct
-            : correct+random(1,4);
-
-        return {
-            question:`هل ${a} + ${b} = ${shown} ؟`,
-            options:["صح","خطأ"],
-            answer:shown===correct?0:1
-        };
-    }
-
-    /* 2 ذاكرة */
-    if(mode===2){
-
-        const number=random(100,999);
-
-        return {
-            question:
-                `تذكر الرقم: <b>${number}</b><br><br>
-                 كم هو أول رقم؟`,
-            options:[
-                String(String(number)[0]),
-                String(String(number)[1]),
-                String(String(number)[2]),
-                String(random(1,9))
-            ],
-            answer:0
-        };
-    }
-
-    /* 3 الأكبر */
-    if(mode===3){
-
-        const nums=[
-            random(1,99),
-            random(1,99),
-            random(1,99),
-            random(1,99)
-        ];
-
-        const max=Math.max(...nums);
-
-        return {
-            question:"اختر الرقم الأكبر",
-            options:nums,
-            answer:nums.indexOf(max)
-        };
-    }
-
-    /* 4 الأصغر */
-    if(mode===4){
-
-        const nums=[
-            random(1,99),
-            random(1,99),
-            random(1,99),
-            random(1,99)
-        ];
-
-        const min=Math.min(...nums);
-
-        return {
-            question:"اختر الرقم الأصغر",
-            options:nums,
-            answer:nums.indexOf(min)
-        };
-    }
-
-    /* 5 رقم عشوائي */
-    if(mode===5){
-
-        const correct=random(1,4);
-
-        return {
-            question:"أي رقم اخترته Doma هذه المرة؟",
-            options:[1,2,3,4],
-            answer:correct-1
-        };
-    }
-
-    /* 6 حساب */
-    if(mode===6){
-
-        const a=random(2,15);
-        const b=random(2,15);
-        const correct=a*b;
-
-        return makeQuestion(
-            `${a} × ${b} = ؟`,
-            shuffle([
-                correct,
-                correct+2,
-                correct-2,
-                correct+5
-            ]),
-            correct
-        );
-    }
-
-    /* 7 جمع */
-    if(mode===7){
-
-        const a=random(1,50);
-        const b=random(1,50);
-        const correct=a+b;
-
-        return makeQuestion(
-            `${a} + ${b} = ؟`,
-            shuffle([correct,correct+3,correct-3,correct+7]),
-            correct
-        );
-    }
-
-    /* 8 طرح */
-    if(mode===8){
-
-        const a=random(20,90);
-        const b=random(1,a);
-
-        const correct=a-b;
-
-        return makeQuestion(
-            `${a} − ${b} = ؟`,
-            shuffle([correct,correct+2,correct-2,correct+5]),
-            correct
-        );
-    }
-
-    /* 9 ضرب */
-    if(mode===9){
-
-        const a=random(2,12);
-        const b=random(2,12);
-        const correct=a*b;
-
-        return makeQuestion(
-            `${a} × ${b} = ؟`,
-            shuffle([correct,correct+4,correct-4,correct+8]),
-            correct
-        );
-    }
-
-    /* 10 قسمة */
-    if(mode===10){
-
-        const b=random(2,10);
-        const correct=random(2,10);
-        const a=b*correct;
-
-        return makeQuestion(
-            `${a} ÷ ${b} = ؟`,
-            shuffle([correct,correct+1,correct-1,correct+3]),
-            correct
-        );
-    }
-
-    /* 11 زوجي فردي */
-    if(mode===11){
-
-        const n=random(1,100);
-        const even=n%2===0;
-
-        return {
-            question:`${n} هل هو زوجي أم فردي؟`,
-            options:["زوجي","فردي"],
-            answer:even?0:1
-        };
-    }
-
-    return createGameQuestion(random(0,11));
+function openGame(id) {
+    const game = games.find(g => g.id === id) || games[0];
+    openGameModal(game.icon + " " + game.title, game.desc, "");
+    gameSession = { game, score:0, round:0, totalRounds:5, data:null, attempts:0 };
+    startGameByType(game.type);
 }
 
-function makeQuestion(question,options,correct){
-
-    return {
-        question,
-        options,
-        answer:options.indexOf(correct)
-    };
+function startGameByType(type) {
+    switch(type) {
+        case "scramble": startScrambleGame(); break;
+        case "typing": startTypingGame(); break;
+        case "guess_number": startGuessNumber(); break;
+        case "memory": startMemoryGame(); break;
+        case "reaction": startReactionGame(); break;
+        case "random_choice": startRandomChoice(); break;
+        case "true_false": startTrueFalse(); break;
+        case "luck": startLuckGame(); break;
+        case "math": startMathGame(); break;
+        case "guess_anime": startGuessAnime(); break;
+        case "color_match": startColorMatch(); break;
+        case "number_memory": startNumberMemory(); break;
+        case "secret_code": startSecretCode(); break;
+        case "speed": startSpeedGame(); break;
+        case "riddle": startRiddle(); break;
+        case "quiz_general": startQuiz("general"); break;
+        case "quiz_geo": startQuiz("geo"); break;
+        case "quiz_science": startQuiz("science"); break;
+        case "word_quiz": startWordQuiz(); break;
+        case "anime_quiz": startQuiz("anime"); break;
+        default: startGenericGame(type);
+    }
 }
 
-/* =========================================================
-   لعبة الأنمي
-========================================================= */
+function openGameModal(title, desc, html) {
+    document.getElementById("gameModal").classList.add("show");
+    document.getElementById("gameTitle").textContent = title;
+    document.getElementById("gameDescription").textContent = desc;
+    document.getElementById("gameContent").innerHTML = html;
+}
 
-let animeGame={
-    score:0,
-    round:0,
-    total:10,
-    current:""
+function closeGame() {
+    clearInterval(gameTimer);
+    document.getElementById("gameModal").classList.remove("show");
+}
+
+function endGame(points) {
+    addPoints(points);
+    user.gamesPlayed++;
+    localStorage.setItem("DOMA_USER", JSON.stringify(user));
+    updateUI();
+    const html = `<div class="center"><div style="font-size:55px">🏆</div><h2>نتيجتك: ${gameSession.score}</h2><p style="color:var(--muted)">حصلت على ${points} XP</p><button class="btn gold" onclick="closeGame()">متابعة</button></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+}
+
+// ==================== GAME IMPLEMENTATIONS ====================
+
+function shuffleString(str) {
+    return [...str].sort(()=>Math.random()-.5).join("");
+}
+
+function startScrambleGame() {
+    const name = animeCharacters[Math.floor(Math.random()*animeCharacters.length)];
+    let scrambled = shuffleString(name);
+    if(scrambled === name) scrambled = shuffleString(name);
+    gameSession.data = { answer: name };
+    gameSession.startTime = Date.now();
+    const html = `<div class="center"><p style="color:var(--muted)">أعد ترتيب الحروف واكتب اسم الشخصية.</p><div class="scramble">${scrambled}</div><input id="scrambleInput" class="input" placeholder="اكتب اسم الشخصية هنا" onkeydown="if(event.key==='Enter')checkScramble()"><div class="feedback" id="scrambleFeedback"></div><button class="btn primary" onclick="checkScramble()">تحقق ⚡</button></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+    setTimeout(()=>document.getElementById("scrambleInput")?.focus(),100);
+}
+
+function checkScramble() {
+    const input = document.getElementById("scrambleInput").value.trim();
+    const feedback = document.getElementById("scrambleFeedback");
+    if(input === gameSession.data.answer) {
+        const seconds = (Date.now()-gameSession.startTime)/1000;
+        const points = Math.max(10, Math.round(80 - seconds*4));
+        feedback.innerHTML = `🎉 صحيح! +${points} XP`;
+        gameSession.score = points;
+        endGame(points);
+    } else {
+        feedback.innerHTML = "❌ ليست الإجابة الصحيحة.";
+    }
+}
+
+function startTypingGame() {
+    const word = animeCharacters[Math.floor(Math.random()*animeCharacters.length)];
+    gameSession.data = { word };
+    gameSession.startTime = Date.now();
+    const html = `<div class="center"><p>اكتب الكلمة بأسرع ما يمكنك:</p><div class="scramble">${word}</div><input id="typingInput" class="input" autofocus placeholder="اكتب هنا..." onkeydown="if(event.key==='Enter')checkTyping()"><div id="typingFeedback" class="feedback"></div></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+    setTimeout(()=>document.getElementById("typingInput")?.focus(),100);
+}
+
+function checkTyping() {
+    const input = document.getElementById("typingInput").value.trim();
+    const feedback = document.getElementById("typingFeedback");
+    if(input === gameSession.data.word) {
+        const seconds = (Date.now()-gameSession.startTime)/1000;
+        const points = Math.max(5, Math.round(60 - seconds*3));
+        feedback.innerHTML = `⚡ ممتاز! ${seconds.toFixed(2)} ثانية | +${points} XP`;
+        gameSession.score = points;
+        endGame(points);
+    } else {
+        feedback.innerHTML = "❌ حاول مرة أخرى.";
+    }
+}
+
+function startGuessNumber() {
+    const secret = Math.floor(Math.random()*100)+1;
+    gameSession.data = { secret, attempts:0 };
+    const html = `<div class="center"><p style="color:var(--muted)">خمن رقمًا بين 1 و100.</p><br><input id="numberInput" class="input" type="number" min="1" max="100" placeholder="رقم"><div id="numberFeedback" class="feedback"></div><button class="btn primary" onclick="checkNumber()">تخمين</button></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+}
+
+function checkNumber() {
+    const n = Number(document.getElementById("numberInput").value);
+    const feedback = document.getElementById("numberFeedback");
+    gameSession.data.attempts++;
+    if(n === gameSession.data.secret) {
+        feedback.innerHTML = "🏆 أصبت! +50 XP";
+        endGame(50);
+    } else if(n < gameSession.data.secret) {
+        feedback.innerHTML = "⬆️ الرقم أكبر.";
+    } else {
+        feedback.innerHTML = "⬇️ الرقم أصغر.";
+    }
+}
+
+function startMemoryGame() {
+    const sequence = Array.from({length:5}, ()=>Math.floor(Math.random()*10)).join("");
+    gameSession.data = { sequence };
+    const html = `<div class="center"><p>تذكر الرقم التالي:</p><div class="scramble" style="font-size:40px">${sequence}</div><p style="color:var(--muted)">ستختفي بعد 3 ثوانٍ</p><button class="btn primary" onclick="showMemoryInput()">حفظت ✓</button></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+    setTimeout(()=>{ if(document.getElementById("gameContent").innerHTML.includes("حفظت")) showMemoryInput(); },3000);
+}
+
+function showMemoryInput() {
+    const html = `<div class="center"><p>أدخل الرقم الذي تذكرته:</p><input id="memoryInput" class="input" placeholder="..."><button class="btn primary" onclick="checkMemory()">تحقق</button></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+}
+
+function checkMemory() {
+    const input = document.getElementById("memoryInput").value.trim();
+    if(input === gameSession.data.sequence) {
+        endGame(30);
+    } else {
+        alert("خطأ! الرقم كان: " + gameSession.data.sequence);
+        endGame(5);
+    }
+}
+
+let reactionTimeout;
+function startReactionGame() {
+    gameSession.score = 0;
+    const html = `<div class="center"><p>اضغط الزر عندما يتحول إلى اللون الأخضر.</p><button id="reactBtn" class="btn secondary" onclick="reactEarly()" style="background:#333;font-size:30px;padding:30px">انتظر...</button><p id="reactMsg" class="feedback"></p></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+    const delay = Math.random()*2000+1000;
+    reactionTimeout = setTimeout(()=>{
+        const btn = document.getElementById("reactBtn");
+        if(btn) { btn.style.background = "var(--green)"; btn.textContent = "اضغط!"; btn.onclick = reactSuccess; }
+    }, delay);
+}
+
+function reactEarly() {
+    clearTimeout(reactionTimeout);
+    endGame(5);
+}
+
+function reactSuccess() {
+    const time = Date.now();
+    endGame(20);
+}
+
+function startRandomChoice() {
+    const correct = Math.floor(Math.random()*4);
+    const options = [0,1,2,3].map(i=>i===correct?"✅":"❌");
+    gameSession.data = { correct };
+    const html = `<div class="center"><p>اختر الإجابة الصحيحة:</p><div class="game-options" style="display:grid;gap:10px;margin-top:20px">${options.map((o,i)=>`<button class="btn secondary" onclick="checkRandom(${i})">${o}</button>`).join("")}</div></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+}
+function checkRandom(i) {
+    if(i === gameSession.data.correct) endGame(20);
+    else endGame(5);
+}
+
+function startTrueFalse() {
+    const statements = [
+        {q:"الأرض تدور حول الشمس.", a:true},
+        {q:"القطط تستطيع الطيران.", a:false},
+        {q:"الماء يتجمد عند 0 درجة مئوية.", a:true},
+        {q:"اللون الأحمر يظهر في قوس قزح.", a:true},
+        {q:"الأسماك تعيش خارج الماء.", a:false}
+    ];
+    const s = statements[Math.floor(Math.random()*statements.length)];
+    gameSession.data = { answer: s.a };
+    const html = `<div class="center"><p>هل العبارة التالية صحيحة أم خطأ؟</p><div class="scramble" style="font-size:24px">${s.q}</div><button class="btn primary" onclick="answerTF(true)">صح</button><button class="btn secondary" style="margin-left:10px" onclick="answerTF(false)">خطأ</button></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+}
+function answerTF(val) {
+    if(val === gameSession.data.answer) endGame(20);
+    else endGame(5);
+}
+
+function startLuckGame() {
+    const rewards = [5,10,15,20,30,50];
+    const r = rewards[Math.floor(Math.random()*rewards.length)];
+    gameSession.data = { reward: r };
+    const html = `<div class="center"><p>اضغط الزر لتجربة حظك.</p><button class="btn gold" onclick="revealLuck()">🎲 اضغط</button><p id="luckMsg" class="feedback"></p></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+}
+function revealLuck() {
+    document.getElementById("luckMsg").innerHTML = "حصلت على +" + gameSession.data.reward + " XP";
+    endGame(gameSession.data.reward);
+}
+
+function startMathGame() {
+    const a = Math.floor(Math.random()*20)+1;
+    const b = Math.floor(Math.random()*20)+1;
+    const op = Math.random()<0.5?"+":"-";
+    const correct = op==="+"?a+b:a-b;
+    const options = [correct, correct+1, correct-1, correct+2].sort(()=>Math.random()-.5);
+    gameSession.data = { correct };
+    const html = `<div class="center"><p>ما ناتج العملية؟</p><div class="scramble" style="font-size:36px">${a} ${op} ${b} = ؟</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px">${options.map((o,i)=>`<button class="btn secondary" onclick="checkMath(${i})">${o}</button>`).join("")}</div></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+    gameSession.data.options = options;
+}
+function checkMath(i) {
+    if(gameSession.data.options[i] === gameSession.data.correct) endGame(20);
+    else endGame(5);
+}
+
+function startGuessAnime() {
+    const name = animeCharacters[Math.floor(Math.random()*animeCharacters.length)];
+    gameSession.data = { name };
+    const html = `<div class="center"><p>ما اسم شخصية الأنمي التالية؟</p><div class="scramble">${name.charAt(0)}_ _ _ _ _</div><input id="animeGuess" class="input" placeholder="اكتب الاسم"><button class="btn primary" onclick="checkAnimeGuess()">تحقق</button><p id="animeMsg" class="feedback"></p></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+}
+function checkAnimeGuess() {
+    const val = document.getElementById("animeGuess").value.trim();
+    if(val === gameSession.data.name) endGame(30);
+    else document.getElementById("animeMsg").innerHTML = "❌ حاول مرة أخرى.";
+}
+
+function startColorMatch() {
+    const colors = ["أحمر","أزرق","أخضر","أصفر","أسود"];
+    const color = colors[Math.floor(Math.random()*colors.length)];
+    gameSession.data = { color };
+    const html = `<div class="center"><p>اختر مربع اللون المناسب لكلمة:</p><div class="scramble">${color}</div><div style="display:flex;gap:10px;justify-content:center;margin-top:20px">${["#ff0000","#0000ff","#00ff00","#ffff00","#000000"].map((c,i)=>`<button class="btn secondary" style="background:${c};width:50px;height:50px;border-radius:10px" onclick="checkColor('${c}')"></button>`).join("")}</div></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+}
+function checkColor(c) {
+    const map = {"#ff0000":"أحمر","#0000ff":"أزرق","#00ff00":"أخضر","#ffff00":"أصفر","#000000":"أسود"};
+    if(map[c] === gameSession.data.color) endGame(20);
+    else endGame(5);
+}
+
+function startNumberMemory() {
+    const num = Math.floor(Math.random()*9000)+1000;
+    gameSession.data = { num };
+    const html = `<div class="center"><p>تذكر الرقم:</p><div class="scramble">${num}</div><button class="btn primary" onclick="showNumberInput()">حفظت</button></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+    setTimeout(()=>{ if(document.getElementById("gameContent").innerHTML.includes("حفظت")) showNumberInput(); },3000);
+}
+function showNumberInput() {
+    const html = `<div class="center"><input id="numMemory" class="input" placeholder="أدخل الرقم"><button class="btn primary" onclick="checkNumberMemory()">تحقق</button></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+}
+function checkNumberMemory() {
+    if(document.getElementById("numMemory").value === String(gameSession.data.num)) endGame(30);
+    else endGame(5);
+}
+
+function startSecretCode() {
+    const code = Math.floor(Math.random()*9000)+1000;
+    gameSession.data = { code };
+    const html = `<div class="center"><p>حاول تخمين الرمز السري (4 أرقام):</p><input id="codeInput" class="input" placeholder="0000"><button class="btn primary" onclick="checkCode()">تحقق</button><p id="codeMsg" class="feedback"></p></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+}
+function checkCode() {
+    const val = document.getElementById("codeInput").value.trim();
+    const msg = document.getElementById("codeMsg");
+    if(val === String(gameSession.data.code)) { endGame(40); return; }
+    let hint = "";
+    for(let i=0;i<4;i++) hint += val[i] === String(gameSession.data.code)[i] ? "●":"○";
+    msg.innerHTML = "تلميح: " + hint;
+}
+
+function startSpeedGame() {
+    gameSession.startTime = Date.now();
+    const html = `<div class="center"><p>اضغط الزر 10 مرات بأسرع وقت:</p><button id="speedBtn" class="btn primary" onclick="countClick()">اضغط</button><p id="speedCount">0</p></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+}
+function countClick() {
+    let count = parseInt(document.getElementById("speedCount").textContent);
+    count++;
+    document.getElementById("speedCount").textContent = count;
+    if(count >= 10) {
+        const seconds = (Date.now()-gameSession.startTime)/1000;
+        endGame(Math.max(10, Math.round(50 - seconds*5)));
+    }
+}
+
+function startRiddle() {
+    const riddles = [
+        {q:"شيء له أسنان ولا يعض، ما هو؟", a:"المشط"},
+        {q:"ما هو الشيء الذي يمشي بلا أرجل ويبكي بلا عيون؟", a:"السحاب"},
+        {q:"ما هو الشيء الذي يكتب ولا يقرأ؟", a:"القلم"}
+    ];
+    const r = riddles[Math.floor(Math.random()*riddles.length)];
+    gameSession.data = { answer: r.a };
+    const html = `<div class="center"><p>${r.q}</p><input id="riddleInput" class="input" placeholder="إجابتك"><button class="btn primary" onclick="checkRiddle()">تحقق</button><p id="riddleMsg" class="feedback"></p></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+}
+function checkRiddle() {
+    if(document.getElementById("riddleInput").value.trim() === gameSession.data.answer) endGame(30);
+    else document.getElementById("riddleMsg").innerHTML = "❌ حاول مرة أخرى.";
+}
+
+// Quiz banks
+const quizBanks = {
+    general: [
+        {q:"ما عاصمة فرنسا؟", opts:["لندن","باريس","روما","مدريد"], a:1},
+        {q:"كم عدد قارات العالم؟", opts:["5","6","7","8"], a:2},
+        {q:"أي كوكب هو الأكبر في المجموعة الشمسية؟", opts:["الأرض","المريخ","المشتري","زحل"], a:2}
+    ],
+    geo: [
+        {q:"أين تقع الأهرامات؟", opts:["العراق","مصر","السودان","ليبيا"], a:1},
+        {q:"ما أكبر محيط في العالم؟", opts:["الأطلسي","الهندي","الهادئ","المتجمد"], a:2},
+        {q:"ما عاصمة اليابان؟", opts:["بكين","سيول","طوكيو","بانكوك"], a:2}
+    ],
+    science: [
+        {q:"ما الرمز الكيميائي للماء؟", opts:["CO2","H2O","O2","N2"], a:1},
+        {q:"كم عدد أرجل الحشرة؟", opts:["4","6","8","10"], a:1},
+        {q:"ما وحدة قياس القوة؟", opts:["نيوتن","جول","واط","فولت"], a:0}
+    ],
+    anime: [
+        {q:"من هو بطل ناروتو؟", opts:["ساسكي","ناروتو","كاكاشي","إيتاتشي"], a:1},
+        {q:"ما اسم قبعة لوفي؟", opts:["قبعة القش","قبعة القماش","قبعة الذهب","قبعة الحديد"], a:0},
+        {q:"من هو صائد الشياطين في أنمي قاتل الشياطين؟", opts:["غوجو","تانجيرو","لوفي","إيرين"], a:1}
+    ]
 };
 
-function openAnimeGame(){
-
-    animeGame={
-        score:0,
-        round:0,
-        total:10,
-        current:""
-    };
-
-    animeRound();
+function startQuiz(type) {
+    const bank = quizBanks[type] || quizBanks.general;
+    gameSession.data = { bank, index:0 };
+    renderQuizQuestion();
 }
-
-function animeRound(){
-
-    if(animeGame.round>=animeGame.total){
-
-        addPoints(animeGame.score*2);
-
-        state.games++;
-        save();
-
-        openModal("🏆 انتهى تحدي الأنمي",`
-
-            <div style="text-align:center">
-
-                <div style="font-size:55px">⚡</div>
-
-                <h2>
-                    ${animeGame.score}/${animeGame.total}
-                </h2>
-
-                <p style="color:#888">
-                    حصلت على ${animeGame.score*2} نقطة
-                </p>
-
-                <button
-                    class="btn gold"
-                    onclick="openAnimeGame()">
-                    مرة أخرى
-                </button>
-
-            </div>
-
-        `);
-
-        return;
+function renderQuizQuestion() {
+    const q = gameSession.data.bank[gameSession.data.index];
+    const html = `<div class="center"><p>${q.q}</p><div style="display:grid;gap:10px;margin-top:20px">${q.opts.map((o,i)=>`<button class="btn secondary" onclick="checkQuiz(${i})">${o}</button>`).join("")}</div><p class="feedback" id="quizMsg"></p></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+}
+function checkQuiz(i) {
+    const q = gameSession.data.bank[gameSession.data.index];
+    if(i === q.a) {
+        gameSession.score += 10;
+        gameSession.data.index++;
+        if(gameSession.data.index < gameSession.data.bank.length) renderQuizQuestion();
+        else endGame(gameSession.score);
+    } else {
+        document.getElementById("quizMsg").innerHTML = "❌ خطأ";
+        endGame(gameSession.score);
     }
-
-    const name=
-        animeNames[random(0,animeNames.length-1)];
-
-    animeGame.current=name;
-
-    /*
-      مثال:
-      دوما
-      تصبح:
-      م ا د و
-    */
-
-    const chars=[...name.replace(/\s/g,"")];
-
-    const scrambled=shuffle(chars).join(" ");
-
-    openModal("⚡ اكتب بسرعة",`
-
-        <div style="text-align:center">
-
-            <div style="color:#777">
-                الجولة ${animeGame.round+1}/${animeGame.total}
-            </div>
-
-            <div style="
-                font-size:32px;
-                font-weight:900;
-                color:#f0cf7a;
-                margin:25px 0">
-                ${escapeHTML(scrambled)}
-            </div>
-
-            <p style="color:#777">
-                أعد ترتيب الحروف واكتب اسم الشخصية
-            </p>
-
-            <input
-                id="animeAnswer"
-                class="input"
-                style="text-align:center;margin:15px 0"
-                placeholder="اكتب الإجابة">
-
-            <button
-                class="btn gold"
-                onclick="checkAnimeAnswer()">
-                تحقق ✓
-            </button>
-
-        </div>
-    `);
-
-    setTimeout(()=>{
-        document.getElementById("animeAnswer")?.focus();
-    },100);
 }
 
-function checkAnimeAnswer(){
-
-    const input=
-        document.getElementById("animeAnswer");
-
-    const answer=
-        normalizeArabic(input.value);
-
-    const correct=
-        normalizeArabic(animeGame.current);
-
-    if(answer===correct){
-
-        animeGame.score++;
-
-        toast("صحيحة! 🔥");
-
-    }else{
-
-        toast(
-            "الإجابة: "+animeGame.current
-        );
-
-    }
-
-    animeGame.round++;
-
-    setTimeout(animeRound,700);
+function startWordQuiz() {
+    const words = ["كتاب","قلم","شمس","قمر","بحر"];
+    const w = words[Math.floor(Math.random()*words.length)];
+    gameSession.data = { word: w };
+    const html = `<div class="center"><p>ما معنى الكلمة التالية؟</p><div class="scramble">${w}</div><input id="wordInput" class="input" placeholder="أدخل المعنى"><button class="btn primary" onclick="checkWord()">تحقق</button></div>`;
+    document.getElementById("gameContent").innerHTML = html;
+}
+function checkWord() {
+    if(document.getElementById("wordInput").value.trim().length > 0) endGame(20);
+    else endGame(5);
 }
 
-/* =========================================================
-   تحديات
-========================================================= */
-
-function dailyReward(){
-
-    const today=
-        new Date().toISOString().slice(0,10);
-
-    if(state.daily===today){
-
-        toast("أخذت مكافأتك اليوم بالفعل 🎁");
-        return;
-    }
-
-    state.daily=today;
-
-    save();
-
-    addPoints(25);
-
-    openModal("🎁 المكافأة اليومية",`
-
-        <div style="text-align:center">
-
-            <div style="font-size:65px">
-                🎁
-            </div>
-
-            <h2>+25 نقطة</h2>
-
-            <p style="color:#777;margin:10px">
-                عد غدًا للحصول على مكافأة جديدة.
-            </p>
-
-        </div>
-    `);
+function startGenericGame(type) {
+    // Fallback for any remaining types
+    startRandomChoice();
 }
 
-function dailyChallenge(){
-
-    const challenges=[
-        "العب 3 جولات",
-        "احصل على 5 إجابات صحيحة",
-        "اختبر MBTI",
-        "حل تحدي الأنمي",
-        "استخدم مولد الصور"
-    ];
-
-    const c=
-        challenges[random(0,challenges.length-1)];
-
-    openModal("🎯 تحدي اليوم",`
-
-        <div style="text-align:center">
-
-            <div style="font-size:55px">🎯</div>
-
-            <h2>${c}</h2>
-
-            <p style="color:#777;margin:15px">
-                أكمل المهمة وارفع نقاطك.
-            </p>
-
-            <button
-                class="btn gold"
-                onclick="closeModal();openGames()">
-                ابدأ
-            </button>
-
-        </div>
-    `);
+// ==================== EVENTS ====================
+function dailyReward() {
+    const today = new Date().toISOString().slice(0,10);
+    if(user.lastReward === today) { alert("🎁 أخذت مكافأتك اليوم بالفعل."); return; }
+    user.lastReward = today;
+    localStorage.setItem("DOMA_USER", JSON.stringify(user));
+    addPoints(100);
+    alert("🎉 حصلت على 100 XP!");
+}
+function spinWheel() {
+    const rewards = [10,20,30,50,75,100,150];
+    const reward = rewards[Math.floor(Math.random()*rewards.length)];
+    addPoints(reward);
+    alert("🎡 العجلة توقفت على +" + reward + " XP!");
 }
 
-/* =========================================================
-   أدوات
-========================================================= */
-
-function random(min,max){
-    return Math.floor(Math.random()*(max-min+1))+min;
+// ==================== STYLE ====================
+function saveStyle() {
+    user.style = document.getElementById("styleSelect").value;
+    localStorage.setItem("DOMA_USER", JSON.stringify(user));
 }
 
-function shuffle(arr){
-
-    const a=[...arr];
-
-    for(let i=a.length-1;i>0;i--){
-
-        const j=Math.floor(Math.random()*(i+1));
-
-        [a[i],a[j]]=[a[j],a[i];
-    }
-
-    return a;
+// ==================== RESET ====================
+function resetProfile() {
+    if(!confirm("هل تريد حذف بيانات ملفك؟")) return;
+    localStorage.removeItem("DOMA_USER");
+    location.reload();
 }
 
-function normalizeArabic(str){
-
-    return String(str)
-        .trim()
-        .toLowerCase()
-        .replace(/[ًٌٍَُِّْـ]/g,"")
-        .replace(/[أإآ]/g,"ا")
-        .replace(/ة/g,"ه")
-        .replace(/\s+/g,"");
+// ==================== INIT ====================
+renderGames();
+if(user) {
+    document.getElementById("welcome").classList.add("hidden");
+    updateUI();
+} else {
+    document.getElementById("welcome").classList.remove("hidden");
 }
-
-function escapeHTML(str){
-
-    return String(str)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-}
-
-function escapeAttr(str){
-    return escapeHTML(str);
-}
-
-/* =========================================================
-   INIT
-========================================================= */
-
-updateUI();
-
-if(!state.name){
-
-    setTimeout(()=>{
-
-        openProfile();
-
-        toast("ابدأ بإنشاء ملفك 👤");
-
-    },500);
-}
-
 </script>
-
 </body>
 </html>
