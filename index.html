@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
+        /* ============ نفس التنسيق السابق بالكامل ============ */
         :root{
             --bg:#050505;
             --bg2:#0a0a0a;
@@ -549,11 +550,33 @@
 const CONFIG = {
     imageAPI: "https://image.pollinations.ai/prompt/",
     aiAPI: "https://engez.a7a.online/api/v1/ai/ai/simsimi",
-    videoAPI: "https://engez.a7a.online/api/v1"
+    videoAPI: "https://engez.a7a.online/api/v1",
+    notrackAPI: "https://notrack.ai/api/dispatch"
 };
 
-// CORS proxy for browser requests
+// CORS proxy
 const CORS_PROXY = 'https://corsproxy.io/?';
+
+// Notrack headers and cookie
+const NOTRACK_COOKIE = 'si_usr_id=54MdSvFT_14LFH4; uid=3d7d0119-aa54-44dd-9210-730e0995d422; si_ses_id=54MrGORj_1X3JTL';
+const NOTRACK_HEADERS = {
+    'accept': '*/*',
+    'accept-language': 'ar-SD',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    'cookie': NOTRACK_COOKIE,
+    'origin': 'https://notrack.ai',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://notrack.ai/chat',
+    'sec-ch-ua': '"Chromium";v="127", "Not)A;Brand";v="99", "Microsoft Edge Simulate";v="127", "Lemur";v="127"',
+    'sec-ch-ua-mobile': '?1',
+    'sec-ch-ua-platform': '"Android"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Mobile Safari/537.36'
+};
 
 // ==================== USER ====================
 let user = JSON.parse(localStorage.getItem("DOMA_USER") || "null");
@@ -676,7 +699,7 @@ function showPage(id, button) {
     if(id === 'leaderboard') renderLeaderboard();
 }
 
-// ==================== AI CHAT (Pollinations + SimSimi + Popcat) ====================
+// ==================== AI CHAT (Notrack + Pollinations + SimSimi + Popcat) ====================
 let chatSaveEnabled = false;
 
 function toggleSaveChat() {
@@ -721,7 +744,7 @@ function addMessage(text, type, save = true) {
 }
 
 // طلب مع مهلة باستخدام AbortController
-async function fetchWithTimeout(url, options = {}, timeout = 6000) {
+async function fetchWithTimeout(url, options = {}, timeout = 8000) {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), timeout);
     try {
@@ -734,7 +757,58 @@ async function fetchWithTimeout(url, options = {}, timeout = 6000) {
     }
 }
 
-// Pollinations (أساسي)
+// Notrack AI مع معالجة التدفق
+async function callNotrackAI(question) {
+    const payload = {
+        user_input: question,
+        mode: 'usual',
+        model: 'C',
+        persona: 'normal',
+        max_turns: 6,
+        chat_id: null,
+        attachments: [],
+        regenerate: false,
+        edit: false,
+        edit_mid: null
+    };
+
+    const url = CORS_PROXY + encodeURIComponent(CONFIG.notrackAPI);
+    const response = await fetchWithTimeout(url, {
+        method: 'POST',
+        headers: NOTRACK_HEADERS,
+        body: JSON.stringify(payload)
+    }, 15000);
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    // قراءة التدفق
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let fullAnswer = '';
+    let buffer = '';
+
+    while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
+        for (const line of lines) {
+            const trimmed = line.trim();
+            if (!trimmed || !trimmed.startsWith('data: ')) continue;
+            try {
+                const parsed = JSON.parse(trimmed.substring(6));
+                if (parsed.type === 'delta' && parsed.chunk) fullAnswer += parsed.chunk;
+                if (parsed.type === 'message' && parsed.content) fullAnswer = parsed.content;
+            } catch {}
+        }
+    }
+
+    if (fullAnswer.trim()) return fullAnswer.trim();
+    throw new Error('لم يتم استلام أي رد');
+}
+
+// Pollinations
 async function callPollinations(prompt) {
     const url = `https://text.pollinations.ai/${encodeURIComponent(prompt)}`;
     const response = await fetchWithTimeout(url, {}, 8000);
@@ -742,7 +816,7 @@ async function callPollinations(prompt) {
     return await response.text();
 }
 
-// SimSimi (احتياطي)
+// SimSimi
 async function callSimSimi(prompt) {
     const url = `${CONFIG.aiAPI}?action=تكلم&message=${encodeURIComponent(prompt)}`;
     const response = await fetchWithTimeout(CORS_PROXY + encodeURIComponent(url), {}, 4000);
@@ -754,7 +828,7 @@ async function callSimSimi(prompt) {
     throw new Error('رد غير صالح من SimSimi');
 }
 
-// Popcat (احتياطي ثالث)
+// Popcat
 async function callPopcat(prompt) {
     const url = `https://api.popcat.xyz/chat?msg=${encodeURIComponent(prompt)}&owner=doma&botname=Doma`;
     const response = await fetchWithTimeout(CORS_PROXY + encodeURIComponent(url), {}, 5000);
@@ -779,6 +853,7 @@ async function askAI() {
     let engineUsed = '';
 
     const attempts = [
+        { fn: callNotrackAI, engine: 'notrack' },
         { fn: callPollinations, engine: 'pollinations' },
         { fn: callSimSimi, engine: 'simsimi' },
         { fn: callPopcat, engine: 'popcat' }
