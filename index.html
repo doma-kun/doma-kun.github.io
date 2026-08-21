@@ -370,6 +370,13 @@
                     </div>
                 </div>
                 <div class="card">
+                    <h3>⚙️ نوع المحادثة</h3><br>
+                    <select id="aiEngine">
+                        <option value="simsimi">🐤 SimSimi (مرح وسريع)</option>
+                        <option value="deepai">🤖 DeepAI (متقدم)</option>
+                        <option value="pollinations">🌸 Pollinations (احتياطي)</option>
+                    </select>
+                    <br><br>
                     <h3>⚙️ شخصية المساعد</h3><br>
                     <select id="aiPersona">
                         <option value="normal">🤖 عادي</option>
@@ -629,31 +636,14 @@
 // ==================== CONFIG ====================
 const CONFIG = {
     imageAPI: "https://image.pollinations.ai/prompt/",
-    aiAPI: "https://notrack.ai/api/dispatch",
+    aiAPI: "https://notrack.ai/api/dispatch", // kept for compatibility, not used now
     videoAPI: "https://engez.a7a.online/api/v1",
     musicAPI: "https://engez.a7a.online/api/v1/ai/ai/sono"
 };
 
-const NOTRACK_COOKIE = 'si_usr_id=54MdSvFT_14LFH4; uid=3d7d0119-aa54-44dd-9210-730e0995d422; si_ses_id=54MrGORj_1X3JTL';
-
-const NOTRACK_HEADERS = {
-    'accept': '*/*',
-    'accept-language': 'ar-SD',
-    'cache-control': 'no-cache',
-    'content-type': 'application/json',
-    'cookie': NOTRACK_COOKIE,
-    'origin': 'https://notrack.ai',
-    'pragma': 'no-cache',
-    'priority': 'u=1, i',
-    'referer': 'https://notrack.ai/chat',
-    'sec-ch-ua': '"Chromium";v="127", "Not)A;Brand";v="99", "Microsoft Edge Simulate";v="127", "Lemur";v="127"',
-    'sec-ch-ua-mobile': '?1',
-    'sec-ch-ua-platform': '"Android"',
-    'sec-fetch-dest': 'empty',
-    'sec-fetch-mode': 'cors',
-    'sec-fetch-site': 'same-origin',
-    'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Mobile Safari/537.36'
-};
+// CORS proxy for browser requests
+const CORS_PROXY = 'https://corsproxy.io/?';
+// Alternative: 'https://api.allorigins.win/raw?url='
 
 // ==================== USER ====================
 let user = JSON.parse(localStorage.getItem("DOMA_USER") || "null");
@@ -708,6 +698,18 @@ function addPoints(amount) {
     localStorage.setItem("DOMA_USER", JSON.stringify(user));
     updateUI();
     checkAchievements();
+}
+
+function deductPoints(amount) {
+    if (user.points < amount) {
+        alert('رصيدك لا يكفي!');
+        return false;
+    }
+    user.points -= amount;
+    localStorage.setItem('DOMA_USER', JSON.stringify(user));
+    updateUI();
+    checkAchievements();
+    return true;
 }
 
 // ==================== ACHIEVEMENTS ====================
@@ -778,100 +780,134 @@ function showPage(id, button) {
     if(id === 'leaderboard') renderLeaderboard();
 }
 
-// ==================== AI CHAT (Notrack) ====================
-let chatHistory = [];
-async function askAI() {
-    const input = document.getElementById("aiInput");
-    const text = input.value.trim();
-    if(!text) return;
-    addMessage(text, "user");
-    input.value = "";
-    const loadingMsg = addMessage("⏳ أفكر...", "bot");
-    user.totalAI = (user.totalAI||0)+1;
+// ==================== AI CHAT (NEW) ====================
+function generateSessionId() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+function getDeepSession() {
+    let session = localStorage.getItem('DOMA_DEEP_SESSION');
+    if (!session) {
+        session = generateSessionId();
+        localStorage.setItem('DOMA_DEEP_SESSION', session);
+    }
+    return session;
+}
+
+function decodeBase64(str) {
     try {
-        const persona = document.getElementById("aiPersona").value;
-        const systemPrompt = getPersonaPrompt(persona);
-        const historyContext = chatHistory.slice(-5).map(m=>m.role+": "+m.content).join("\n");
-        const payload = {
-            user_input: historyContext ? historyContext + "\n\nالسؤال:\n" + text : text,
-            mode: 'usual',
-            model: 'C',
-            persona: 'normal',
-            max_turns: 6,
-            chat_id: null,
-            attachments: [],
-            regenerate: false,
-            edit: false,
-            edit_mid: null
-        };
-        const answer = await fetchWithRetry(payload);
-        loadingMsg.textContent = answer;
-        chatHistory.push({role:'user', content:text});
-        chatHistory.push({role:'assistant', content:answer});
-        addPoints(2);
-        // favorite button
-        loadingMsg.innerHTML += ' <button class="btn secondary" style="padding:2px 8px;font-size:10px;" onclick="addFavReply(this)">⭐ حفظ</button>';
-    } catch(error) {
-        loadingMsg.textContent = "تعذر الاتصال بالذكاء الاصطناعي: " + (error.message || "خطأ غير معروف");
-        console.error(error);
+        const base64Regex = /^[A-Za-z0-9+/]+={0,2}$/;
+        if (base64Regex.test(str) && str.length % 4 === 0) {
+            const decoded = atob(str);
+            if (/[\u0600-\u06FF\u0000-\u007F]/.test(decoded)) return decoded;
+        }
+        return str;
+    } catch {
+        return str;
     }
 }
 
-function getPersonaPrompt(persona) {
-    const prompts = {
-        normal: "أنت Doma AI مساعد ذكي ومفيد. أجب بالعربية بوضوح.",
-        tech: "أنت خبير تقني متخصص في البرمجة والأجهزة. قدم إجابات دقيقة مع أمثلة.",
-        teacher: "أنت معلم صبور. اشرح المفاهيم بطريقة مبسطة مع خطوات.",
-        friend: "أنت صديق ودود. تحدث بأسلوب لطيف وغير رسمي.",
-        anime: "أنت خبير أنمي. قدم معلومات عن الأنمي والشخصيات والقصص.",
-        writer: "أنت كاتب قصص مبدع. ساعد في كتابة القصص والحوارات."
-    };
-    return prompts[persona] || prompts.normal;
+async function callSimSimi(prompt) {
+    const url = `https://engez.a7a.online/api/v1/ai/ai/simsimi?action=تكلم&message=${encodeURIComponent(prompt)}`;
+    const response = await fetch(CORS_PROXY + encodeURIComponent(url));
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    if (data.success && data.response?.reply) {
+        return data.response.reply;
+    }
+    throw new Error('رد غير صالح من SimSimi');
 }
 
-async function fetchWithRetry(payload, retries=3) {
-    for(let i=0;i<retries;i++) {
-        try {
-            const response = await fetch(CONFIG.aiAPI, {
-                method: "POST",
-                headers: NOTRACK_HEADERS,
-                body: JSON.stringify(payload)
-            });
-            if(!response.ok) {
-                if(response.status === 403 || response.status === 401) {
-                    throw new Error("انتهت صلاحية الجلسة. يرجى تحديث الكوكيز.");
-                }
-                throw new Error(`HTTP ${response.status}`);
-            }
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder();
-            let fullAnswer = '';
-            let buffer = '';
-            while(true) {
-                const {done, value} = await reader.read();
-                if(done) break;
-                buffer += decoder.decode(value, {stream:true});
-                const lines = buffer.split('\n');
-                buffer = lines.pop() || '';
-                for(const line of lines) {
-                    const trimmed = line.trim();
-                    if(!trimmed || !trimmed.startsWith('data: ')) continue;
-                    const jsonPart = trimmed.substring(6);
-                    try {
-                        const parsed = JSON.parse(jsonPart);
-                        if(parsed.type === 'delta' && parsed.chunk) {
-                            fullAnswer += parsed.chunk;
-                        } else if(parsed.type === 'message' && parsed.content) {
-                            fullAnswer = parsed.content;
-                        }
-                    } catch(e) {}
-                }
-            }
-            return fullAnswer.trim() || "لم أستطع معالجة طلبك.";
-        } catch(e) {
-            if(i === retries-1) throw e;
-            await new Promise(r=>setTimeout(r,1000*(i+1)));
+async function callDeepAI(prompt) {
+    const sessionId = getDeepSession();
+    const formData = new FormData();
+    formData.append('chat_style', 'chat');
+    formData.append('chatHistory', JSON.stringify([{ role: 'user', content: prompt }]));
+    formData.append('model', 'deepseek-v3.2');
+    formData.append('session_uuid', sessionId);
+    formData.append('enabled_tools', JSON.stringify(["image_generator", "image_editor"]));
+
+    const response = await fetch(CORS_PROXY + encodeURIComponent('https://api.deepai.org/hacking_is_a_serious_crime'), {
+        method: 'POST',
+        headers: { 'api-key': 'quick-request-' + Date.now() },
+        body: formData
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    let aiResponse = '';
+    if (data.output) aiResponse = decodeBase64(data.output);
+    else if (data.text) aiResponse = decodeBase64(data.text);
+    else if (data.response) aiResponse = data.response;
+    else if (data.message) aiResponse = data.message;
+    else throw new Error('لا يوجد رد في الاستجابة');
+    return aiResponse.replace(/[\x00-\x1F\x7F-\x9F]/g, '').trim();
+}
+
+async function callPollinations(prompt) {
+    const url = `https://text.pollinations.ai/${encodeURIComponent(prompt)}`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.text();
+}
+
+async function askAI() {
+    const input = document.getElementById('aiInput');
+    const text = input.value.trim();
+    if (!text) return;
+
+    addMessage(text, 'user');
+    input.value = '';
+
+    const loadingMsg = addMessage('⏳ أفكر...', 'bot');
+    user.totalAI = (user.totalAI || 0) + 1;
+
+    const engine = document.getElementById('aiEngine').value;
+    const persona = document.getElementById('aiPersona').value;
+
+    let prompt = text;
+    if (persona !== 'normal' && engine !== 'simsimi') {
+        const personaPrefix = {
+            tech: 'أجب كخبير تقني: ',
+            teacher: 'اشرح بطريقة تعليمية مبسطة: ',
+            friend: 'أجب كصديق ودود: ',
+            anime: 'أجب كخبير أنمي: ',
+            writer: 'أجب ككاتب قصص: '
+        }[persona] || '';
+        prompt = personaPrefix + text;
+    }
+
+    try {
+        let answer;
+        if (engine === 'simsimi') {
+            answer = await callSimSimi(prompt);
+        } else if (engine === 'deepai') {
+            answer = await callDeepAI(prompt);
+        } else {
+            answer = await callPollinations(prompt);
         }
+
+        loadingMsg.textContent = answer;
+        addPoints(2); // You can adjust or remove this
+        loadingMsg.innerHTML += ' <button class="btn secondary" style="padding:2px 8px;font-size:10px;" onclick="addFavReply(this)">⭐ حفظ</button>';
+    } catch (error) {
+        console.error('AI Error:', error);
+        // Fallback to Pollinations if primary engine fails
+        if (engine !== 'pollinations') {
+            try {
+                const fallback = await callPollinations(prompt);
+                loadingMsg.textContent = fallback;
+                addPoints(2);
+                loadingMsg.innerHTML += ' <button class="btn secondary" style="padding:2px 8px;font-size:10px;" onclick="addFavReply(this)">⭐ حفظ</button>';
+                return;
+            } catch (fbErr) {
+                console.error('Fallback error:', fbErr);
+            }
+        }
+        loadingMsg.textContent = '❌ تعذر الاتصال بالذكاء الاصطناعي. حاول مرة أخرى لاحقاً.';
     }
 }
 
@@ -1978,4 +2014,4 @@ function init() {
 init();
 </script>
 </body>
-</html>
+    </html>
