@@ -728,7 +728,7 @@ function showPage(id, button) {
     if(id === 'leaderboard') renderLeaderboard();
 }
 
-// ==================== AI CHAT (SimSimi) ====================
+// ==================== AI CHAT (SimSimi + Pollinations) ====================
 let chatSaveEnabled = false;
 
 function toggleSaveChat() {
@@ -772,9 +772,19 @@ function addMessage(text, type, save = true) {
     return div;
 }
 
+// دالة لتنفيذ طلب مع مهلة زمنية
+function fetchWithTimeout(url, options = {}, timeout = 4000) {
+    return Promise.race([
+        fetch(url, options),
+        new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('timeout')), timeout)
+        )
+    ]);
+}
+
 async function callSimSimi(prompt) {
     const url = `${CONFIG.aiAPI}?action=تكلم&message=${encodeURIComponent(prompt)}`;
-    const response = await fetch(CORS_PROXY + encodeURIComponent(url));
+    const response = await fetchWithTimeout(CORS_PROXY + encodeURIComponent(url), {}, 4000);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
     if (data.success && data.response?.reply) {
@@ -785,7 +795,7 @@ async function callSimSimi(prompt) {
 
 async function callPollinations(prompt) {
     const url = `https://text.pollinations.ai/${encodeURIComponent(prompt)}`;
-    const response = await fetch(url);
+    const response = await fetchWithTimeout(url, {}, 8000);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.text();
 }
@@ -795,31 +805,42 @@ async function askAI() {
     const text = input.value.trim();
     if (!text) return;
 
+    // إضافة رسالة المستخدم فقط
     addMessage(text, 'user');
     input.value = '';
 
-    const loadingMsg = addMessage('⏳ أفكر...', 'bot');
     user.totalAI = (user.totalAI || 0) + 1;
 
-    // إضافة لمسة ودودة
+    // تحضير النص الودود
     const friendlyPrompt = `أنت صديق ودود اسمه Doma، ترد بإيجابية وتستخدم الإيموجي. السؤال: ${text}`;
 
+    let answer = null;
+    let engineUsed = '';
+
+    // محاولة SimSimi أولاً بمهلة 4 ثوانٍ
     try {
-        let answer = await callSimSimi(friendlyPrompt);
-        loadingMsg.textContent = answer;
-        addPoints(2);
-        loadingMsg.innerHTML += ' <button class="btn secondary" style="padding:2px 8px;font-size:10px;" onclick="addFavReply(this)">⭐ حفظ</button>';
+        answer = await callSimSimi(friendlyPrompt);
+        engineUsed = 'simsimi';
     } catch (error) {
-        console.error('SimSimi Error:', error);
-        // محاولة احتياطية
+        console.log('SimSimi failed, trying Pollinations...', error);
+        // في حال فشل SimSimi ننتقل فورًا إلى Pollinations
         try {
-            let fallback = await callPollinations(friendlyPrompt);
-            loadingMsg.textContent = fallback;
-            addPoints(2);
-            loadingMsg.innerHTML += ' <button class="btn secondary" style="padding:2px 8px;font-size:10px;" onclick="addFavReply(this)">⭐ حفظ</button>';
+            answer = await callPollinations(friendlyPrompt);
+            engineUsed = 'pollinations';
         } catch (fbErr) {
-            loadingMsg.textContent = '❌ تعذر الاتصال بالذكاء الاصطناعي. حاول مرة أخرى لاحقاً.';
+            console.error('All engines failed:', fbErr);
+            // فشل كلاهما
+            answer = '❌ عذرًا، لم أستطع الرد الآن. حاول مرة أخرى بعد قليل.';
+            engineUsed = 'none';
         }
+    }
+
+    // عرض الرد
+    const replyMsg = addMessage(answer, 'bot');
+    if (engineUsed !== 'none') {
+        addPoints(2);
+        // إضافة زر الحفظ للمفضلة
+        replyMsg.innerHTML += ' <button class="btn secondary" style="padding:2px 8px;font-size:10px;" onclick="addFavReply(this)">⭐ حفظ</button>';
     }
 }
 
@@ -962,7 +983,7 @@ function speakText() {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = lang;
     utterance.rate = rate;
-    speechSynthesis.cancel(); // إيقاف أي كلام سابق
+    speechSynthesis.cancel();
     speechSynthesis.speak(utterance);
 }
 
@@ -1191,7 +1212,6 @@ let reactionTimeout = null;
 let snakeKeyHandler = null;
 
 function openGame(id) {
-    // تنظيف أي لعبة سابقة
     closeGame();
     const game = games.find(g => g.id === id) || games[0];
     openGameModal(game.icon + " " + game.title, game.desc, "");
@@ -1233,7 +1253,6 @@ function openGameModal(title, desc, html) {
 }
 
 function closeGame() {
-    // إيقاف جميع المؤقتات والمستمعين
     if (gameTimer) {
         clearInterval(gameTimer);
         gameTimer = null;
@@ -1500,7 +1519,7 @@ function startSpeedGame() {
     document.getElementById("gameContent").innerHTML = html;
 }
 function countClick() {
-    if (!gameSession || gameSession.clickCount >= 10) return; // منع الزيادة بعد النهاية
+    if (!gameSession || gameSession.clickCount >= 10) return;
     gameSession.clickCount++;
     document.getElementById("speedCount").textContent = gameSession.clickCount;
     if(gameSession.clickCount >= 10) {
@@ -1865,4 +1884,4 @@ function init() {
 init();
 </script>
 </body>
-    </html>
+</html>
