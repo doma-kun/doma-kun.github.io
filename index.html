@@ -50,7 +50,6 @@
             font-family:'Cairo','Tajawal',sans-serif;
         }
 
-        /* ============ BACKGROUND ============ */
         .bg{
             position:fixed; inset:0; z-index:-5; overflow:hidden; pointer-events:none;
         }
@@ -75,11 +74,9 @@
         .o3{width:280px; height:280px; background:var(--gold2); top:45%; left:45%; opacity:.05;}
         @keyframes orb{50%{transform:translate(50px,-30px) scale(1.2)}}
 
-        /* ============ APP ============ */
         #app{width:100vw; min-height:100vh; max-width:none;}
         .container{width:min(1200px,94vw); margin:auto;}
 
-        /* ============ HEADER ============ */
         header{
             position:sticky; top:0; z-index:50; width:100%;
             background:rgba(5,5,5,.85); backdrop-filter:blur(20px);
@@ -105,7 +102,6 @@
         .userInfo b{display:block; font-size:13px;}
         .userInfo span{color:var(--gold); font-size:11px;}
 
-        /* ============ NAVIGATION ============ */
         .menu{
             display:flex; gap:8px; padding:12px 0; overflow-x:auto; scrollbar-width:none;
         }
@@ -119,12 +115,10 @@
             color:#fff; background:rgba(255,255,255,.07); border-color:var(--line);
         }
 
-        /* ============ SECTIONS ============ */
         .page{display:none; padding:35px 0 80px; animation:pageIn .45s ease;}
         .page.active{display:block;}
         @keyframes pageIn{from{opacity:0; transform:translateY(15px)} to{opacity:1; transform:none}}
 
-        /* ============ HERO ============ */
         .hero{
             min-height:430px; display:grid; place-items:center; text-align:center; position:relative;
         }
@@ -148,7 +142,6 @@
         .secondary{background:rgba(255,255,255,.06); border:1px solid var(--line);}
         .gold{background:linear-gradient(135deg, #b8860b, #f5d77b); color:#1b1405;}
 
-        /* ============ CARDS ============ */
         .card{
             background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
             padding:25px; backdrop-filter:blur(18px); box-shadow:0 25px 80px rgba(0,0,0,.5);
@@ -157,14 +150,12 @@
         .sectionTitle h2{font-size:23px;}
         .sectionTitle span{color:var(--muted); font-size:12px;}
 
-        /* ============ DASHBOARD ============ */
         .statsGrid{display:grid; grid-template-columns:repeat(4,1fr); gap:15px;}
         .statCard{padding:22px; background:var(--card); border:1px solid var(--line); border-radius:20px;}
         .statIcon{font-size:24px;}
         .statCard b{display:block; margin-top:10px; font-size:25px; color:var(--gold);}
         .statCard span{color:var(--muted); font-size:12px;}
 
-        /* ============ AI ============ */
         .aiBox{display:grid; grid-template-columns:1fr 330px; gap:18px;}
         .chat{min-height:480px; display:flex; flex-direction:column;}
         .messages{flex:1; overflow-y:auto; padding:5px; display:flex; flex-direction:column; gap:12px; max-height:390px;}
@@ -179,7 +170,6 @@
         textarea{resize:vertical; min-height:110px;}
         select option{background:#101010;}
 
-        /* ============ GENERATORS ============ */
         .generatorGrid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
         .preview{
             width:100%; min-height:220px; margin-top:15px; border-radius:18px; border:1px solid var(--line);
@@ -188,10 +178,8 @@
         }
         .preview img, .preview video{width:100%; max-height:500px; object-fit:contain; border-radius:16px;}
 
-        /* ============ MUSIC ============ */
         .musicGen{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
 
-        /* ============ GAMES ============ */
         .gamesGrid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
         .game{
             padding:20px; border-radius:19px; border:1px solid var(--line); background:rgba(255,255,255,.035);
@@ -202,7 +190,6 @@
         .game b{display:block; margin-bottom:5px;}
         .game span{color:var(--muted); font-size:11px;}
 
-        /* ============ GAME MODAL ============ */
         .modal{
             position:fixed; inset:0; z-index:100; background:rgba(0,0,0,.8); backdrop-filter:blur(15px);
             display:none; place-items:center; padding:20px;
@@ -221,7 +208,6 @@
         .progress-bar{width:100%; height:8px; background:#1a1a1a; border-radius:20px; overflow:hidden; margin-bottom:20px;}
         .progress-fill{height:100%; width:0; background:linear-gradient(90deg, var(--gold), var(--silver)); transition:.4s;}
 
-        /* ============ PROFILE ============ */
         .profileGrid{display:grid; grid-template-columns:280px 1fr; gap:18px;}
         .profileAvatar{
             width:100px; height:100px; margin:auto; border-radius:50%; display:grid; place-items:center;
@@ -230,7 +216,6 @@
         .levelBar{height:9px; background:rgba(255,255,255,.08); border-radius:20px; overflow:hidden; margin-top:10px;}
         .levelFill{height:100%; width:0; background:linear-gradient(90deg, #b8860b, #d4af37, #c0c0c0);}
 
-        /* ============ EVENTS ============ */
         .eventGrid{display:grid; grid-template-columns:repeat(3,1fr); gap:15px;}
         .event{
             padding:25px; border-radius:22px; border:1px solid var(--line);
@@ -238,7 +223,6 @@
         }
         .eventIcon{font-size:35px;}
 
-        /* ============ WELCOME ============ */
         #welcome{
             position:fixed; inset:0; z-index:200; background:radial-gradient(circle at 50% 30%, rgba(212,175,55,.15), transparent 35%), #050505;
             display:grid; place-items:center; padding:20px;
@@ -255,10 +239,8 @@
         .welcomeBox p{color:var(--muted); line-height:1.8; margin-bottom:25px;}
         .form{display:grid; gap:12px;}
 
-        /* ============ FOOTER ============ */
         footer{width:100%; border-top:1px solid var(--line); padding:30px; text-align:center; color:#777; font-size:12px;}
 
-        /* ============ MOBILE ============ */
         @media(max-width:850px){
             .statsGrid{grid-template-columns:repeat(2,1fr);}
             .aiBox, .generatorGrid, .profileGrid, .musicGen{grid-template-columns:1fr;}
@@ -323,7 +305,7 @@
                 <button class="active" onclick="showPage('home',this)">🏠 الرئيسية</button>
                 <button onclick="showPage('ai',this)">🤖 الذكاء</button>
                 <button onclick="showPage('create',this)">🎨 الإبداع</button>
-                <button onclick="showPage('music',this)">🎵 الموسيقى</button>
+                <button onclick="showPage('voice',this)">🎙️ الصوتيات</button>
                 <button onclick="showPage('games',this)">🎮 الألعاب</button>
                 <button onclick="showPage('events',this)">🎁 الفعاليات</button>
                 <button onclick="showPage('tools',this)">🛠️ الأدوات</button>
@@ -358,11 +340,11 @@
 
         <!-- AI -->
         <section class="page" id="ai">
-            <div class="sectionTitle"><h2>🤖 Doma AI</h2><span>تحدث معي</span></div>
+            <div class="sectionTitle"><h2>🤖 Doma AI</h2><span>صديقك الذكي</span></div>
             <div class="aiBox">
                 <div class="card chat">
                     <div class="messages" id="messages">
-                        <div class="msg bot">مرحبًا 👋 أنا Doma AI. اكتب سؤالك وسأحاول مساعدتك.</div>
+                        <div class="msg bot">مرحبًا 👋 أنا Doma AI، صديقك الذكي! اكتب لي وسأرد عليك بكل ود 😊</div>
                     </div>
                     <div class="inputRow">
                         <input id="aiInput" class="input" placeholder="اكتب سؤالك هنا..." onkeydown="if(event.key==='Enter')askAI()">
@@ -370,22 +352,13 @@
                     </div>
                 </div>
                 <div class="card">
-                    <h3>⚙️ نوع المحادثة</h3><br>
-                    <select id="aiEngine">
-                        <option value="simsimi">🐤 SimSimi (مرح وسريع)</option>
-                        <option value="deepai">🤖 DeepAI (متقدم)</option>
-                        <option value="pollinations">🌸 Pollinations (احتياطي)</option>
-                    </select>
+                    <h3>📌 إعدادات المحادثة</h3><br>
+                    <label style="display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;">
+                        <input type="checkbox" id="saveChatToggle" onchange="toggleSaveChat()">
+                        حفظ المحادثة تلقائيًا
+                    </label>
                     <br><br>
-                    <h3>⚙️ شخصية المساعد</h3><br>
-                    <select id="aiPersona">
-                        <option value="normal">🤖 عادي</option>
-                        <option value="tech">🎭 تقني</option>
-                        <option value="teacher">🎓 معلم</option>
-                        <option value="friend">😎 صديق</option>
-                        <option value="anime">🌸 خبير أنمي</option>
-                        <option value="writer">✍️ كاتب قصص</option>
-                    </select>
+                    <button class="btn secondary" onclick="clearChat()">🗑️ مسح المحادثة</button>
                     <br><br>
                     <h3>⭐ الردود المفضلة</h3>
                     <div id="favReplies" style="margin-top:10px;"></div>
@@ -440,45 +413,36 @@
             </div>
         </section>
 
-        <!-- MUSIC -->
-        <section class="page" id="music">
-            <div class="sectionTitle"><h2>🎵 مولد الموسيقى</h2><span>أنشئ أغانيك بالذكاء الاصطناعي</span></div>
+        <!-- VOICE (TTS) -->
+        <section class="page" id="voice">
+            <div class="sectionTitle"><h2>🎙️ الصوتيات</h2><span>تحويل النص إلى كلام</span></div>
             <div class="musicGen">
                 <div class="card">
-                    <h3>🎼 وصف الأغنية</h3><br>
-                    <textarea id="musicPrompt" placeholder="مثال: أغنية حزينة عن الفراق"></textarea>
+                    <h3>🎤 تحويل النص إلى كلام</h3><br>
+                    <textarea id="ttsText" placeholder="اكتب النص الذي تريد سماعه..."></textarea>
                     <br><br>
-                    <select id="musicGenre">
-                        <option value="pop">pop</option>
-                        <option value="rock">rock</option>
-                        <option value="sad">sad</option>
-                        <option value="rap">rap</option>
-                        <option value="trap">trap</option>
-                        <option value="lofi">lofi</option>
-                        <option value="arabic">arabic</option>
-                        <option value="chill">chill</option>
-                        <option value="romantic">romantic</option>
-                        <option value="dance">dance</option>
+                    <select id="ttsLang">
+                        <option value="ar-SA">العربية (السعودية)</option>
+                        <option value="ar-EG">العربية (مصر)</option>
+                        <option value="en-US">English (US)</option>
+                        <option value="en-GB">English (UK)</option>
                     </select>
                     <br><br>
-                    <select id="musicVoice">
-                        <option value="1">ذكر</option>
-                        <option value="2">أنثى</option>
-                        <option value="0">محايد</option>
+                    <select id="ttsRate">
+                        <option value="1">سرعة عادية</option>
+                        <option value="0.75">بطيء</option>
+                        <option value="1.25">سريع</option>
                     </select>
                     <br><br>
-                    <select id="musicLength">
-                        <option value="short">قصيرة</option>
-                        <option value="medium">متوسطة</option>
-                        <option value="long">طويلة</option>
-                    </select>
-                    <br><br>
-                    <button class="btn primary" onclick="generateMusic()">توليد الأغنية 🎵</button>
-                    <div class="preview" id="musicPreview">الأغنية ستظهر هنا</div>
+                    <button class="btn primary" onclick="speakText()">🔊 تشغيل الصوت</button>
+                    <button class="btn secondary" onclick="stopSpeak()">⏹️ إيقاف</button>
                 </div>
                 <div class="card">
-                    <h3>📻 قائمة التشغيل</h3>
-                    <div id="playlist" style="margin-top:10px;"></div>
+                    <h3>📝 ملاحظة</h3>
+                    <p style="color:var(--muted);line-height:1.8;font-size:14px;">
+                        هذه الميزة تعمل محليًا في متصفحك ولا تحتاج إلى اتصال إنترنت، مما يجعلها مضمونة دائمًا.
+                        يمكنك استخدامها لتحويل أي نص إلى كلام بصوت طبيعي.
+                    </p>
                 </div>
             </div>
         </section>
@@ -636,14 +600,12 @@
 // ==================== CONFIG ====================
 const CONFIG = {
     imageAPI: "https://image.pollinations.ai/prompt/",
-    aiAPI: "https://notrack.ai/api/dispatch", // kept for compatibility, not used now
-    videoAPI: "https://engez.a7a.online/api/v1",
-    musicAPI: "https://engez.a7a.online/api/v1/ai/ai/sono"
+    aiAPI: "https://engez.a7a.online/api/v1/ai/ai/simsimi",
+    videoAPI: "https://engez.a7a.online/api/v1"
 };
 
 // CORS proxy for browser requests
 const CORS_PROXY = 'https://corsproxy.io/?';
-// Alternative: 'https://api.allorigins.win/raw?url='
 
 // ==================== USER ====================
 let user = JSON.parse(localStorage.getItem("DOMA_USER") || "null");
@@ -676,7 +638,6 @@ function updateUI() {
     document.getElementById("levelFill").style.width = Math.min(100, (user.points % levelXP) / levelXP * 100) + "%";
     document.getElementById("styleSelect").value = user.style || "🌌 مستقبلي";
 
-    // Update MBTI display
     const mbtiSpan = document.getElementById("profileMBTI");
     const mbtiAction = document.getElementById("mbtiAction");
     if (user.mbti) {
@@ -700,18 +661,6 @@ function addPoints(amount) {
     checkAchievements();
 }
 
-function deductPoints(amount) {
-    if (user.points < amount) {
-        alert('رصيدك لا يكفي!');
-        return false;
-    }
-    user.points -= amount;
-    localStorage.setItem('DOMA_USER', JSON.stringify(user));
-    updateUI();
-    checkAchievements();
-    return true;
-}
-
 // ==================== ACHIEVEMENTS ====================
 const ACHIEVEMENTS = [
     { id:'first_game', name:'أول لعبة', desc:'العب لعبتك الأولى', icon:'🎮', condition:()=>user.gamesPlayed>=1 },
@@ -720,7 +669,6 @@ const ACHIEVEMENTS = [
     { id:'first_ai', name:'محادثة أولى', desc:'تحدث مع الذكاء', icon:'🤖', condition:()=>user.totalAI>=1 },
     { id:'ai_10', name:'مستخدم ذكاء', desc:'10 محادثات', icon:'💬', condition:()=>user.totalAI>=10 },
     { id:'first_image', name:'مبدع', desc:'أنشئ صورة', icon:'🎨', condition:()=>user.totalImages>=1 },
-    { id:'first_music', name:'موسيقي', desc:'أنشئ أغنية', icon:'🎵', condition:()=>user.totalMusic>=1 },
     { id:'mbti_done', name:'اكتشف شخصيتك', desc:'أكمل اختبار MBTI', icon:'🧠', condition:()=>user.mbti!=='' },
 ];
 
@@ -780,39 +728,52 @@ function showPage(id, button) {
     if(id === 'leaderboard') renderLeaderboard();
 }
 
-// ==================== AI CHAT (NEW) ====================
-function generateSessionId() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-        const r = Math.random() * 16 | 0;
-        const v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
+// ==================== AI CHAT (SimSimi) ====================
+let chatSaveEnabled = false;
+
+function toggleSaveChat() {
+    chatSaveEnabled = document.getElementById('saveChatToggle').checked;
+    if (chatSaveEnabled) saveChatHistory();
+    else localStorage.removeItem('DOMA_CHAT_HISTORY');
+}
+
+function saveChatHistory() {
+    const messages = document.querySelectorAll('#messages .msg');
+    const chatData = [];
+    messages.forEach(msg => {
+        chatData.push({ text: msg.textContent, type: msg.classList.contains('user') ? 'user' : 'bot' });
     });
+    localStorage.setItem('DOMA_CHAT_HISTORY', JSON.stringify(chatData));
 }
 
-function getDeepSession() {
-    let session = localStorage.getItem('DOMA_DEEP_SESSION');
-    if (!session) {
-        session = generateSessionId();
-        localStorage.setItem('DOMA_DEEP_SESSION', session);
+function loadChatHistory() {
+    const saved = localStorage.getItem('DOMA_CHAT_HISTORY');
+    if (saved) {
+        try {
+            const chatData = JSON.parse(saved);
+            chatData.forEach(item => addMessage(item.text, item.type, false));
+        } catch(e) {}
     }
-    return session;
 }
 
-function decodeBase64(str) {
-    try {
-        const base64Regex = /^[A-Za-z0-9+/]+={0,2}$/;
-        if (base64Regex.test(str) && str.length % 4 === 0) {
-            const decoded = atob(str);
-            if (/[\u0600-\u06FF\u0000-\u007F]/.test(decoded)) return decoded;
-        }
-        return str;
-    } catch {
-        return str;
-    }
+function clearChat() {
+    document.getElementById('messages').innerHTML = '';
+    if (chatSaveEnabled) saveChatHistory();
+}
+
+function addMessage(text, type, save = true) {
+    const messages = document.getElementById("messages");
+    const div = document.createElement("div");
+    div.className = "msg " + type;
+    div.textContent = text;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+    if (chatSaveEnabled && save) saveChatHistory();
+    return div;
 }
 
 async function callSimSimi(prompt) {
-    const url = `https://engez.a7a.online/api/v1/ai/ai/simsimi?action=تكلم&message=${encodeURIComponent(prompt)}`;
+    const url = `${CONFIG.aiAPI}?action=تكلم&message=${encodeURIComponent(prompt)}`;
     const response = await fetch(CORS_PROXY + encodeURIComponent(url));
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
@@ -820,31 +781,6 @@ async function callSimSimi(prompt) {
         return data.response.reply;
     }
     throw new Error('رد غير صالح من SimSimi');
-}
-
-async function callDeepAI(prompt) {
-    const sessionId = getDeepSession();
-    const formData = new FormData();
-    formData.append('chat_style', 'chat');
-    formData.append('chatHistory', JSON.stringify([{ role: 'user', content: prompt }]));
-    formData.append('model', 'deepseek-v3.2');
-    formData.append('session_uuid', sessionId);
-    formData.append('enabled_tools', JSON.stringify(["image_generator", "image_editor"]));
-
-    const response = await fetch(CORS_PROXY + encodeURIComponent('https://api.deepai.org/hacking_is_a_serious_crime'), {
-        method: 'POST',
-        headers: { 'api-key': 'quick-request-' + Date.now() },
-        body: formData
-    });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const data = await response.json();
-    let aiResponse = '';
-    if (data.output) aiResponse = decodeBase64(data.output);
-    else if (data.text) aiResponse = decodeBase64(data.text);
-    else if (data.response) aiResponse = data.response;
-    else if (data.message) aiResponse = data.message;
-    else throw new Error('لا يوجد رد في الاستجابة');
-    return aiResponse.replace(/[\x00-\x1F\x7F-\x9F]/g, '').trim();
 }
 
 async function callPollinations(prompt) {
@@ -865,60 +801,26 @@ async function askAI() {
     const loadingMsg = addMessage('⏳ أفكر...', 'bot');
     user.totalAI = (user.totalAI || 0) + 1;
 
-    const engine = document.getElementById('aiEngine').value;
-    const persona = document.getElementById('aiPersona').value;
-
-    let prompt = text;
-    if (persona !== 'normal' && engine !== 'simsimi') {
-        const personaPrefix = {
-            tech: 'أجب كخبير تقني: ',
-            teacher: 'اشرح بطريقة تعليمية مبسطة: ',
-            friend: 'أجب كصديق ودود: ',
-            anime: 'أجب كخبير أنمي: ',
-            writer: 'أجب ككاتب قصص: '
-        }[persona] || '';
-        prompt = personaPrefix + text;
-    }
+    // إضافة لمسة ودودة
+    const friendlyPrompt = `أنت صديق ودود اسمه Doma، ترد بإيجابية وتستخدم الإيموجي. السؤال: ${text}`;
 
     try {
-        let answer;
-        if (engine === 'simsimi') {
-            answer = await callSimSimi(prompt);
-        } else if (engine === 'deepai') {
-            answer = await callDeepAI(prompt);
-        } else {
-            answer = await callPollinations(prompt);
-        }
-
+        let answer = await callSimSimi(friendlyPrompt);
         loadingMsg.textContent = answer;
-        addPoints(2); // You can adjust or remove this
+        addPoints(2);
         loadingMsg.innerHTML += ' <button class="btn secondary" style="padding:2px 8px;font-size:10px;" onclick="addFavReply(this)">⭐ حفظ</button>';
     } catch (error) {
-        console.error('AI Error:', error);
-        // Fallback to Pollinations if primary engine fails
-        if (engine !== 'pollinations') {
-            try {
-                const fallback = await callPollinations(prompt);
-                loadingMsg.textContent = fallback;
-                addPoints(2);
-                loadingMsg.innerHTML += ' <button class="btn secondary" style="padding:2px 8px;font-size:10px;" onclick="addFavReply(this)">⭐ حفظ</button>';
-                return;
-            } catch (fbErr) {
-                console.error('Fallback error:', fbErr);
-            }
+        console.error('SimSimi Error:', error);
+        // محاولة احتياطية
+        try {
+            let fallback = await callPollinations(friendlyPrompt);
+            loadingMsg.textContent = fallback;
+            addPoints(2);
+            loadingMsg.innerHTML += ' <button class="btn secondary" style="padding:2px 8px;font-size:10px;" onclick="addFavReply(this)">⭐ حفظ</button>';
+        } catch (fbErr) {
+            loadingMsg.textContent = '❌ تعذر الاتصال بالذكاء الاصطناعي. حاول مرة أخرى لاحقاً.';
         }
-        loadingMsg.textContent = '❌ تعذر الاتصال بالذكاء الاصطناعي. حاول مرة أخرى لاحقاً.';
     }
-}
-
-function addMessage(text, type) {
-    const messages = document.getElementById("messages");
-    const div = document.createElement("div");
-    div.className = "msg " + type;
-    div.textContent = text;
-    messages.appendChild(div);
-    messages.scrollTop = messages.scrollHeight;
-    return div;
 }
 
 function addFavReply(btn) {
@@ -948,7 +850,7 @@ function loadFavReplies() {
     });
 }
 
-// ==================== IMAGE GENERATOR (with styles) ====================
+// ==================== IMAGE GENERATOR ====================
 let selectedImageStyle = 'anime';
 const imageStyles = {
     anime: { suffix: 'anime style, studio ghibli, detailed anime art', emoji: '🌸' },
@@ -1051,83 +953,21 @@ async function generateVideo() {
     }
 }
 
-// ==================== MUSIC GENERATOR ====================
-async function generateMusic() {
-    const prompt = document.getElementById("musicPrompt").value.trim();
-    const genre = document.getElementById("musicGenre").value;
-    const voice = document.getElementById("musicVoice").value;
-    const length = document.getElementById("musicLength").value;
-    const preview = document.getElementById("musicPreview");
-    if(!prompt) { alert("اكتب وصف الأغنية أولًا."); return; }
-    preview.innerHTML = "⏳ جاري توليد الأغنية...";
-    try {
-        const url = new URL(CONFIG.musicAPI);
-        url.searchParams.append('prompt', prompt);
-        url.searchParams.append('musicStyle', genre);
-        url.searchParams.append('genderType', voice);
-        if(length === 'short') url.searchParams.append('duration', '5');
-        if(length === 'medium') url.searchParams.append('duration', '10');
-        if(length === 'long') url.searchParams.append('duration', '15');
-        const response = await fetch(url.toString());
-        if(!response.ok) throw new Error("HTTP " + response.status);
-        const data = await response.json();
-        if(!data.success || !data.response || !data.response.results || data.response.results.length === 0) {
-            throw new Error("لم يتم إنشاء أغنية");
-        }
-        const song = data.response.results[0];
-        preview.innerHTML = '';
-        if(song.cover_image) {
-            preview.innerHTML += `<img src="${song.cover_image}" style="max-width:200px;border-radius:12px;margin-bottom:10px;">`;
-        }
-        preview.innerHTML += `<audio controls src="${song.music_file}" style="width:100%;margin-top:10px;"></audio>`;
-        if(song.lyrics) {
-            preview.innerHTML += `<details><summary>📝 عرض الكلمات</summary><p style="margin-top:15px;white-space:pre-line;color:var(--muted);font-size:12px;">${song.lyrics}</p></details>`;
-        }
-        addPoints(10);
-        user.totalMusic = (user.totalMusic||0)+1;
-        addToPlaylist(song);
-    } catch(error) {
-        preview.innerHTML = `<div style="text-align:center;color:var(--red);">❌ فشل توليد الأغنية: ${error.message}</div>`;
-        console.error(error);
-    }
+// ==================== TTS (Text-to-Speech) ====================
+function speakText() {
+    const text = document.getElementById('ttsText').value.trim();
+    if (!text) { alert('اكتب نصًا أولًا'); return; }
+    const lang = document.getElementById('ttsLang').value;
+    const rate = parseFloat(document.getElementById('ttsRate').value);
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = lang;
+    utterance.rate = rate;
+    speechSynthesis.cancel(); // إيقاف أي كلام سابق
+    speechSynthesis.speak(utterance);
 }
 
-function addToPlaylist(song) {
-    const playlist = document.getElementById("playlist");
-    const item = document.createElement("div");
-    item.style.cssText = "display:flex;align-items:center;gap:10px;margin-bottom:10px;padding:10px;border:1px solid var(--line);border-radius:10px;";
-    item.innerHTML = `
-        ${song.cover_image ? `<img src="${song.cover_image}" style="width:50px;height:50px;border-radius:5px;">` : ''}
-        <div>
-            <b style="font-size:12px;">أغنية ${genre || 'جديدة'}</b><br>
-            <audio controls src="${song.music_file}" style="width:200px;height:30px;"></audio>
-        </div>
-    `;
-    playlist.appendChild(item);
-    saveSongToPlaylist(song);
-}
-
-function saveSongToPlaylist(song) {
-    const songs = JSON.parse(localStorage.getItem("DOMA_PLAYLIST") || "[]");
-    songs.push(song);
-    localStorage.setItem("DOMA_PLAYLIST", JSON.stringify(songs));
-}
-
-function loadPlaylist() {
-    const songs = JSON.parse(localStorage.getItem("DOMA_PLAYLIST") || "[]");
-    const playlist = document.getElementById("playlist");
-    songs.forEach(song => {
-        const item = document.createElement("div");
-        item.style.cssText = "display:flex;align-items:center;gap:10px;margin-bottom:10px;padding:10px;border:1px solid var(--line);border-radius:10px;";
-        item.innerHTML = `
-            ${song.cover_image ? `<img src="${song.cover_image}" style="width:50px;height:50px;border-radius:5px;">` : ''}
-            <div>
-                <b style="font-size:12px;">أغنية محفوظة</b><br>
-                <audio controls src="${song.music_file}" style="width:200px;height:30px;"></audio>
-            </div>
-        `;
-        playlist.appendChild(item);
-    });
+function stopSpeak() {
+    speechSynthesis.cancel();
 }
 
 // ==================== MBTI ====================
@@ -1347,9 +1187,12 @@ function renderGames() {
 // ==================== GAME ENGINE ====================
 let gameSession = null;
 let gameTimer = null;
-let reactionTimeout;
+let reactionTimeout = null;
+let snakeKeyHandler = null;
 
 function openGame(id) {
+    // تنظيف أي لعبة سابقة
+    closeGame();
     const game = games.find(g => g.id === id) || games[0];
     openGameModal(game.icon + " " + game.title, game.desc, "");
     gameSession = { game, score:0, round:0, totalRounds:5, data:null, attempts:0 };
@@ -1390,9 +1233,21 @@ function openGameModal(title, desc, html) {
 }
 
 function closeGame() {
-    clearTimeout(reactionTimeout);
-    clearInterval(gameTimer);
+    // إيقاف جميع المؤقتات والمستمعين
+    if (gameTimer) {
+        clearInterval(gameTimer);
+        gameTimer = null;
+    }
+    if (reactionTimeout) {
+        clearTimeout(reactionTimeout);
+        reactionTimeout = null;
+    }
+    if (snakeKeyHandler) {
+        document.removeEventListener('keydown', snakeKeyHandler);
+        snakeKeyHandler = null;
+    }
     document.getElementById("gameModal").classList.remove("show");
+    gameSession = null;
 }
 
 function endGame(points) {
@@ -1640,14 +1495,15 @@ function checkCode() {
 
 function startSpeedGame() {
     gameSession.startTime = Date.now();
+    gameSession.clickCount = 0;
     const html = `<div class="center"><p>اضغط الزر 10 مرات بأسرع وقت:</p><button id="speedBtn" class="btn primary" onclick="countClick()">اضغط</button><p id="speedCount">0</p></div>`;
     document.getElementById("gameContent").innerHTML = html;
 }
 function countClick() {
-    let count = parseInt(document.getElementById("speedCount").textContent);
-    count++;
-    document.getElementById("speedCount").textContent = count;
-    if(count >= 10) {
+    if (!gameSession || gameSession.clickCount >= 10) return; // منع الزيادة بعد النهاية
+    gameSession.clickCount++;
+    document.getElementById("speedCount").textContent = gameSession.clickCount;
+    if(gameSession.clickCount >= 10) {
         const seconds = (Date.now()-gameSession.startTime)/1000;
         endGame(Math.max(10, Math.round(50 - seconds*5)));
     }
@@ -1732,8 +1588,7 @@ function startGenericGame(type) {
     startRandomChoice();
 }
 
-// ==================== NEW GAMES ====================
-// Snake game
+// ==================== NEW GAMES (Snake, Memory Card, Sudoku) ====================
 function startSnake() {
     openGameModal("🐍 ثعبان", "لعبة الثعبان الكلاسيكية", "");
     const html = `<div class="center"><canvas id="snakeCanvas" width="300" height="300" style="border:1px solid var(--line);border-radius:10px;"></canvas><p>استخدم الأسهم أو WASD</p></div>`;
@@ -1761,7 +1616,6 @@ function initSnake() {
         if(head.x<0||head.x>=15||head.y<0||head.y>=15) gameOver = true;
         if(snake.some(s=>s.x===head.x && s.y===head.y)) gameOver = true;
         if(gameOver) {
-            alert("انتهت اللعبة! النتيجة: " + score);
             endGame(score*5);
             return;
         }
@@ -1773,7 +1627,7 @@ function initSnake() {
             snake.pop();
         }
     };
-    document.addEventListener('keydown', (e)=>{
+    snakeKeyHandler = (e)=>{
         if(e.key==='ArrowUp') dir={x:0,y:-1};
         if(e.key==='ArrowDown') dir={x:0,y:1};
         if(e.key==='ArrowLeft') dir={x:-1,y:0};
@@ -1782,11 +1636,11 @@ function initSnake() {
         if(e.key==='s') dir={x:0,y:1};
         if(e.key==='a') dir={x:-1,y:0};
         if(e.key==='d') dir={x:1,y:0};
-    });
+    };
+    document.addEventListener('keydown', snakeKeyHandler);
     gameTimer = setInterval(step, 200);
 }
 
-// Memory card game
 function startMemoryCard() {
     openGameModal("🃏 بطاقات الذاكرة", "ابحث عن الأزواج المتشابهة", "");
     const emojis = ['🌟','🔥','💎','🎯','🎨','🎵'];
@@ -1811,7 +1665,6 @@ function startMemoryCard() {
                     matched.push(flipped[0].i, flipped[1].i);
                     flipped = [];
                     if(matched.length===cards.length) {
-                        alert("مبروك! انتهيت في " + attempts + " محاولات");
                         endGame(Math.max(10, 50-attempts));
                     }
                 } else {
@@ -1826,7 +1679,6 @@ function startMemoryCard() {
     });
 }
 
-// Mini Sudoku 3x3
 function startMiniSudoku() {
     openGameModal("🧩 سودوكو مصغر", "املأ الشبكة 3×3 بالأرقام 1-3 بدون تكرار في الصف أو العمود", "");
     let grid = [
@@ -1834,7 +1686,6 @@ function startMiniSudoku() {
         [0,0,0],
         [0,0,0]
     ];
-    // seed with some random values
     grid[0][0] = 1;
     grid[1][1] = 2;
     grid[2][2] = 3;
@@ -2003,7 +1854,7 @@ function init() {
     renderGames();
     loadFavReplies();
     renderImageGallery();
-    loadPlaylist();
+    loadChatHistory();
     if(user) {
         document.getElementById("welcome").classList.add("hidden");
         updateUI();
